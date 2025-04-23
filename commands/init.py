@@ -1,6 +1,6 @@
 import click
 import questionary
-from core.config import save_config, load_config
+from utils.config import save_config, load_config
 
 
 @click.command()
