@@ -1,25 +1,32 @@
 DDD_STRUCTURE = {
-    "domain": [
-        "entities",
+    "context_template": {
+        "domain": [
+            "entities",
+            "value_objects",
+            "aggregates",
+            "repositories",
+            "services",
+            "events",
+            "exceptions",
+        ],
+        "application": [
+            "use_cases",
+            "dto",
+            "services",
+            "ports",
+        ],
+        "infrastructure": [
+            "repositories",
+            "services",
+            "mappers",
+            "external_services",
+        ],
+    },
+    "shared": [
         "value_objects",
-        "aggregates",
-        "repositories",
-        "services",
-        "events",
+        "types",
+        "utils",
         "exceptions",
-    ],
-    "application": [
-        "use_cases",
-        "dto",
-        "services",
-        "interfaces",
-    ],
-    "infrastructure": [
-        "repositories",
-        "persistence",
-        "services",
-        "mappers",
-        "external_services",
     ],
 }
 
@@ -52,41 +59,48 @@ HEXAGONAL_STRUCTURE = {
 }
 
 DDD_HEXAGONAL_STRUCTURE = {
-    "domain": [
-        "entities",
-        "value_objects",
-        "aggregates",
-        "repositories",
-        "services",
-        "events",
-        "exceptions",
-    ],
-    "application": [
-        "use_cases",
-        "dto",
-        "services",
-        "ports",
-    ],
-    "adapters": {
-        "inbound": [
-            "rest",
-            "graphql",
-            "cli",
+    "context_template": {
+        "domain": [
+            "entities",
+            "value_objects",
+            "aggregates",
+            "repositories",
+            "services",
             "events",
+            "exceptions",
         ],
-        "outbound": [
-            "persistence",
-            "http_clients",
-            "messaging",
+        "application": [
+            "use_cases",
+            "dto",
+            "services",
+            "ports",
+        ],
+        "adapters": {
+            "inbound": [
+                "rest",
+                "graphql",
+                "cli",
+                "events",
+            ],
+            "outbound": [
+                "persistence",
+                "http_clients",
+                "messaging",
+                "external_services",
+            ],
+        },
+        "infrastructure": [
+            "repositories",
+            "services",
+            "mappers",
             "external_services",
         ],
     },
-    "infrastructure": [
-        "repositories",
-        "persistence",
-        "services",
-        "mappers",
-        "external_services",
+    "shared": [
+        "value_objects",
+        "types",
+        "utils",
+        "exceptions",
     ],
 }
 
