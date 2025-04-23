@@ -18,6 +18,12 @@ def load_preferences():
 
 
 def ask_questions():
+
+    stack = questionary.select(
+        "🧪 Which tech stack are you using?",
+        choices=["NestJS"],
+    ).ask()
+
     architecture = questionary.select(
         "📦 What kind of architecture do you want to generate?",
         choices=["Monolith", "Microservices"],
@@ -32,6 +38,7 @@ def ask_questions():
     ).ask()
 
     return {
+        "stack": stack,
         "architecture": architecture,
         "ddd": ddd,
         "hexagonal": hex_arch,
