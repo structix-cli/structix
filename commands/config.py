@@ -1,5 +1,5 @@
 import click
-from core.config import load_config, save_config
+from utils.config import load_config, save_config
 
 
 @click.group()
