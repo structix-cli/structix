@@ -54,6 +54,8 @@ def main():
 
     preferences = ask_questions()
     save_preferences(preferences)
+    print("✅ Preferences saved to structix.config.json:")
+    print(json.dumps(preferences, indent=2))
 
 
 if __name__ == "__main__":
