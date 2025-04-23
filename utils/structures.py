@@ -105,15 +105,32 @@ DDD_HEXAGONAL_STRUCTURE = {
 }
 
 
-CQRS_STRUCTURE = {
+DDD_CQRS_STRUCTURE = {
     "application": {
-        "commands": {
+        "commands": [
             "handlers",
             "ports",
-        },
-        "queries": {
+        ],
+        "queries": [
             "handlers",
             "ports",
-        },
+        ],
+        "dto": [],
+        "services": [],
+    }
+}
+
+HEXAGONAL_CQRS_STRUCTURE = {
+    "application": {
+        "commands": [
+            "handlers",
+            "ports",
+            "services",
+        ],
+        "queries": [
+            "handlers",
+            "ports",
+            "services",
+        ],
     }
 }
