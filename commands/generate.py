@@ -1,15 +1,31 @@
+# === Refactor of generate_project using imported structures ===
+
 from pathlib import Path
-from typing import Any
+from typing import Any, Dict
 
 import click
 
 from utils.config import load_config
+from utils.structures import CQRS_STRUCTURE, DDD_STRUCTURE, HEXAGONAL_STRUCTURE
 
 
 @click.group()  # type: ignore
 def generate() -> None:
     """Generate Structix project components."""
     pass
+
+
+def create_nested_folders(base: Path, structure: Dict[str, Any]) -> None:
+    for key, value in structure.items():
+        subpath = base / key
+        if isinstance(value, list):
+            for folder in value:
+                (subpath / folder).mkdir(parents=True, exist_ok=True)
+        elif isinstance(value, dict):
+            (subpath).mkdir(parents=True, exist_ok=True)
+            create_nested_folders(subpath, value)
+        else:
+            (subpath / value).mkdir(parents=True, exist_ok=True)
 
 
 @generate.command("project")  # type: ignore
@@ -23,7 +39,7 @@ def generate_project(name: Any) -> None:
         click.echo("⚠️ Directory already exists.")
         return
 
-    architecture = config.get("architecture")
+    architecture = str(config.get("architecture"))
     ddd = config.get("ddd", False)
     hexagonal = config.get("hexagonal", False)
     cqrs = config.get("cqrs", False)
@@ -31,27 +47,24 @@ def generate_project(name: Any) -> None:
     root.mkdir(parents=True)
     click.echo(f"📁 Created project: {root}")
 
-    if architecture == "Monolith":
-        base = root / "src"
-    elif architecture == "Microservices":
-        base = root / "services"
-    else:
-        base = root
+    base = {"Monolith": root / "src", "Microservices": root / "services"}.get(
+        architecture, root
+    )
 
     base.mkdir(parents=True)
 
     if ddd:
         for context in ["example_context"]:
             ctx = base / context
-            (ctx / "domain").mkdir(parents=True)
-            (ctx / "application").mkdir()
-            (ctx / "infrastructure").mkdir()
+            ctx.mkdir(parents=True, exist_ok=True)
+
+            create_nested_folders(ctx, DDD_STRUCTURE)
             if hexagonal:
-                (ctx / "interfaces").mkdir()
+                create_nested_folders(ctx, HEXAGONAL_STRUCTURE)
             if cqrs:
-                (ctx / "application/commands").mkdir(parents=True)
-                (ctx / "application/queries").mkdir()
-            click.echo(f"✅ Generated context: {context}")
+                create_nested_folders(ctx, CQRS_STRUCTURE)
+
+            click.echo(f"✅ Generated DDD context: {context}")
     else:
         (base / "example").mkdir(parents=True)
         click.echo("✅ Basic structure generated.")
