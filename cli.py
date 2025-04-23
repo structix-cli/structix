@@ -1,11 +1,12 @@
 import click
-from commands import init as init_cmd
+
 from commands import config as config_cmd
 from commands import generate as generate_cmd
+from commands import init as init_cmd
 
 
-@click.group()
-def cli():
+@click.group()  # type: ignore
+def cli() -> None:
     """Structix CLI - Scaffold clean backend projects."""
     pass
 

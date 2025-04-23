@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 questionary = "*"
 click = "*"
+pre-commit = "*"
 
 [dev-packages]
 

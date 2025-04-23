@@ -1,10 +1,11 @@
 import click
 import questionary
-from utils.config import save_config, load_config
+
+from utils.config import load_config, save_config
 
 
-@click.command()
-def init():
+@click.command()  # type: ignore
+def init() -> None:
     """Initialize a new Structix project configuration."""
     print("🔧 Welcome to Structix CLI!")
 

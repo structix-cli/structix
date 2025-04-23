@@ -1,17 +1,20 @@
-import click
 from pathlib import Path
+from typing import Any
+
+import click
+
 from utils.config import load_config
 
 
-@click.group()
-def generate():
+@click.group()  # type: ignore
+def generate() -> None:
     """Generate Structix project components."""
     pass
 
 
-@generate.command("project")
-@click.argument("name")
-def generate_project(name):
+@generate.command("project")  # type: ignore
+@click.argument("name")  # type: ignore
+def generate_project(name: Any) -> None:
     """Generate project structure in a folder called <name>"""
     config = load_config()
     root = Path.cwd() / name
