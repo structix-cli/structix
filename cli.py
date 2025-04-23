@@ -11,3 +11,6 @@ def cli():
 
 cli.add_command(init_cmd.init)
 cli.add_command(config_cmd.config)
+
+
+cli()
