@@ -1,7 +1,6 @@
 import click
 
 from structix.commands import config as config_cmd
-from structix.commands import generate as generate_cmd
 from structix.commands import init as init_cmd
 
 
@@ -13,7 +12,6 @@ def cli() -> None:
 
 cli.add_command(init_cmd.init)
 cli.add_command(config_cmd.config)
-cli.add_command(generate_cmd.generate)
 
 
 cli()
