@@ -1,7 +1,6 @@
 import click
 
-from structix.commands import config as config_cmd
-from structix.commands import init as init_cmd
+from structix.commands import add, config, init
 
 
 @click.group()  # type: ignore
@@ -10,8 +9,9 @@ def cli() -> None:
     pass
 
 
-cli.add_command(init_cmd.init)
-cli.add_command(config_cmd.config)
+cli.add_command(init.init)
+cli.add_command(config.config)
+cli.add_command(add.add)
 
 
 cli()
