@@ -16,7 +16,9 @@ def deploy_microservice(name: str) -> None:
 
     try:
         click.echo(f"🚀 Deploying microservice: {name}")
-        subprocess.run(["helm", "install", name, str(chart_path)], check=True)
+        subprocess.run(
+            ["helm", "upgrade", "--install", name, str(chart_path)], check=True
+        )
         click.echo(f"✅ Deployed '{name}' successfully.")
     except subprocess.CalledProcessError as e:
         click.echo(f"❌ Failed to deploy microservice '{name}'.")

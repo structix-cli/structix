@@ -9,6 +9,7 @@ def status_minikube() -> None:
     click.echo("🔍 Checking Minikube status...")
     try:
         subprocess.run(["minikube", "status"], check=True)
+        subprocess.run(["minikube", "kubectl", "--", "get", "all"], check=True)
     except subprocess.CalledProcessError as e:
         click.echo("❌ Could not get Minikube status.")
         click.echo(f"🔍 Error: {e}")

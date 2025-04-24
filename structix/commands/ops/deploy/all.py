@@ -19,7 +19,8 @@ def deploy_all() -> None:
             try:
                 click.echo(f"🚀 Deploying microservice: {chart.name}")
                 subprocess.run(
-                    ["helm", "install", chart.name, str(chart)], check=True
+                    ["helm", "upgrade", "--install", chart.name, str(chart)],
+                    check=True,
                 )
                 click.echo(f"✅ Deployed '{chart.name}' successfully.")
             except subprocess.CalledProcessError as e:
