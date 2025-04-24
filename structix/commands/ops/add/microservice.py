@@ -19,12 +19,12 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     help="Optional database",
 )  # type: ignore
 @click.option(
-    "--install",
+    "--deploy",
     is_flag=True,
     default=False,
-    help="Install the Helm chart into your current K8s cluster",
+    help="Deploy the Helm chart into your current K8s cluster",
 )  # type: ignore
-def microservice(name: str, image: str, db: str | None, install: bool) -> None:
+def microservice(name: str, image: str, db: str | None, deploy: bool) -> None:
     """Add a new Helm chart microservice."""
     click.echo(f"📦 Creating Helm chart for: {name}")
     click.echo(f"🐳 Image: {image}")
@@ -63,13 +63,13 @@ def microservice(name: str, image: str, db: str | None, install: bool) -> None:
 
     click.echo("✅ Helm chart created!")
 
-    if install:
+    if deploy:
         try:
-            click.echo("🚀 Installing Helm chart...")
+            click.echo("🚀 Deploying Helm chart...")
             subprocess.run(
                 ["helm", "install", name, str(chart_path)], check=True
             )
-            click.echo("✅ Helm chart installed successfully.")
+            click.echo("✅ Helm chart deployed successfully!")
         except subprocess.CalledProcessError as e:
-            click.echo("❌ Failed to install Helm chart.")
+            click.echo("❌ Failed to deploy Helm chart.")
             click.echo(f"🔍 Error: {e}")
