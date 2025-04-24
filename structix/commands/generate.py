@@ -5,8 +5,12 @@ from typing import Any, Dict
 
 import click
 
-from utils.config import load_config
-from utils.structures import CQRS_STRUCTURE, DDD_STRUCTURE, HEXAGONAL_STRUCTURE
+from structix.utils.config import load_config
+from structix.utils.structures import (
+    DDD_CQRS_STRUCTURE,
+    DDD_STRUCTURE,
+    HEXAGONAL_STRUCTURE,
+)
 
 
 @click.group()  # type: ignore
@@ -62,7 +66,7 @@ def generate_project(name: Any) -> None:
             if hexagonal:
                 create_nested_folders(ctx, HEXAGONAL_STRUCTURE)
             if cqrs:
-                create_nested_folders(ctx, CQRS_STRUCTURE)
+                create_nested_folders(ctx, DDD_CQRS_STRUCTURE)
 
             click.echo(f"✅ Generated DDD context: {context}")
     else:

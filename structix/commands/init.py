@@ -1,7 +1,7 @@
 import click
 import questionary
 
-from utils.config import load_config, save_config
+from structix.utils.config import load_config, save_config
 
 
 @click.command()  # type: ignore

@@ -2,7 +2,7 @@ from typing import Any
 
 import click
 
-from utils.config import load_config, save_config
+from structix.utils.config import load_config, save_config
 
 
 @click.group()  # type: ignore

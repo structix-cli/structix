@@ -1,8 +1,8 @@
 import click
 
-from commands import config as config_cmd
-from commands import generate as generate_cmd
-from commands import init as init_cmd
+from structix.commands import config as config_cmd
+from structix.commands import generate as generate_cmd
+from structix.commands import init as init_cmd
 
 
 @click.group()  # type: ignore

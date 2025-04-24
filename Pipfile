@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 questionary = "*"
 click = "*"
-pre-commit = "*"
 
 [dev-packages]
+pre-commit = "*"
 
 [requires]
 python_version = "3.12"
