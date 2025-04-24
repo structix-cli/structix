@@ -24,7 +24,15 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     default=False,
     help="Deploy the Helm chart into your current K8s cluster",
 )  # type: ignore
-def microservice(name: str, image: str, db: str | None, deploy: bool) -> None:
+@click.option(
+    "--with-ingress",
+    is_flag=True,
+    default=False,
+    help="Include an Ingress resource for the microservice",
+)  # type: ignore
+def microservice(
+    name: str, image: str, db: str | None, deploy: bool, with_ingress: bool
+) -> None:
     """Add a new Helm chart microservice."""
     click.echo(f"📦 Creating Helm chart for: {name}")
     click.echo(f"🐳 Image: {image}")
@@ -56,10 +64,15 @@ def microservice(name: str, image: str, db: str | None, deploy: bool) -> None:
     render("service.yaml.j2", templates_path / "service.yaml")
 
     if db:
-        render(
-            "templates/db-config.yaml.j2", templates_path / "db-config.yaml"
-        )
+        render("db-config.yaml.j2", templates_path / "db-config.yaml")
         click.echo(f"🗃️  Added optional DB config for: {db}")
+
+    if with_ingress:
+        render("ingress.yaml.j2", templates_path / "ingress.yaml")
+        click.echo("🌐 Added optional Ingress config.")
+
+        if deploy:
+            deploy_ingress(templates_path)
 
     click.echo("✅ Helm chart created!")
 
@@ -73,3 +86,68 @@ def microservice(name: str, image: str, db: str | None, deploy: bool) -> None:
         except subprocess.CalledProcessError as e:
             click.echo("❌ Failed to deploy Helm chart.")
             click.echo(f"🔍 Error: {e}")
+
+
+def deploy_ingress(templates_path: Path) -> None:
+    try:
+        result = subprocess.run(
+            ["helm", "status", "ingress-nginx", "-n", "ingress-nginx"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        if result.returncode != 0:
+            click.echo(
+                "🔧 Ingress controller not found. Installing via Helm..."
+            )
+
+            subprocess.run(
+                [
+                    "helm",
+                    "repo",
+                    "add",
+                    "ingress-nginx",
+                    "https://kubernetes.github.io/ingress-nginx",
+                ],
+                check=True,
+            )
+            subprocess.run(["helm", "repo", "update"], check=True)
+
+            subprocess.run(
+                [
+                    "helm",
+                    "install",
+                    "ingress-nginx",
+                    "ingress-nginx/ingress-nginx",
+                    "--namespace",
+                    "ingress-nginx",
+                    "--create-namespace",
+                    "--version",
+                    "4.6.0",
+                    "--set",
+                    "controller.admissionWebhooks.enabled=false",
+                    "--set",
+                    "controller.service.enableHttps=false",
+                ],
+                check=True,
+            )
+            click.echo("✅ Ingress controller installed successfully.")
+        else:
+            click.echo("✅ Ingress controller already installed.")
+
+        click.echo("🚀 Deploying Ingress resource...")
+        subprocess.run(
+            [
+                "minikube",
+                "kubectl",
+                "--",
+                "apply",
+                "-f",
+                str(templates_path / "ingress.yaml"),
+            ],
+            check=True,
+        )
+        click.echo("✅ Ingress resource deployed successfully.")
+
+    except subprocess.CalledProcessError as e:
+        click.echo("❌ Failed to deploy Ingress controller or resource.")
+        click.echo(f"🔍 Error: {e}")
