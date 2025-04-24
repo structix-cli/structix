@@ -15,7 +15,7 @@ from structix.utils.structures.domain_driven_design import (
 @click.command()  # type: ignore
 @click.argument("name")  # type: ignore
 def add_context(name: str) -> None:
-    """Scaffold a new DDD context inside /src."""
+    """Scaffold a new DDD context."""
     config = get_config()
 
     if config.architecture != "Monolith":
@@ -44,6 +44,7 @@ def add_context(name: str) -> None:
         click.echo(
             "⚠️ Contexts are not supported in Hexagonal architecture without DDD."
         )
+        return
     else:
         click.echo(
             "⚠️ Contexts are not supported in Monolith architecture without DDD."

@@ -2,6 +2,7 @@ import click
 
 from structix.commands.add.context import add_context
 from structix.commands.add.microservice import add_microservice
+from structix.commands.add.module import add_module
 
 
 @click.group()  # type: ignore
@@ -12,3 +13,4 @@ def add() -> None:
 
 add.add_command(add_context, name="context")
 add.add_command(add_microservice, name="microservice")
+add.add_command(add_module, name="module")
