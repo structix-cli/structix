@@ -7,7 +7,7 @@ import click
 import structix
 from structix.utils.types import ArchitectureType, StackType
 
-CONFIG_FILE = Path.cwd() / "structix.config.json"
+CONFIG_FILE = Path.cwd() / ".structix" / "structix.config.json"
 
 
 class Config:
