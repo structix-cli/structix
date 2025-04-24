@@ -3,7 +3,7 @@ from pathlib import Path
 import click
 import questionary
 
-from structix.utils.config import load_config, save_config
+from structix.utils.config import get_config, load_config, save_config
 from structix.utils.filesystem import create_nested_folders
 from structix.utils.structures.ddd_hexagonal import (
     get_root_structure as get_ddd_hexagonal_structure,
@@ -62,26 +62,23 @@ def init() -> None:
 def create_root_structure() -> None:
     """Create the root structure for the project."""
 
-    config = load_config()
-    root = Path.cwd()
+    config = get_config()
 
-    ddd = config.get("ddd", False)
-    hexagonal = config.get("hexagonal", False)
-    cqrs = config.get("cqrs", False)
+    root = Path.cwd()
 
     base = root / "src"
 
     base.mkdir(parents=True, exist_ok=True)
 
-    if ddd and hexagonal:
+    if config.ddd and config.hexagonal:
         create_nested_folders(
             base, get_ddd_hexagonal_structure(), add_gitignore=True
         )
-    elif ddd:
+    elif config.ddd:
         create_nested_folders(base, get_ddd_structure(), add_gitignore=True)
-    elif hexagonal:
+    elif config.hexagonal:
         create_nested_folders(
-            base, get_hexagonal_structure(cqrs), add_gitignore=True
+            base, get_hexagonal_structure(config.cqrs), add_gitignore=True
         )
 
     click.echo("📂 Project structure created successfully!")
