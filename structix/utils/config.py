@@ -12,6 +12,8 @@ CONFIG_FILE = Path.cwd() / "structix.config.json"
 class Config:
     stack: StackType
     architecture: ArchitectureType
+    microservice: bool
+    monolith: bool
     ddd: bool
     hexagonal: bool
     cqrs: bool
@@ -28,6 +30,8 @@ class Config:
     ) -> None:
         self.stack = stack
         self.architecture = architecture
+        self.microservice = architecture == "Microservices"
+        self.monolith = architecture == "Monolith"
         self.ddd = ddd
         self.hexagonal = hexagonal
         self.cqrs = cqrs

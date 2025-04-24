@@ -79,9 +79,7 @@ def create_root_structure() -> None:
     elif config.hexagonal:
         create_nested_folders(
             base,
-            get_hexagonal_structure(
-                config.cqrs, config.architecture == "Microservices"
-            ),
+            get_hexagonal_structure(config.cqrs, config.microservice),
             add_gitignore=True,
         )
 
