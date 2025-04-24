@@ -43,7 +43,7 @@ CQRS_STRUCTURE = {
 }
 
 
-def get_module_structure(cqrs: bool) -> Dict[str, Any]:
+def get_root_structure(cqrs: bool) -> Dict[str, Any]:
     """Get the root structure for the project."""
     if cqrs:
         root_structure = MODULE_STRUCTURE.copy()

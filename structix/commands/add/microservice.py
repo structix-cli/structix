@@ -11,7 +11,10 @@ from structix.utils.structures.domain_driven_design import (
     get_module_structure as get_ddd_microservice_structure,
 )
 from structix.utils.structures.hexagonal_architecture import (
-    get_module_structure as get_hexagonal_microservice_structure,
+    get_root_structure as get_hexagonal_microservice_structure,
+)
+from structix.utils.structures.modular_monolith import (
+    get_module_structure as get_modular_monolith_microservice_structure,
 )
 
 
@@ -56,9 +59,10 @@ def add_microservice(name: str) -> None:
             add_gitignore=True,
         )
     else:
-        click.echo(
-            "⚠️ Microservice are not supported in Monolith architecture without DDD."
+        create_nested_folders(
+            root,
+            get_modular_monolith_microservice_structure(config.cqrs),
+            add_gitignore=True,
         )
-        return
 
     click.echo("✅ Microservice created successfully.")
