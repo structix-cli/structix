@@ -70,7 +70,7 @@ def get_root_structure() -> Dict[str, Any]:
 
 
 def get_module_structure(cqrs: bool) -> Dict[str, Any]:
-    """Get the context structure for the project."""
+    """Get the module structure for the project."""
     if cqrs:
         module_structure = MODULE_STRUCTURE.copy()
         module_structure["application"] = CQRS_STRUCTURE["application"]

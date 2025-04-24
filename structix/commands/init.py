@@ -12,7 +12,7 @@ from structix.utils.structures.domain_driven_design import (
     get_root_structure as get_ddd_structure,
 )
 from structix.utils.structures.hexagonal_architecture import (
-    get_module_structure as get_hexagonal_structure,
+    get_root_structure as get_hexagonal_structure,
 )
 
 
@@ -78,7 +78,11 @@ def create_root_structure() -> None:
         create_nested_folders(base, get_ddd_structure(), add_gitignore=True)
     elif config.hexagonal:
         create_nested_folders(
-            base, get_hexagonal_structure(config.cqrs), add_gitignore=True
+            base,
+            get_hexagonal_structure(
+                config.cqrs, config.architecture == "Microservices"
+            ),
+            add_gitignore=True,
         )
 
     click.echo("📂 Project structure created successfully!")

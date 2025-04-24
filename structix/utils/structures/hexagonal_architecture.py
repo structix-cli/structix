@@ -27,6 +27,16 @@ MODULE_STRUCTURE = {
     },
 }
 
+ROOT_STRUCTURE = {
+    "shared": [
+        "value_objects",
+        "types",
+        "utils",
+        "exceptions",
+    ],
+}
+
+
 CQRS_STRUCTURE = {
     "application": {
         "commands": [
@@ -43,10 +53,24 @@ CQRS_STRUCTURE = {
 }
 
 
-def get_root_structure(cqrs: bool) -> Dict[str, Any]:
+def get_root_structure(cqrs: bool, microservice: bool) -> Dict[str, Any]:
     """Get the root structure for the project."""
     if cqrs:
-        root_structure = MODULE_STRUCTURE.copy()
-        root_structure["application"] = CQRS_STRUCTURE["application"]
+        root_structure = ROOT_STRUCTURE.copy()
+        if not microservice:
+            module_structure = MODULE_STRUCTURE.copy()
+            module_structure["application"] = CQRS_STRUCTURE["application"]
+            root_structure.update(
+                {k: list(v) for k, v in module_structure.items()}
+            )
         return root_structure
+    return ROOT_STRUCTURE
+
+
+def get_module_structure(cqrs: bool) -> Dict[str, Any]:
+    """Get the module structure for the project."""
+    if cqrs:
+        module_structure = MODULE_STRUCTURE.copy()
+        module_structure["application"] = CQRS_STRUCTURE["application"]
+        return module_structure
     return MODULE_STRUCTURE
