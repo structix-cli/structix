@@ -9,7 +9,7 @@ from structix.utils.structures.modular_monolith import (
 )
 
 
-@click.command()  # type: ignore
+@click.command(name="module")  # type: ignore
 @click.argument("name")  # type: ignore
 def add_module(name: str) -> None:
     """Scaffold a new module."""

@@ -4,6 +4,7 @@ from typing import Any, Dict
 
 import click
 
+import structix
 from structix.utils.types import ArchitectureType, StackType
 
 CONFIG_FILE = Path.cwd() / "structix.config.json"
@@ -40,9 +41,8 @@ class Config:
 
 def get_stack_config(stack: str) -> Dict[str, Any]:
     stack_config_path = (
-        Path(__file__).parent.parent / f"stacks/{stack}/config.json"
+        Path(structix.__file__).parent / f"stacks/{stack}/config.json"
     )
-    print(stack_config_path)
     if stack_config_path.exists():
         with open(stack_config_path) as f:
             return json.load(f)  # type: ignore

@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: {{ image_repo }}
+  tag: {{ image_tag }}
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+
+db:
+  enabled: {{ db_enabled | lower }}
+  type: {{ db if db else "" }}

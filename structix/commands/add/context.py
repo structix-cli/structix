@@ -12,7 +12,7 @@ from structix.utils.structures.domain_driven_design import (
 )
 
 
-@click.command()  # type: ignore
+@click.command(name="context")  # type: ignore
 @click.argument("name")  # type: ignore
 def add_context(name: str) -> None:
     """Scaffold a new DDD context."""

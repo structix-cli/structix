@@ -1,5 +1,6 @@
 import click
 
+from structix.commands.ops.add import add
 from structix.commands.ops.init import init
 
 
@@ -9,4 +10,5 @@ def ops() -> None:
     pass
 
 
-ops.add_command(init, name="init")
+ops.add_command(init)
+ops.add_command(add)

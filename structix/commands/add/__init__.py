@@ -11,6 +11,6 @@ def add() -> None:
     pass
 
 
-add.add_command(add_context, name="context")
-add.add_command(add_microservice, name="microservice")
-add.add_command(add_module, name="module")
+add.add_command(add_context)
+add.add_command(add_microservice)
+add.add_command(add_module)

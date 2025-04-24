@@ -19,12 +19,12 @@ from structix.utils.structures.hexagonal_architecture import (
 @click.command()  # type: ignore
 def init() -> None:
     """Initialize a new Structix project configuration."""
-    print("🔧 Welcome to Structix CLI!")
+    click.echo("🔧 Welcome to Structix CLI!")
 
     previous = load_config()
     if previous:
         if questionary.confirm(
-            "⚠️ A configuration already exists. Do you want to reinitialize the project?"
+            "⚠️  A configuration already exists. Do you want to reinitialize the project?"
         ).ask():
             click.echo("🔄 Reinitializing the project...")
         else:

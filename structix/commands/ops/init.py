@@ -7,7 +7,7 @@ import questionary
 @click.command(name="init")  # type: ignore
 def init() -> None:
     """Initialize infrastructure (Kubernetes, Terraform, etc.)"""
-    print("🚀 Initializing Infrastructure Setup!")
+    click.echo("🚀 Initializing Infrastructure Setup!")
 
     if (
         Path("ops").exists()
