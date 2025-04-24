@@ -1,6 +1,8 @@
 import click
 
 from structix.commands.ops.add import add
+from structix.commands.ops.create import create
+from structix.commands.ops.destroy import destroy
 from structix.commands.ops.init import init
 
 
@@ -12,3 +14,5 @@ def ops() -> None:
 
 ops.add_command(init)
 ops.add_command(add)
+ops.add_command(destroy)
+ops.add_command(create)

@@ -1,3 +1,4 @@
+import subprocess
 from pathlib import Path
 
 import click
@@ -17,7 +18,13 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     type=click.Choice(["postgres", "mysql", "mongo"], case_sensitive=False),
     help="Optional database",
 )  # type: ignore
-def microservice(name: str, image: str, db: str | None) -> None:
+@click.option(
+    "--install",
+    is_flag=True,
+    default=False,
+    help="Install the Helm chart into your current K8s cluster",
+)  # type: ignore
+def microservice(name: str, image: str, db: str | None, install: bool) -> None:
     """Add a new Helm chart microservice."""
     click.echo(f"📦 Creating Helm chart for: {name}")
     click.echo(f"🐳 Image: {image}")
@@ -55,3 +62,14 @@ def microservice(name: str, image: str, db: str | None) -> None:
         click.echo(f"🗃️  Added optional DB config for: {db}")
 
     click.echo("✅ Helm chart created!")
+
+    if install:
+        try:
+            click.echo("🚀 Installing Helm chart...")
+            subprocess.run(
+                ["helm", "install", name, str(chart_path)], check=True
+            )
+            click.echo("✅ Helm chart installed successfully.")
+        except subprocess.CalledProcessError as e:
+            click.echo("❌ Failed to install Helm chart.")
+            click.echo(f"🔍 Error: {e}")
