@@ -12,7 +12,7 @@ from structix.utils.structures.domain_driven_design import (
     get_root_structure as get_ddd_structure,
 )
 from structix.utils.structures.hexagonal_architecture import (
-    get_root_structure as get_hexagonal_structure,
+    get_module_structure as get_hexagonal_structure,
 )
 
 

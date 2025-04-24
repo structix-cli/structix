@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-CONTEXT_STRUCTURE = {
+MODULE_STRUCTURE = {
     "domain": [
         "entities",
         "value_objects",
@@ -69,10 +69,10 @@ def get_root_structure() -> Dict[str, Any]:
     return ROOT_STRUCTURE
 
 
-def get_context_structure(cqrs: bool) -> Dict[str, Any]:
+def get_module_structure(cqrs: bool) -> Dict[str, Any]:
     """Get the context structure for the project."""
     if cqrs:
-        context_structure = CONTEXT_STRUCTURE.copy()
-        context_structure["application"] = CQRS_STRUCTURE["application"]
-        return context_structure
-    return CONTEXT_STRUCTURE
+        module_structure = MODULE_STRUCTURE.copy()
+        module_structure["application"] = CQRS_STRUCTURE["application"]
+        return module_structure
+    return MODULE_STRUCTURE

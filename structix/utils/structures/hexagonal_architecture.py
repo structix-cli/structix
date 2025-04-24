@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-ROOT_STRUCTURE = {
+MODULE_STRUCTURE = {
     "domain": [
         "models",
         "services",
@@ -43,10 +43,10 @@ CQRS_STRUCTURE = {
 }
 
 
-def get_root_structure(cqrs: bool) -> Dict[str, Any]:
+def get_module_structure(cqrs: bool) -> Dict[str, Any]:
     """Get the root structure for the project."""
     if cqrs:
-        root_structure = ROOT_STRUCTURE.copy()
+        root_structure = MODULE_STRUCTURE.copy()
         root_structure["application"] = CQRS_STRUCTURE["application"]
         return root_structure
-    return ROOT_STRUCTURE
+    return MODULE_STRUCTURE

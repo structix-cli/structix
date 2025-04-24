@@ -5,10 +5,10 @@ import click
 from structix.utils.config import get_config
 from structix.utils.filesystem import create_nested_folders
 from structix.utils.structures.ddd_hexagonal import (
-    get_context_structure as get_ddd_hexagonal_context_structure,
+    get_module_structure as get_ddd_hexagonal_context_structure,
 )
 from structix.utils.structures.domain_driven_design import (
-    get_context_structure as get_ddd_context_structure,
+    get_module_structure as get_ddd_context_structure,
 )
 
 
@@ -44,5 +44,10 @@ def add_context(name: str) -> None:
         click.echo(
             "⚠️ Contexts are not supported in Hexagonal architecture without DDD."
         )
+    else:
+        click.echo(
+            "⚠️ Contexts are not supported in Monolith architecture without DDD."
+        )
+        return
 
     click.echo("✅ Context created successfully.")
