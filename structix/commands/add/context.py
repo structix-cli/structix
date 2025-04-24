@@ -17,6 +17,11 @@ from structix.utils.structures.domain_driven_design import (
 def add_context(name: str) -> None:
     """Scaffold a new DDD context inside /src."""
     config = get_config()
+
+    if config.architecture != "Monolith":
+        click.echo("⚠️ Contexts are only supported in Monolith architecture.")
+        return
+
     root = Path.cwd() / "src" / name
 
     if root.exists():
@@ -24,10 +29,6 @@ def add_context(name: str) -> None:
         return
 
     click.echo(f"📦 Creating context '{name}'...")
-
-    if config.architecture != "Monolith":
-        click.echo("⚠️ Contexts are only supported in Monolith architecture.")
-        return
 
     if config.ddd and config.hexagonal:
         create_nested_folders(

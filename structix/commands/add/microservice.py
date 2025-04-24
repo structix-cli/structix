@@ -14,24 +14,25 @@ from structix.utils.structures.domain_driven_design import (
 
 @click.command()  # type: ignore
 @click.argument("name")  # type: ignore
-def add_service(name: str) -> None:
+def add_microservice(name: str) -> None:
     """Scaffold a new microservice with its own architecture."""
     config = get_config()
-    root = Path.cwd() / name / "src"
-
-    if root.exists():
-        click.echo(f"⚠️ Service '{name}' already exists.")
-        return
-
-    click.echo(f"🚀 Creating microservice '{name}'...")
-
-    root.mkdir(parents=True, exist_ok=True)
 
     if config.architecture != "Microservices":
         click.echo(
             "⚠️ Microservice are only supported in Microservices architecture."
         )
         return
+
+    root = Path.cwd() / name / "src"
+
+    if root.exists():
+        click.echo(f"⚠️ Microservice '{name}' already exists.")
+        return
+
+    root.mkdir(parents=True, exist_ok=True)
+
+    click.echo(f"🚀 Creating microservice '{name}'...")
 
     if config.ddd and config.hexagonal:
         create_nested_folders(
