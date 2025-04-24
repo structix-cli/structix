@@ -22,7 +22,7 @@ def add_context(name: str) -> None:
         click.echo("⚠️ Contexts are only supported in Monolith architecture.")
         return
 
-    root = Path.cwd() / "src" / name
+    root = Path.cwd() / config.source_dir / name
 
     if root.exists():
         click.echo(f"⚠️ Context '{name}' already exists.")

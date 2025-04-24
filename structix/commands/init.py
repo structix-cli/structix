@@ -66,7 +66,7 @@ def create_root_structure() -> None:
 
     root = Path.cwd()
 
-    base = root / "src"
+    base = root / config.source_dir
 
     base.mkdir(parents=True, exist_ok=True)
 
