@@ -56,30 +56,22 @@ def init() -> None:
     save_config(preferences)
     click.echo("✅ Preferences saved to structix.config.json")
 
+    create_root_structure()
+
 
 def create_root_structure() -> None:
     """Create the root structure for the project."""
 
     config = load_config()
-    root = Path.cwd() / "src"
+    root = Path.cwd()
 
-    if root.exists():
-        click.echo("⚠️ Directory already exists.")
-        return
-
-    architecture = str(config.get("architecture"))
     ddd = config.get("ddd", False)
     hexagonal = config.get("hexagonal", False)
     cqrs = config.get("cqrs", False)
 
-    root.mkdir(parents=True)
-    click.echo(f"📁 Created project: {root}")
+    base = root / "src"
 
-    base = {"Monolith": root / "src", "Microservices": root / "services"}.get(
-        architecture, root
-    )
-
-    base.mkdir(parents=True)
+    base.mkdir(parents=True, exist_ok=True)
 
     if ddd and hexagonal:
         create_nested_folders(base, get_ddd_hexagonal_structure())
@@ -87,3 +79,5 @@ def create_root_structure() -> None:
         create_nested_folders(base, get_ddd_structure())
     elif hexagonal:
         create_nested_folders(base, get_hexagonal_structure(cqrs))
+
+    click.echo("📂 Project structure created successfully!")
