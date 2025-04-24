@@ -77,6 +77,23 @@ def load_config() -> Dict[str, Any]:
     return {}
 
 
-def save_config(config: Dict[str, Any]) -> None:
+def save_config(new_data: Dict[str, Any]) -> None:
+    config = load_config()
+    merged = deep_merge(config, new_data)
     with open(CONFIG_FILE, "w") as f:
-        json.dump(config, f, indent=2)
+        json.dump(merged, f, indent=2)
+
+
+def deep_merge(
+    original: Dict[str, Any], updates: Dict[str, Any]
+) -> Dict[str, Any]:
+    for key, value in updates.items():
+        if (
+            key in original
+            and isinstance(original[key], dict)
+            and isinstance(value, dict)
+        ):
+            original[key] = deep_merge(original[key], value)
+        else:
+            original[key] = value
+    return original
