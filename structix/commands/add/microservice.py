@@ -24,7 +24,7 @@ def add_microservice(name: str) -> None:
         )
         return
 
-    root = Path.cwd() / name / "src"
+    root = Path.cwd() / "src" / name
 
     if root.exists():
         click.echo(f"⚠️ Microservice '{name}' already exists.")
