@@ -22,7 +22,7 @@ def microservice(name: str, image: str, db: str | None) -> None:
     click.echo(f"📦 Creating Helm chart for: {name}")
     click.echo(f"🐳 Image: {image}")
 
-    chart_path = Path("infra") / "helm" / name
+    chart_path = Path("ops") / "microservices" / name
     templates_path = chart_path / "templates"
     chart_path.mkdir(parents=True, exist_ok=True)
     templates_path.mkdir(parents=True, exist_ok=True)
@@ -45,8 +45,8 @@ def microservice(name: str, image: str, db: str | None) -> None:
 
     render("Chart.yaml.j2", chart_path / "Chart.yaml")
     render("values.yaml.j2", chart_path / "values.yaml")
-    render("templates/deployment.yaml.j2", templates_path / "deployment.yaml")
-    render("templates/service.yaml.j2", templates_path / "service.yaml")
+    render("deployment.yaml.j2", templates_path / "deployment.yaml")
+    render("service.yaml.j2", templates_path / "service.yaml")
 
     if db:
         render(
