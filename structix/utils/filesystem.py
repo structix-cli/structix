@@ -13,12 +13,12 @@ def create_nested_folders(
 
     for key, value in structure.items():
         subpath = base / key
+        ensure_folder(subpath)
         if isinstance(value, list):
             for folder in value:
                 folder_path = subpath / folder
                 ensure_folder(folder_path)
         elif isinstance(value, dict):
-            ensure_folder(subpath)
             create_nested_folders(subpath, value, add_gitignore=add_gitignore)
         else:
             folder_path = subpath / value
