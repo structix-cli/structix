@@ -74,10 +74,14 @@ def create_root_structure() -> None:
     base.mkdir(parents=True, exist_ok=True)
 
     if ddd and hexagonal:
-        create_nested_folders(base, get_ddd_hexagonal_structure())
+        create_nested_folders(
+            base, get_ddd_hexagonal_structure(), add_gitignore=True
+        )
     elif ddd:
-        create_nested_folders(base, get_ddd_structure())
+        create_nested_folders(base, get_ddd_structure(), add_gitignore=True)
     elif hexagonal:
-        create_nested_folders(base, get_hexagonal_structure(cqrs))
+        create_nested_folders(
+            base, get_hexagonal_structure(cqrs), add_gitignore=True
+        )
 
     click.echo("📂 Project structure created successfully!")
