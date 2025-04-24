@@ -71,8 +71,7 @@ def microservice(
         render("ingress.yaml.j2", templates_path / "ingress.yaml")
         click.echo("🌐 Added optional Ingress config.")
 
-        if deploy:
-            deploy_ingress(templates_path)
+        deploy_ingress(templates_path, apply_standalone=not deploy)
 
     click.echo("✅ Helm chart created!")
 
@@ -80,7 +79,8 @@ def microservice(
         try:
             click.echo("🚀 Deploying Helm chart...")
             subprocess.run(
-                ["helm", "install", name, str(chart_path)], check=True
+                ["helm", "upgrade", "--install", name, str(chart_path)],
+                check=True,
             )
             click.echo("✅ Helm chart deployed successfully!")
         except subprocess.CalledProcessError as e:
@@ -88,7 +88,7 @@ def microservice(
             click.echo(f"🔍 Error: {e}")
 
 
-def deploy_ingress(templates_path: Path) -> None:
+def deploy_ingress(templates_path: Path, apply_standalone: bool) -> None:
     try:
         result = subprocess.run(
             ["helm", "status", "ingress-nginx", "-n", "ingress-nginx"],
@@ -126,6 +126,8 @@ def deploy_ingress(templates_path: Path) -> None:
                     "--set",
                     "controller.admissionWebhooks.enabled=false",
                     "--set",
+                    "controller.admissionWebhooks.patch.enabled=false",
+                    "--set",
                     "controller.service.enableHttps=false",
                 ],
                 check=True,
@@ -134,19 +136,20 @@ def deploy_ingress(templates_path: Path) -> None:
         else:
             click.echo("✅ Ingress controller already installed.")
 
-        click.echo("🚀 Deploying Ingress resource...")
-        subprocess.run(
-            [
-                "minikube",
-                "kubectl",
-                "--",
-                "apply",
-                "-f",
-                str(templates_path / "ingress.yaml"),
-            ],
-            check=True,
-        )
-        click.echo("✅ Ingress resource deployed successfully.")
+        if apply_standalone:
+            click.echo("🚀 Deploying Ingress resource...")
+            subprocess.run(
+                [
+                    "minikube",
+                    "kubectl",
+                    "--",
+                    "apply",
+                    "-f",
+                    str(templates_path / "ingress.yaml"),
+                ],
+                check=True,
+            )
+            click.echo("✅ Ingress resource deployed successfully.")
 
     except subprocess.CalledProcessError as e:
         click.echo("❌ Failed to deploy Ingress controller or resource.")
