@@ -3,8 +3,8 @@ from pathlib import Path
 
 import click
 
-from structix.commands.ops.add.microservice import deploy_ingress
 from structix.utils.config import get_config, no_cluster_config
+from structix.utils.helm import deploy_ingress
 
 
 @click.command(name="all")  # type: ignore
