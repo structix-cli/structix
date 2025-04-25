@@ -5,8 +5,8 @@ import click
 from jinja2 import Environment, FileSystemLoader
 
 import structix
+from structix.commands.ops.deploy.microservice import deploy_microservice
 from structix.utils.config import get_config
-from structix.utils.helm import deploy_ingress, deploy_microservice
 
 TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
 env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
@@ -128,10 +128,6 @@ def add_microservice(
             templates_path / "ingress.yaml",
         )
         click.echo("🌐 Added optional Ingress config.")
-
-        if deploy:
-
-            deploy_ingress()
 
     click.echo("✅ Helm chart created!")
 

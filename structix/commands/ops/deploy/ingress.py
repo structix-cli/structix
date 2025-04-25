@@ -3,23 +3,25 @@ from pathlib import Path
 
 import click
 
-
-def deploy_microservice(service: str) -> None:
-    path = Path("ops") / "microservices" / service
-    try:
-        click.echo("🚀 Deploying Helm chart...")
-        subprocess.run(
-            ["helm", "upgrade", "--install", service, str(path)],
-            check=True,
-        )
-        click.echo("✅ Helm chart deployed successfully!")
-    except subprocess.CalledProcessError as e:
-        click.echo("❌ Failed to deploy Helm chart.")
-        click.echo(f"🔍 Error: {e}")
+from structix.utils.config import get_config, no_cluster_config
 
 
-def deploy_ingress() -> None:
-    """Install ingress-nginx controller if not present."""
+@click.command(name="ingress")  # type: ignore
+@click.argument("name")  # type: ignore
+def deploy_ingress(name: str) -> None:
+    """Deploy an Ingress resource for a microservice."""
+    chart_path = Path("ops") / "microservices" / name
+
+    if not chart_path.exists():
+        click.echo(f"❌ Microservice '{name}' does not exist at {chart_path}")
+        return
+
+    config = get_config()
+
+    if not config.cluster:
+        no_cluster_config()
+        return
+
     result = subprocess.run(
         ["helm", "status", "ingress-nginx", "-n", "ingress-nginx"],
         stdout=subprocess.DEVNULL,

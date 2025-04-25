@@ -3,8 +3,8 @@ from pathlib import Path
 
 import click
 
+from structix.commands.ops.deploy.ingress import deploy_ingress
 from structix.utils.config import get_config, no_cluster_config
-from structix.utils.helm import deploy_ingress
 
 
 @click.command(name="microservice")  # type: ignore
@@ -29,7 +29,7 @@ def deploy_microservice(name: str) -> None:
             ["helm", "upgrade", "--install", name, str(chart_path)], check=True
         )
 
-        deploy_ingress()
+        deploy_ingress(name)
 
         click.echo(f"✅ Deployed '{name}' successfully.")
     except subprocess.CalledProcessError as e:
