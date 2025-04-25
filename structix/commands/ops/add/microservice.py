@@ -90,7 +90,7 @@ def microservice(
         "image_tag": image_tag,
         "db": db,
         "db_enabled": db is not None,
-        "port": port,
+        "container_port": port,
         "replica_count": replicas,
     }
 
@@ -106,17 +106,17 @@ def microservice(
     render(TEMPLATE_DIR / "Chart.yaml.j2", chart_path / "Chart.yaml")
     render(TEMPLATE_DIR / "values.yaml.j2", chart_path / "values.yaml")
     shutil.copyfile(
-        TEMPLATE_DIR / "templates" / "deployment.yaml",
+        TEMPLATE_DIR / "templates" / "deployment.yaml.j2",
         templates_path / "deployment.yaml",
     )
     shutil.copyfile(
-        TEMPLATE_DIR / "templates" / "service.yaml",
+        TEMPLATE_DIR / "templates" / "service.yaml.j2",
         templates_path / "service.yaml",
     )
 
     if db:
         shutil.copyfile(
-            TEMPLATE_DIR / "templates" / "db-config.yaml",
+            TEMPLATE_DIR / "templates" / "db-config.yaml.j2",
             templates_path / "db-config.yaml",
         )
         click.echo(f"🗃️  Added optional DB config for: {db}")
@@ -124,7 +124,7 @@ def microservice(
     if with_ingress:
 
         shutil.copyfile(
-            TEMPLATE_DIR / "templates" / "ingress.yaml",
+            TEMPLATE_DIR / "templates" / "ingress.yaml.j2",
             templates_path / "ingress.yaml",
         )
         click.echo("🌐 Added optional Ingress config.")

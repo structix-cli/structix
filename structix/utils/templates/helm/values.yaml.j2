@@ -7,7 +7,10 @@ image:
 
 service:
   type: ClusterIP
-  port: {{ port }}
+  port: 80
+
+container:
+  port: {{ container_port }}
 
 resources: {}
 
