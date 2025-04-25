@@ -32,5 +32,5 @@ pip install -e .
 
 ```bash
 structix ops init cluster
-structix ops add microservice example brayand/microservice-simple-example:0.1.0 --with-ingress --deploy --port=3000 --replicas=3
+structix ops add microservice example3 brayand/microservice-simple-example:0.1.0 --with-ingress --deploy --port=3000 --replicas=3
 ```

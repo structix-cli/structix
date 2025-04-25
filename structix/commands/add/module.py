@@ -2,7 +2,7 @@ from pathlib import Path
 
 import click
 
-from structix.utils.config import get_config
+from structix.utils.config import get_project_config_or_fail
 from structix.utils.filesystem import create_nested_folders
 from structix.utils.structures.modular_monolith import (
     get_module_structure as get_modular_monolith_module_structure,
@@ -13,7 +13,7 @@ from structix.utils.structures.modular_monolith import (
 @click.argument("name")  # type: ignore
 def add_module(name: str) -> None:
     """Scaffold a new module."""
-    config = get_config()
+    config = get_project_config_or_fail()
 
     if config.architecture != "Monolith":
         click.echo("⚠️ Modules are only supported in Monolith architecture.")

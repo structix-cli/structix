@@ -3,7 +3,11 @@ from pathlib import Path
 import click
 import questionary
 
-from structix.utils.config import get_config, load_config, save_config
+from structix.utils.config import (
+    get_project_config_or_fail,
+    load_config,
+    save_config,
+)
 from structix.utils.filesystem import create_nested_folders
 from structix.utils.structures.ddd_hexagonal import (
     get_root_structure as get_ddd_hexagonal_structure,
@@ -46,11 +50,13 @@ def init() -> None:
     cqrs = questionary.confirm("⚡ Apply CQRS?").ask()
 
     preferences = {
-        "stack": stack,
-        "architecture": architecture,
-        "ddd": ddd,
-        "hexagonal": hex_arch,
-        "cqrs": cqrs,
+        "project": {
+            "stack": stack,
+            "architecture": architecture,
+            "ddd": ddd,
+            "hexagonal": hex_arch,
+            "cqrs": cqrs,
+        }
     }
 
     save_config(preferences)
@@ -62,7 +68,7 @@ def init() -> None:
 def create_root_structure() -> None:
     """Create the root structure for the project."""
 
-    config = get_config()
+    config = get_project_config_or_fail()
 
     root = Path.cwd()
 

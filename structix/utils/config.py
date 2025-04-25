@@ -17,23 +17,22 @@ CONFIG_FILE = Path.cwd() / ".structix" / "structix.config.json"
 class ClusterConfig:
     def __init__(
         self,
-        provider: Optional[ClusterProviderType] = None,
-        kubeconfig: Optional[str] = None,
+        provider: ClusterProviderType,
+        kubeconfig: str,
     ) -> None:
         self.provider = provider
         self.kubeconfig = kubeconfig
 
 
-class Config:
+class ProjectConfig:
     def __init__(
         self,
-        stack: Optional[StackType] = None,
-        architecture: Optional[ArchitectureType] = None,
-        ddd: Optional[bool] = None,
-        hexagonal: Optional[bool] = None,
-        cqrs: Optional[bool] = None,
-        source_dir: Optional[Path] = None,
-        cluster: Optional[ClusterConfig] = None,
+        stack: StackType,
+        architecture: ArchitectureType,
+        ddd: bool,
+        hexagonal: bool,
+        cqrs: bool,
+        source_dir: Path,
     ) -> None:
         self.stack = stack
         self.architecture = architecture
@@ -44,7 +43,16 @@ class Config:
         self.ddd = ddd
         self.hexagonal = hexagonal
         self.cqrs = cqrs
-        self.source_dir = source_dir or Path.cwd() / "src"
+        self.source_dir = source_dir
+
+
+class Config:
+    def __init__(
+        self,
+        project_config: Optional[ProjectConfig] = None,
+        cluster: Optional[ClusterConfig] = None,
+    ) -> None:
+        self.project_config = project_config
         self.cluster = cluster
 
 
@@ -70,24 +78,46 @@ def get_cluster_config_or_fail() -> ClusterConfig:
     return config.cluster
 
 
+def get_project_config_or_fail() -> ProjectConfig:
+    config = get_config()
+    if not config.project_config:
+        click.echo(
+            "❌ No project configuration found.\n💡 Run `structix init` to set up your project."
+        )
+        exit(1)
+    return config.project_config
+
+
 def get_config() -> Config:
     if CONFIG_FILE.exists():
         with open(CONFIG_FILE) as f:
             config_data = json.load(f)
 
-            stack = config_data.get("stack")
-            stack_config = get_stack_config(stack) if stack else {}
+            project_data = config_data.get("project")
+            project = None
+
+            if project_data:
+                stack = project_data.get("stack")
+                stack_data = get_stack_config(stack)
+                project = ProjectConfig(
+                    stack=stack,
+                    architecture=project_data.get("architecture", "Monolith"),
+                    ddd=project_data.get("ddd", False),
+                    hexagonal=project_data.get("hexagonal", False),
+                    cqrs=config_data.get("cqrs", False),
+                    source_dir=Path(stack_data.get("source_dir", "src")),
+                )
 
             cluster_data = config_data.get("cluster")
-            cluster = ClusterConfig(**cluster_data) if cluster_data else None
+            cluster = None
+
+            if cluster_data:
+                cluster = (
+                    ClusterConfig(**cluster_data) if cluster_data else None
+                )
 
             return Config(
-                stack=stack,
-                architecture=config_data.get("architecture"),
-                ddd=config_data.get("ddd"),
-                hexagonal=config_data.get("hexagonal"),
-                cqrs=config_data.get("cqrs"),
-                source_dir=Path(stack_config.get("source_dir", "src")),
+                project_config=project,
                 cluster=cluster,
             )
     return Config()

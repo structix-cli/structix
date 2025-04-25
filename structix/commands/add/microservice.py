@@ -2,7 +2,7 @@ from pathlib import Path
 
 import click
 
-from structix.utils.config import get_config
+from structix.utils.config import get_project_config_or_fail
 from structix.utils.filesystem import create_nested_folders
 from structix.utils.structures.ddd_hexagonal import (
     get_module_structure as get_ddd_hexagonal_microservice_structure,
@@ -22,7 +22,7 @@ from structix.utils.structures.modular_monolith import (
 @click.argument("name")  # type: ignore
 def add_microservice(name: str) -> None:
     """Scaffold a new microservice."""
-    config = get_config()
+    config = get_project_config_or_fail()
 
     if config.architecture != "Microservices":
         click.echo(
