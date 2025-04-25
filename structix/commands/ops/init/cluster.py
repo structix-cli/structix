@@ -4,7 +4,7 @@ import click
 import questionary
 import yaml  # type: ignore
 
-from structix.utils.config import save_config
+from structix.utils.config import get_config, save_config
 
 STRUCTIX_DIR = Path.cwd() / ".structix"
 KUBECONFIG_PATH = STRUCTIX_DIR / "kubeconfig.yaml"
@@ -13,6 +13,15 @@ KUBECONFIG_PATH = STRUCTIX_DIR / "kubeconfig.yaml"
 @click.command(name="cluster")  # type: ignore
 def init_cluster() -> None:
     """Initialize cluster provider configuration using an interactive selector."""
+
+    config = get_config()
+
+    if config.cluster:
+        click.echo(
+            "❌ Cluster configuration already exists.\n💡 Run `structix ops remove cluster` to remove the existing configuration."
+        )
+        return
+
     provider = questionary.select(
         "Select cluster provider:", choices=["minikube", "kubeconfig"]
     ).ask()
