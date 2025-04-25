@@ -126,6 +126,7 @@ def expose_cluster() -> None:
         )
         ip = result.stdout.strip()
         if ip:
+            click.echo(f"✅ Ingress IP found: {ip}")
             break
         click.echo(f"⏳ Waiting for ingress IP... (attempt {attempt + 1})")
         time.sleep(2)
