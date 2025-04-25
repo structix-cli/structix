@@ -1,6 +1,5 @@
 # structix/core/providers.py
 import os
-import shutil
 import subprocess
 import time
 from typing import Callable, Dict, List
@@ -179,7 +178,9 @@ def expose_cluster() -> None:
 
         final_hosts = before.rstrip() + "\n\n" + new_block + after.lstrip()
 
-        shutil.copy(HOSTS_FILE, HOSTS_FILE + ".bak")
+        subprocess.run(
+            ["sudo", "cp", HOSTS_FILE, HOSTS_FILE + ".bak"], check=True
+        )
 
         with open("/tmp/structix-hosts", "w") as tmp:
             tmp.write(final_hosts)
