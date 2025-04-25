@@ -6,10 +6,7 @@ import click
 from structix.utils.config import get_cluster_config_or_fail
 
 
-@click.command(name="ingress")  # type: ignore
-@click.argument("name")  # type: ignore
-def deploy_ingress(name: str) -> None:
-    """Deploy an Ingress resource for a microservice."""
+def deploy_ingress_resource(name: str) -> None:
     chart_path = Path("ops") / "microservices" / name
 
     if not chart_path.exists():
@@ -64,3 +61,10 @@ def deploy_ingress(name: str) -> None:
     except subprocess.CalledProcessError as e:
         click.echo("❌ Failed to install ingress controller.")
         click.echo(f"🔍 Error: {e}")
+
+
+@click.command(name="ingress")  # type: ignore
+@click.argument("name")  # type: ignore
+def deploy_ingress(name: str) -> None:
+    """Deploy an Ingress resource for a microservice."""
+    deploy_ingress_resource(name)

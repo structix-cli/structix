@@ -3,7 +3,7 @@ from pathlib import Path
 
 import click
 
-from structix.commands.ops.deploy.ingress import deploy_ingress
+from structix.commands.ops.deploy.ingress import deploy_ingress_resource
 from structix.utils.config import get_cluster_config_or_fail
 
 
@@ -23,7 +23,7 @@ def deploy_microservice_resource(name: str) -> None:
             ["helm", "upgrade", "--install", name, str(chart_path)], check=True
         )
 
-        deploy_ingress(name)
+        deploy_ingress_resource(name)
 
         click.echo(f"✅ Deployed '{name}' successfully.")
     except subprocess.CalledProcessError as e:
