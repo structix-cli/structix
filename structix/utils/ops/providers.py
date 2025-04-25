@@ -84,6 +84,15 @@ def expose_cluster() -> None:
         click.echo("⚠️  Expose is only supported for Minikube right now.")
         return
 
+    try:
+        click.echo(
+            "🔑 Requesting sudo access for upcoming privileged operations..."
+        )
+        subprocess.run(["sudo", "-v"], check=True)
+    except subprocess.CalledProcessError:
+        click.echo("❌ Sudo access is required to expose the cluster.")
+        return
+
     for proc in psutil.process_iter(attrs=["pid", "cmdline"]):
         try:
             cmdline = proc.info["cmdline"]
@@ -110,7 +119,7 @@ def expose_cluster() -> None:
         return
 
     ip = None
-    for attempt in range(10):
+    for attempt in range(100):
         result = subprocess.run(
             [
                 "kubectl",
