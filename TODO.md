@@ -15,6 +15,6 @@
 
 -   [ ] Add tracing support (OpenTelemetry, Jaeger, etc.)
 
--   [ ] Add Terraform support (infrastructure as code)
+-   [ ] Add Terraform support (infrastructure as code, ops create/destroy cluster)
 
 -   [ ] Add project documentation
