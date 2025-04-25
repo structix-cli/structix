@@ -1,6 +1,6 @@
 import click
 
-from .minikube import create_minikube
+from .cluster import create_cluster
 
 
 @click.group()  # type: ignore
@@ -9,4 +9,4 @@ def create() -> None:
     pass
 
 
-create.add_command(create_minikube)
+create.add_command(create_cluster)

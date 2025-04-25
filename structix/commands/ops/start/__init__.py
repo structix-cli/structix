@@ -1,6 +1,6 @@
 import click
 
-from .minikube import start_minikube
+from .cluster import start_cluster
 
 
 @click.group()  # type: ignore
@@ -9,4 +9,4 @@ def start() -> None:
     pass
 
 
-start.add_command(start_minikube)
+start.add_command(start_cluster)

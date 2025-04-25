@@ -1,6 +1,6 @@
 import click
 
-from .minikube import destroy_minikube
+from .cluster import destroy_cluster
 
 
 @click.group()  # type: ignore
@@ -9,4 +9,4 @@ def destroy() -> None:
     pass
 
 
-destroy.add_command(destroy_minikube)
+destroy.add_command(destroy_cluster)
