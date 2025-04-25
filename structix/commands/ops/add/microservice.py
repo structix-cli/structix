@@ -7,7 +7,9 @@ from jinja2 import Environment, FileSystemLoader
 import structix
 from structix.commands.ops.add.db import add_db_resource
 from structix.commands.ops.add.ingress import add_ingress_resource
-from structix.commands.ops.deploy.microservice import deploy_microservice
+from structix.commands.ops.deploy.microservice import (
+    deploy_microservice_resource,
+)
 from structix.utils.config import get_config
 
 TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
@@ -128,4 +130,4 @@ def add_microservice(
     click.echo("✅ Helm chart created!")
 
     if deploy:
-        deploy_microservice(name)
+        deploy_microservice_resource(name)
