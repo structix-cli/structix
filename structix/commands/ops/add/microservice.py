@@ -26,6 +26,12 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     help="Port the service will expose",
 )  # type: ignore
 @click.option(
+    "--replicas",
+    type=int,
+    default=1,
+    help="Number of replicas for the deployment",
+)  # type: ignore
+@click.option(
     "--deploy",
     is_flag=True,
     default=False,
@@ -42,6 +48,7 @@ def microservice(
     image: str,
     db: str | None,
     port: int,
+    replicas: int,
     deploy: bool,
     with_ingress: bool,
 ) -> None:
@@ -83,6 +90,7 @@ def microservice(
         "db": db,
         "db_enabled": db is not None,
         "port": port,
+        "replica_count": replicas,
     }
 
     def render(template_name: str | Path, output_path: Path) -> None:
