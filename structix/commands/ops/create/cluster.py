@@ -2,15 +2,23 @@
 
 import click
 
-from structix.utils.config import load_config
+from structix.utils.config import get_config
 from structix.utils.ops.providers import get_provider_command
 
 
 @click.command(name="cluster")  # type: ignore
 def create_cluster() -> None:
     """Create a cluster based on the selected provider."""
-    config = load_config()
-    provider = config.get("cluster", {}).get("provider")
+    config = get_config()
+
+    if not config.cluster:
+        click.echo(
+            "❌ No cluster configuration found.\n💡 Run `structix ops init cluster` to set up your cluster provider."
+        )
+
+        return
+
+    provider = config.cluster.provider
 
     if not provider:
         click.echo("❌ No cluster provider configured.")
