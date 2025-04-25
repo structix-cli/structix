@@ -1,6 +1,6 @@
 import click
 
-from structix.utils.config import get_config
+from structix.utils.config import get_config, no_cluster_config
 from structix.utils.ops.providers import get_provider_command
 
 
@@ -10,9 +10,7 @@ def destroy_cluster() -> None:
     config = get_config()
 
     if not config.cluster:
-        click.echo(
-            "❌ No cluster configuration found.\n💡 Run `structix ops init cluster` to set up your cluster provider."
-        )
+        no_cluster_config()
 
         return
 

@@ -4,6 +4,8 @@ from pathlib import Path
 
 import click
 
+from structix.utils.config import get_config, no_cluster_config
+
 
 @click.command(name="microservice")  # type: ignore
 @click.argument("name")  # type: ignore
@@ -22,6 +24,13 @@ def remove_microservice(name: str, purge: bool) -> None:
         return
 
     if purge:
+
+        config = get_config()
+
+        if not config.cluster:
+            no_cluster_config()
+            return
+
         click.echo(f"🗑️ Uninstalling Helm release: {name}")
         try:
             subprocess.run(["helm", "uninstall", name], check=True)

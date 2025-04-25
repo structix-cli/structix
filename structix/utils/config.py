@@ -85,6 +85,13 @@ def get_config() -> Config:
     exit(1)
 
 
+def no_cluster_config() -> None:
+
+    click.echo(
+        "❌ No cluster configuration found.\n💡 Run `structix ops init cluster` to set up your cluster provider."
+    )
+
+
 def load_config() -> Dict[str, Any]:
     if CONFIG_FILE.exists():
         with open(CONFIG_FILE) as f:
