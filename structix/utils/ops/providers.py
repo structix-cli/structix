@@ -1,6 +1,7 @@
 # structix/core/providers.py
 import os
 import subprocess
+import threading
 import time
 from typing import Callable, Dict, List
 
@@ -73,6 +74,38 @@ def status_cluster() -> None:
         click.echo(f"🔍 Error: {e}")
 
 
+def wait_for_output(process: subprocess.Popen[bytes]) -> None:
+    if process.stdout is None:
+        return
+    for line in iter(process.stdout.readline, b""):
+        if line:
+            click.echo("🔌 Tunnel output: " + line.decode().strip())
+            break
+
+
+def start_minikube_tunnel_blocking_on_output() -> None:
+    try:
+        click.echo("🔌 Starting 'minikube tunnel' and waiting for output...")
+        process = subprocess.Popen(
+            ["minikube", "tunnel"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+
+        thread = threading.Thread(target=wait_for_output, args=(process,))
+        thread.start()
+        thread.join(timeout=10)
+
+        if thread.is_alive():
+            click.echo("⚠️ No output detected yet, continuing anyway...")
+        else:
+            click.echo("✅ Tunnel seems to have started.")
+
+    except Exception as e:
+        click.echo("❌ Failed to start minikube tunnel.")
+        click.echo(f"🔍 Error: {e}")
+
+
 def expose_cluster() -> None:
     HOSTS_FILE = "/etc/hosts"
     STRUCTIX_MARKER_BEGIN = "# structix-managed-hosts-BEGIN"
@@ -110,13 +143,7 @@ def expose_cluster() -> None:
         ):
             continue
 
-    try:
-        click.echo("🔌 Starting 'minikube tunnel' in background...")
-        subprocess.Popen(["minikube", "tunnel"])
-    except Exception as e:
-        click.echo("❌ Failed to start minikube tunnel.")
-        click.echo(f"🔍 Error: {e}")
-        return
+    start_minikube_tunnel_blocking_on_output()
 
     ip = None
     for attempt in range(100):
