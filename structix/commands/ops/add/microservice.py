@@ -20,6 +20,12 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     help="Optional database",
 )  # type: ignore
 @click.option(
+    "--port",
+    type=int,
+    default=80,
+    help="Port the service will expose",
+)  # type: ignore
+@click.option(
     "--deploy",
     is_flag=True,
     default=False,
@@ -32,7 +38,12 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     help="Include an Ingress resource for the microservice",
 )  # type: ignore
 def microservice(
-    name: str, image: str, db: str | None, deploy: bool, with_ingress: bool
+    name: str,
+    image: str,
+    db: str | None,
+    port: int,
+    deploy: bool,
+    with_ingress: bool,
 ) -> None:
     """Add a new Helm chart microservice."""
 
@@ -71,6 +82,7 @@ def microservice(
         "image_tag": image_tag,
         "db": db,
         "db_enabled": db is not None,
+        "port": port,
     }
 
     def render(template_name: str, output_path: Path) -> None:

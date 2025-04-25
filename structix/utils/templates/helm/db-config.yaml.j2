@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ name }}-db-config
+  name: {{ '{{ .Release.Name }}' }}-db-config
 data:
-  DB_HOST: {{ name }}-db
-  DB_PORT: {% if db == "postgres" %}5432{% elif db == "mysql" %}3306{% elif db == "mongo" %}27017{% else %}unknown{% endif %}
-  DB_NAME: {{ name }}_db
-  DB_USER: {{ name }}_user
+  DB_HOST: {{ '{{ .Release.Name }}' }}-db
+  DB_PORT: {{ '{{ ternary 5432 (ternary 3306 (ternary 27017 "unknown" (eq .Values.db.type "mongo")) (eq .Values.db.type "mysql")) (eq .Values.db.type "postgres") }}' }}
+  DB_NAME: {{ '{{ .Release.Name }}' }}_db
+  DB_USER: {{ '{{ .Release.Name }}' }}_user
   DB_PASSWORD: example-password
