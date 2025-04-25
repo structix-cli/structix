@@ -116,6 +116,7 @@ def start_minikube_tunnel_blocking_on_output() -> None:
         thread.start()
 
         if ready_event.wait(timeout=100):
+            time.sleep(1)
             click.echo("✅ Tunnel seems to have started.")
         else:
             click.echo("⚠️ No output detected yet, continuing anyway...")
