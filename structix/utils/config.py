@@ -80,9 +80,7 @@ def get_config() -> Config:
                 source_dir=Path(stack_config.get("source_dir", "src")),
                 cluster=cluster,
             )
-
-    click.echo("⚠️ Error: No configuration found.")
-    exit(1)
+    return Config()
 
 
 def no_cluster_config() -> None:
@@ -102,11 +100,19 @@ def load_config() -> Dict[str, Any]:
 def save_config(new_data: Dict[str, Any]) -> None:
     config = load_config()
     merged = deep_merge(config, new_data)
+
+    if not CONFIG_FILE.exists():
+        CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
+
     with open(CONFIG_FILE, "w") as f:
         json.dump(merged, f, indent=2)
 
 
 def force_save_config(new_data: Dict[str, Any]) -> None:
+
+    if not CONFIG_FILE.exists():
+        CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
+
     with open(CONFIG_FILE, "w") as f:
         json.dump(new_data, f, indent=2)
 
