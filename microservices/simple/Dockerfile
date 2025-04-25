@@ -6,4 +6,4 @@ COPY server.py .
 
 EXPOSE 3000
 
-CMD ["python", "simple_server.py"]
+CMD ["python", "server.py"]
