@@ -5,6 +5,8 @@ import click
 from jinja2 import Environment, FileSystemLoader
 
 import structix
+from structix.commands.ops.add.db import add_db
+from structix.commands.ops.add.ingress import add_ingress
 from structix.commands.ops.deploy.microservice import deploy_microservice
 from structix.utils.config import get_config
 
@@ -17,7 +19,9 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 @click.argument("image")  # type: ignore
 @click.option(
     "--db",
-    type=click.Choice(["postgres", "mysql", "mongo"], case_sensitive=False),
+    type=click.Choice(
+        ["postgres", "mysql", "mongo", "redis"], case_sensitive=False
+    ),
     help="Optional database",
 )  # type: ignore
 @click.option(
@@ -105,6 +109,7 @@ def add_microservice(
 
     render(TEMPLATE_DIR / "Chart.yaml.j2", chart_path / "Chart.yaml")
     render(TEMPLATE_DIR / "values.yaml.j2", chart_path / "values.yaml")
+
     shutil.copyfile(
         TEMPLATE_DIR / "templates" / "deployment.yaml.j2",
         templates_path / "deployment.yaml",
@@ -115,19 +120,10 @@ def add_microservice(
     )
 
     if db:
-        shutil.copyfile(
-            TEMPLATE_DIR / "templates" / "db-config.yaml.j2",
-            templates_path / "db-config.yaml",
-        )
-        click.echo(f"🗃️  Added optional DB config for: {db}")
+        add_db(name, db)
 
     if with_ingress:
-
-        shutil.copyfile(
-            TEMPLATE_DIR / "templates" / "ingress.yaml.j2",
-            templates_path / "ingress.yaml",
-        )
-        click.echo("🌐 Added optional Ingress config.")
+        add_ingress(name)
 
     click.echo("✅ Helm chart created!")
 
