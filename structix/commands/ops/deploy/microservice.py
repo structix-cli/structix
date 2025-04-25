@@ -17,13 +17,15 @@ def deploy_microservice_resource(name: str) -> None:
 
     get_cluster_config_or_fail()
 
+    deploy_ingress_resource(name)
+
     try:
+
         click.echo(f"🚀 Deploying microservice: {name}")
+
         subprocess.run(
             ["helm", "upgrade", "--install", name, str(chart_path)], check=True
         )
-
-        deploy_ingress_resource(name)
 
         click.echo(f"✅ Deployed '{name}' successfully.")
     except subprocess.CalledProcessError as e:

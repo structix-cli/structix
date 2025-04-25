@@ -13,6 +13,11 @@ def deploy_ingress_resource(name: str) -> None:
         click.echo(f"❌ Microservice '{name}' does not exist at {chart_path}")
         return
 
+    ingress_path = chart_path / "templates" / "ingress.yaml"
+    if not ingress_path.exists():
+        click.echo(f"❌ Ingress resource not found for microservice '{name}'.")
+        return
+
     get_cluster_config_or_fail()
 
     result = subprocess.run(
