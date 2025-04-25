@@ -16,6 +16,7 @@ PROVIDER_ACTIONS: Dict[str, List[str]] = {
         "destroy",
         "remove",
         "status",
+        "expose",
     ],
     "kubeconfig": ["init", "remove", "status"],
 }
@@ -70,6 +71,26 @@ def status_cluster() -> None:
         click.echo(f"🔍 Error: {e}")
 
 
+def expose_cluster() -> None:
+    config = get_config()
+
+    if not config.cluster or config.cluster.provider != "minikube":
+        click.echo("⚠️  Expose is only supported for Minikube right now.")
+        return
+
+    try:
+        click.echo(
+            "🔌 Starting 'minikube tunnel' to expose LoadBalancer services..."
+        )
+        subprocess.run(["minikube", "tunnel"], check=True)
+        click.echo(
+            "✅ Minikube tunnel started successfully. Your ingress should now be exposed."
+        )
+    except subprocess.CalledProcessError as e:
+        click.echo("❌ Failed to start minikube tunnel.")
+        click.echo(f"🔍 Error: {e}")
+
+
 PROVIDER_COMMANDS: Dict[str, Dict[str, Callable[[], None]]] = {
     "minikube": {
         "create": lambda: (
@@ -90,6 +111,7 @@ PROVIDER_COMMANDS: Dict[str, Dict[str, Callable[[], None]]] = {
         )[1],
         "remove": remove_cluster,
         "status": status_cluster,
+        "expose": expose_cluster,
     },
     "kubeconfig": {
         "remove": remove_cluster,
