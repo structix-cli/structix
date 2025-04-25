@@ -1,5 +1,6 @@
 # structix/core/providers.py
 import os
+import queue
 import subprocess
 import threading
 import time
@@ -74,32 +75,50 @@ def status_cluster() -> None:
         click.echo(f"🔍 Error: {e}")
 
 
-def wait_for_output(process: subprocess.Popen[bytes]) -> None:
+def wait_for_output_and_log(
+    process: subprocess.Popen[bytes],
+    ready_event: threading.Event,
+    output_queue: queue.Queue[str],
+) -> None:
     if process.stdout is None:
         return
+
     for line in iter(process.stdout.readline, b""):
-        if line:
-            click.echo("🔌 Tunnel output: " + line.decode().strip())
+        if not line:
             break
+
+        decoded_line = line.decode()
+        output_queue.put(decoded_line)
+        click.echo(decoded_line)
+
+        if not ready_event.is_set():
+            ready_event.set()
 
 
 def start_minikube_tunnel_blocking_on_output() -> None:
     try:
         click.echo("🔌 Starting 'minikube tunnel' and waiting for output...")
+
         process = subprocess.Popen(
             ["minikube", "tunnel"],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
 
-        thread = threading.Thread(target=wait_for_output, args=(process,))
-        thread.start()
-        thread.join(timeout=10)
+        ready_event = threading.Event()
+        output_queue: queue.Queue[str] = queue.Queue()
 
-        if thread.is_alive():
-            click.echo("⚠️ No output detected yet, continuing anyway...")
-        else:
+        thread = threading.Thread(
+            target=wait_for_output_and_log,
+            args=(process, ready_event, output_queue),
+            daemon=True,
+        )
+        thread.start()
+
+        if ready_event.wait(timeout=100):
             click.echo("✅ Tunnel seems to have started.")
+        else:
+            click.echo("⚠️ No output detected yet, continuing anyway...")
 
     except Exception as e:
         click.echo("❌ Failed to start minikube tunnel.")
