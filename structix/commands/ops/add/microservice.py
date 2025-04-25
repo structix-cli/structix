@@ -5,6 +5,7 @@ import click
 from jinja2 import Environment, FileSystemLoader
 
 import structix
+from structix.utils.config import get_config
 
 TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
 env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
@@ -34,6 +35,16 @@ def microservice(
     name: str, image: str, db: str | None, deploy: bool, with_ingress: bool
 ) -> None:
     """Add a new Helm chart microservice."""
+
+    config = get_config()
+
+    if deploy:
+        if not config.cluster:
+            click.echo(
+                "❌ The '--deploy' option requires a cluster to be set up.\n"
+                "💡 Please set up a cluster using 'structix ops init cluster' before deploying."
+            )
+            return
 
     chart_path = Path("ops") / "microservices" / name
     templates_path = chart_path / "templates"
@@ -79,7 +90,11 @@ def microservice(
         render("ingress.yaml.j2", templates_path / "ingress.yaml")
         click.echo("🌐 Added optional Ingress config.")
 
-        deploy_ingress(templates_path, apply_standalone=not deploy)
+        setup_ingress()
+
+        if deploy:
+
+            deploy_ingress(name)
 
     click.echo("✅ Helm chart created!")
 
@@ -96,68 +111,70 @@ def microservice(
             click.echo(f"🔍 Error: {e}")
 
 
-def deploy_ingress(templates_path: Path, apply_standalone: bool) -> None:
-    try:
-        result = subprocess.run(
-            ["helm", "status", "ingress-nginx", "-n", "ingress-nginx"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+def setup_ingress() -> None:
+    result = subprocess.run(
+        ["helm", "status", "ingress-nginx", "-n", "ingress-nginx"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    if result.returncode != 0:
+        click.echo("🔧 Ingress controller not found. Installing via Helm...")
+
+        subprocess.run(
+            [
+                "helm",
+                "repo",
+                "add",
+                "ingress-nginx",
+                "https://kubernetes.github.io/ingress-nginx",
+            ],
+            check=True,
         )
-        if result.returncode != 0:
-            click.echo(
-                "🔧 Ingress controller not found. Installing via Helm..."
-            )
+        subprocess.run(["helm", "repo", "update"], check=True)
 
-            subprocess.run(
-                [
-                    "helm",
-                    "repo",
-                    "add",
-                    "ingress-nginx",
-                    "https://kubernetes.github.io/ingress-nginx",
-                ],
-                check=True,
-            )
-            subprocess.run(["helm", "repo", "update"], check=True)
+        subprocess.run(
+            [
+                "helm",
+                "install",
+                "ingress-nginx",
+                "ingress-nginx/ingress-nginx",
+                "--namespace",
+                "ingress-nginx",
+                "--create-namespace",
+                "--version",
+                "4.6.0",
+                "--set",
+                "controller.admissionWebhooks.enabled=false",
+                "--set",
+                "controller.admissionWebhooks.patch.enabled=false",
+                "--set",
+                "controller.service.enableHttps=false",
+            ],
+            check=True,
+        )
+        click.echo("✅ Ingress controller installed successfully.")
+    else:
+        click.echo("✅ Ingress controller already installed.")
 
-            subprocess.run(
-                [
-                    "helm",
-                    "install",
-                    "ingress-nginx",
-                    "ingress-nginx/ingress-nginx",
-                    "--namespace",
-                    "ingress-nginx",
-                    "--create-namespace",
-                    "--version",
-                    "4.6.0",
-                    "--set",
-                    "controller.admissionWebhooks.enabled=false",
-                    "--set",
-                    "controller.admissionWebhooks.patch.enabled=false",
-                    "--set",
-                    "controller.service.enableHttps=false",
-                ],
-                check=True,
-            )
-            click.echo("✅ Ingress controller installed successfully.")
-        else:
-            click.echo("✅ Ingress controller already installed.")
 
-        if apply_standalone:
-            click.echo("🚀 Deploying Ingress resource...")
-            subprocess.run(
-                [
-                    "minikube",
-                    "kubectl",
-                    "--",
-                    "apply",
-                    "-f",
-                    str(templates_path / "ingress.yaml"),
-                ],
-                check=True,
-            )
-            click.echo("✅ Ingress resource deployed successfully.")
+def deploy_ingress(name: str) -> None:
+
+    templates_path = Path("ops") / "microservices" / name / "templates"
+
+    try:
+        click.echo("🚀 Deploying Ingress resource...")
+        subprocess.run(
+            [
+                "minikube",
+                "kubectl",
+                "--",
+                "apply",
+                "-f",
+                str(templates_path / "ingress.yaml"),
+            ],
+            check=True,
+        )
+        click.echo("✅ Ingress resource deployed successfully.")
 
     except subprocess.CalledProcessError as e:
         click.echo("❌ Failed to deploy Ingress controller or resource.")

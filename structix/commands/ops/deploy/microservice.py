@@ -3,6 +3,7 @@ from pathlib import Path
 
 import click
 
+from structix.commands.ops.add.microservice import deploy_ingress
 from structix.utils.config import get_config, no_cluster_config
 
 
@@ -27,6 +28,9 @@ def deploy_microservice(name: str) -> None:
         subprocess.run(
             ["helm", "upgrade", "--install", name, str(chart_path)], check=True
         )
+
+        deploy_ingress(name)
+
         click.echo(f"✅ Deployed '{name}' successfully.")
     except subprocess.CalledProcessError as e:
         click.echo(f"❌ Failed to deploy microservice '{name}'.")
