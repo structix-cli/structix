@@ -1,9 +1,12 @@
 # structix/core/providers.py
 import os
+import shutil
 import subprocess
+import time
 from typing import Callable, Dict, List
 
 import click
+import psutil  # type: ignore[import]
 
 from structix.utils.config import force_save_config, get_config, load_config
 
@@ -72,22 +75,121 @@ def status_cluster() -> None:
 
 
 def expose_cluster() -> None:
+    HOSTS_FILE = "/etc/hosts"
+    STRUCTIX_MARKER_BEGIN = "# structix-managed-hosts-BEGIN"
+    STRUCTIX_MARKER_END = "# structix-managed-hosts-END"
+
     config = get_config()
 
     if not config.cluster or config.cluster.provider != "minikube":
         click.echo("⚠️  Expose is only supported for Minikube right now.")
         return
 
+    for proc in psutil.process_iter(attrs=["pid", "cmdline"]):
+        try:
+            cmdline = proc.info["cmdline"]
+            if cmdline and "minikube" in cmdline and "tunnel" in cmdline:
+                click.echo(
+                    "🛑 Existing minikube tunnel found. Terminating it..."
+                )
+                proc.terminate()
+                proc.wait(timeout=5)
+                click.echo("✅ Previous minikube tunnel terminated.")
+        except (
+            psutil.NoSuchProcess,
+            psutil.AccessDenied,
+            psutil.TimeoutExpired,
+        ):
+            continue
+
     try:
-        click.echo(
-            "🔌 Starting 'minikube tunnel' to expose LoadBalancer services..."
-        )
-        subprocess.run(["minikube", "tunnel"], check=True)
-        click.echo(
-            "✅ Minikube tunnel started successfully. Your ingress should now be exposed."
-        )
-    except subprocess.CalledProcessError as e:
+        click.echo("🔌 Starting 'minikube tunnel' in background...")
+        subprocess.Popen(["minikube", "tunnel"])
+    except Exception as e:
         click.echo("❌ Failed to start minikube tunnel.")
+        click.echo(f"🔍 Error: {e}")
+        return
+
+    ip = None
+    for attempt in range(10):
+        result = subprocess.run(
+            [
+                "kubectl",
+                "get",
+                "svc",
+                "ingress-nginx-controller",
+                "-n",
+                "ingress-nginx",
+                "-o=jsonpath={.status.loadBalancer.ingress[0].ip}",
+            ],
+            stdout=subprocess.PIPE,
+            text=True,
+        )
+        ip = result.stdout.strip()
+        if ip:
+            break
+        click.echo(f"⏳ Waiting for ingress IP... (attempt {attempt + 1})")
+        time.sleep(2)
+
+    if not ip:
+        click.echo("⚠️  Could not determine external IP of ingress controller.")
+        return
+
+    try:
+        result = subprocess.run(
+            [
+                "kubectl",
+                "get",
+                "ingress",
+                "-A",
+                "-o=jsonpath={range .items[*]}{.spec.rules[*].host}{'\\n'}{end}",
+            ],
+            stdout=subprocess.PIPE,
+            text=True,
+            check=True,
+        )
+        hosts = [
+            line.strip() for line in result.stdout.splitlines() if line.strip()
+        ]
+
+        if not hosts:
+            click.echo("⚠️  No ingress hosts found.")
+            return
+
+        click.echo("📝 Registering the following hostnames:")
+        for host in hosts:
+            click.echo(f"   • http://{host} → {ip}")
+
+        try:
+            with open(HOSTS_FILE, "r") as f:
+                original_hosts = f.read()
+        except PermissionError:
+            click.echo("❌ Permission denied: need sudo to edit /etc/hosts.")
+            return
+
+        before = original_hosts.split(STRUCTIX_MARKER_BEGIN)[0]
+        after = ""
+        if STRUCTIX_MARKER_END in original_hosts:
+            after = original_hosts.split(STRUCTIX_MARKER_END)[1]
+
+        new_block = f"{STRUCTIX_MARKER_BEGIN}\n"
+        for host in hosts:
+            new_block += f"{ip} {host}\n"
+        new_block += f"{STRUCTIX_MARKER_END}\n"
+
+        final_hosts = before.rstrip() + "\n\n" + new_block + after.lstrip()
+
+        shutil.copy(HOSTS_FILE, HOSTS_FILE + ".bak")
+
+        with open("/tmp/structix-hosts", "w") as tmp:
+            tmp.write(final_hosts)
+        subprocess.run(
+            ["sudo", "cp", "/tmp/structix-hosts", HOSTS_FILE], check=True
+        )
+        click.echo("✅ /etc/hosts updated with Structix managed entries.")
+
+    except subprocess.CalledProcessError as e:
+        click.echo("❌ Failed to retrieve ingress hosts or IP.")
         click.echo(f"🔍 Error: {e}")
 
 

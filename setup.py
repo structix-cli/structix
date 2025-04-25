@@ -4,7 +4,7 @@ setup(
     name="structix",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=["click", "questionary", "jinja2", "pyyaml"],
+    install_requires=["click", "questionary", "jinja2", "pyyaml", "psutil"],
     entry_points={
         "console_scripts": [
             "structix=structix.cli:cli",
