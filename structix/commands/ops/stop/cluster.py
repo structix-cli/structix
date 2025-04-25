@@ -20,5 +20,5 @@ def stop_cluster() -> None:
         click.echo(f"❌ 'stop' is not supported by provider '{provider}'")
         return
 
-    click.echo(f"⏹️ Stopping cluster with provider: {provider}")
+    click.echo(f"⏹️  Stopping cluster with provider: {provider}")
     command()
