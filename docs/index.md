@@ -5,20 +5,26 @@ layout: home
 hero:
     name: "Structix"
     text: "A CLI tool to scaffold modern backend architectures and integrate DevOps workflows effortlessly."
-    tagline: My great project tagline
+    tagline: "Speed up your backend and DevOps projects with clean, production-ready templates."
     actions:
         - theme: brand
-          text: Markdown Examples
-          link: /markdown-examples
+          text: Get Started
+          link: /getting-started
         - theme: alt
-          text: API Examples
-          link: /api-examples
+          text: CLI Commands
+          link: /cli-commands
 
 features:
-    - title: Feature A
-      details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    - title: Feature B
-      details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    - title: Feature C
-      details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    - title: Architecture Templates
+      details: Quickly scaffold monoliths, microservices, and DDD-based projects following Hexagonal and CQRS patterns.
+    - title: DevOps Integration
+      details: Generate Kubernetes, Helm, and Terraform setups automatically to streamline your infrastructure deployments.
+    - title: Observability Built-in
+      details: Add Prometheus and Grafana integrations out of the box to monitor and visualize your services effortlessly.
+    - title: Database Flexibility
+      details: Scaffold projects with support for PostgreSQL and MongoDB databases, ready for production environments.
+    - title: Event-Driven Ready
+      details: Integrate Kafka seamlessly into your architectures to enable event-driven communication between services.
+    - title: Local & Cloud Environments
+      details: Easily manage Minikube clusters for local development or create full Kubernetes clusters for production.
 ---
