@@ -2,7 +2,9 @@ from pathlib import Path
 
 import click
 
-from structix.commands.ops.deploy.microservice import deploy_microservice
+from structix.commands.ops.deploy.microservice import (
+    deploy_microservice_resource,
+)
 from structix.utils.config import get_cluster_config_or_fail
 
 
@@ -21,7 +23,7 @@ def deploy_all() -> None:
     for chart in base_path.iterdir():
         if (chart / "Chart.yaml").exists():
             found = True
-            deploy_microservice(chart.name)
+            deploy_microservice_resource(chart.name)
 
     if not found:
         click.echo("ℹ️ No Helm charts found in ops/microservices.")
