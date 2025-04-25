@@ -90,11 +90,9 @@ def microservice(
         render("ingress.yaml.j2", templates_path / "ingress.yaml")
         click.echo("🌐 Added optional Ingress config.")
 
-        setup_ingress()
-
         if deploy:
 
-            deploy_ingress(name)
+            deploy_ingress()
 
     click.echo("✅ Helm chart created!")
 
@@ -111,15 +109,19 @@ def microservice(
             click.echo(f"🔍 Error: {e}")
 
 
-def setup_ingress() -> None:
+def deploy_ingress() -> None:
+    """Install ingress-nginx controller if not present."""
     result = subprocess.run(
         ["helm", "status", "ingress-nginx", "-n", "ingress-nginx"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    if result.returncode != 0:
-        click.echo("🔧 Ingress controller not found. Installing via Helm...")
+    if result.returncode == 0:
+        click.echo("✅ Ingress controller already installed.")
+        return
 
+    click.echo("🔧 Ingress controller not found. Installing via Helm...")
+    try:
         subprocess.run(
             [
                 "helm",
@@ -131,7 +133,6 @@ def setup_ingress() -> None:
             check=True,
         )
         subprocess.run(["helm", "repo", "update"], check=True)
-
         subprocess.run(
             [
                 "helm",
@@ -153,29 +154,6 @@ def setup_ingress() -> None:
             check=True,
         )
         click.echo("✅ Ingress controller installed successfully.")
-    else:
-        click.echo("✅ Ingress controller already installed.")
-
-
-def deploy_ingress(name: str) -> None:
-
-    templates_path = Path("ops") / "microservices" / name / "templates"
-
-    try:
-        click.echo("🚀 Deploying Ingress resource...")
-        subprocess.run(
-            [
-                "minikube",
-                "kubectl",
-                "--",
-                "apply",
-                "-f",
-                str(templates_path / "ingress.yaml"),
-            ],
-            check=True,
-        )
-        click.echo("✅ Ingress resource deployed successfully.")
-
     except subprocess.CalledProcessError as e:
-        click.echo("❌ Failed to deploy Ingress controller or resource.")
+        click.echo("❌ Failed to install ingress controller.")
         click.echo(f"🔍 Error: {e}")

@@ -29,7 +29,7 @@ def deploy_microservice(name: str) -> None:
             ["helm", "upgrade", "--install", name, str(chart_path)], check=True
         )
 
-        deploy_ingress(name)
+        deploy_ingress()
 
         click.echo(f"✅ Deployed '{name}' successfully.")
     except subprocess.CalledProcessError as e:

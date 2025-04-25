@@ -33,7 +33,7 @@ def deploy_all() -> None:
                     check=True,
                 )
 
-                deploy_ingress(chart.name)
+                deploy_ingress()
                 click.echo(f"✅ Deployed '{chart.name}' successfully.")
             except subprocess.CalledProcessError as e:
                 click.echo(f"❌ Failed to deploy '{chart.name}'.")
