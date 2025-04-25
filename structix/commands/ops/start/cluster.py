@@ -26,5 +26,5 @@ def start_cluster() -> None:
         click.echo(f"❌ 'start' is not supported by provider '{provider}'")
         return
 
-    click.echo(f"▶️ Starting cluster with provider: {provider}")
+    click.echo(f"▶️  Starting cluster with provider: {provider}")
     command()
