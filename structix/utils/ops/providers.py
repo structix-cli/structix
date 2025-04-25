@@ -60,6 +60,10 @@ def status_cluster() -> None:
             ["kubectl", "get", "deployments", "-A"], check=True, env=env
         )
         click.echo()
+        subprocess.run(
+            ["kubectl", "get", "ingress", "-A"], check=True, env=env
+        )
+        click.echo()
         subprocess.run(["helm", "list", "-A"], check=True, env=env)
     except subprocess.CalledProcessError as e:
         click.echo("❌ Could not retrieve full cluster status.")
