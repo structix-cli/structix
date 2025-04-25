@@ -34,13 +34,21 @@ def microservice(
     name: str, image: str, db: str | None, deploy: bool, with_ingress: bool
 ) -> None:
     """Add a new Helm chart microservice."""
-    click.echo(f"📦 Creating Helm chart for: {name}")
-    click.echo(f"🐳 Image: {image}")
 
     chart_path = Path("ops") / "microservices" / name
     templates_path = chart_path / "templates"
+
+    if chart_path.exists():
+        click.echo(
+            f"❌ Microservice '{name}' already exists at {chart_path}\n💡 Use a different name or remove the existing one."
+        )
+        return
+
     chart_path.mkdir(parents=True, exist_ok=True)
     templates_path.mkdir(parents=True, exist_ok=True)
+
+    click.echo(f"📦 Creating Helm chart for: {name}")
+    click.echo(f"🐳 Image: {image}")
 
     image_repo, image_tag = (
         image.split(":") if ":" in image else (image, "latest")
