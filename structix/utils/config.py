@@ -18,7 +18,7 @@ class ClusterConfig:
     def __init__(
         self,
         provider: ClusterProviderType,
-        kubeconfig: str,
+        kubeconfig: Optional[str] = None,
     ) -> None:
         self.provider = provider
         self.kubeconfig = kubeconfig
@@ -69,22 +69,36 @@ def get_stack_config(stack: str) -> Dict[str, Any]:
 
 
 def get_cluster_config_or_fail() -> ClusterConfig:
-    config = get_config()
-    if not config.cluster:
+    cluster_config = get_cluster_config()
+    if not cluster_config:
         click.echo(
             "❌ No cluster configuration found.\n💡 Run `structix ops init cluster` to set up your cluster provider."
         )
         exit(1)
+    return cluster_config
+
+
+def get_cluster_config() -> Optional[ClusterConfig]:
+    config = get_config()
+    if not config.cluster:
+        return None
     return config.cluster
 
 
 def get_project_config_or_fail() -> ProjectConfig:
-    config = get_config()
-    if not config.project_config:
+    project_config = get_project_config()
+    if not project_config:
         click.echo(
             "❌ No project configuration found.\n💡 Run `structix init` to set up your project."
         )
         exit(1)
+    return project_config
+
+
+def get_project_config() -> Optional[ProjectConfig]:
+    config = get_config()
+    if not config.project_config:
+        return None
     return config.project_config
 
 

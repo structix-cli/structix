@@ -4,8 +4,8 @@ import click
 import questionary
 
 from structix.utils.config import (
+    get_project_config,
     get_project_config_or_fail,
-    load_config,
     save_config,
 )
 from structix.utils.filesystem import create_nested_folders
@@ -25,7 +25,7 @@ def init() -> None:
     """Initialize a new Structix project configuration."""
     click.echo("🔧 Welcome to Structix CLI!")
 
-    previous = load_config()
+    previous = get_project_config()
     if previous:
         if questionary.confirm(
             "⚠️  A configuration already exists. Do you want to reinitialize the project?"
