@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 import click
@@ -104,25 +105,26 @@ def microservice(
 
     render(TEMPLATE_DIR / "Chart.yaml.j2", chart_path / "Chart.yaml")
     render(TEMPLATE_DIR / "values.yaml.j2", chart_path / "values.yaml")
-    render(
-        TEMPLATE_DIR / "templates" / "deployment.yaml.j2",
+    shutil.copyfile(
+        TEMPLATE_DIR / "templates" / "deployment.yaml",
         templates_path / "deployment.yaml",
     )
-    render(
-        TEMPLATE_DIR / "templates" / "service.yaml.j2",
+    shutil.copyfile(
+        TEMPLATE_DIR / "templates" / "service.yaml",
         templates_path / "service.yaml",
     )
 
     if db:
-        render(
-            TEMPLATE_DIR / "templates" / "db-config.yaml.j2",
+        shutil.copyfile(
+            TEMPLATE_DIR / "templates" / "db-config.yaml",
             templates_path / "db-config.yaml",
         )
         click.echo(f"🗃️  Added optional DB config for: {db}")
 
     if with_ingress:
-        render(
-            TEMPLATE_DIR / "templates" / "ingress.yaml.j2",
+
+        shutil.copyfile(
+            TEMPLATE_DIR / "templates" / "ingress.yaml",
             templates_path / "ingress.yaml",
         )
         click.echo("🌐 Added optional Ingress config.")
