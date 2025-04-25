@@ -1,19 +1,15 @@
 import click
 
-from structix.utils.config import get_config, no_cluster_config
+from structix.utils.config import get_cluster_config_or_fail
 from structix.utils.ops.providers import get_provider_command
 
 
 @click.command(name="cluster")  # type: ignore
 def expose_cluster() -> None:
     """Expose the cluster using the configured provider (e.g., minikube tunnel)."""
-    config = get_config()
+    cluster_config = get_cluster_config_or_fail()
 
-    if not config.cluster:
-        no_cluster_config()
-        return
-
-    provider = config.cluster.provider
+    provider = cluster_config.provider
 
     if not provider:
         click.echo("❌ No cluster provider configured.")

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from structix.utils.config import get_config, no_cluster_config
+from structix.utils.config import get_cluster_config_or_fail
 
 
 @click.command(name="microservice")  # type: ignore
@@ -25,11 +25,7 @@ def remove_microservice(name: str, purge: bool) -> None:
 
     if purge:
 
-        config = get_config()
-
-        if not config.cluster:
-            no_cluster_config()
-            return
+        get_cluster_config_or_fail()
 
         click.echo(f"🗑️ Uninstalling Helm release: {name}")
         try:

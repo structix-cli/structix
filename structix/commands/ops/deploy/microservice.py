@@ -4,7 +4,7 @@ from pathlib import Path
 import click
 
 from structix.commands.ops.deploy.ingress import deploy_ingress
-from structix.utils.config import get_config, no_cluster_config
+from structix.utils.config import get_cluster_config_or_fail
 
 
 @click.command(name="microservice")  # type: ignore
@@ -17,11 +17,7 @@ def deploy_microservice(name: str) -> None:
         click.echo(f"❌ Microservice '{name}' does not exist at {chart_path}")
         return
 
-    config = get_config()
-
-    if not config.cluster:
-        no_cluster_config()
-        return
+    get_cluster_config_or_fail()
 
     try:
         click.echo(f"🚀 Deploying microservice: {name}")

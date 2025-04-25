@@ -60,6 +60,16 @@ def get_stack_config(stack: str) -> Dict[str, Any]:
         exit(1)
 
 
+def get_cluster_config_or_fail() -> ClusterConfig:
+    config = get_config()
+    if not config.cluster:
+        click.echo(
+            "❌ No cluster configuration found.\n💡 Run `structix ops init cluster` to set up your cluster provider."
+        )
+        exit(1)
+    return config.cluster
+
+
 def get_config() -> Config:
     if CONFIG_FILE.exists():
         with open(CONFIG_FILE) as f:
@@ -81,13 +91,6 @@ def get_config() -> Config:
                 cluster=cluster,
             )
     return Config()
-
-
-def no_cluster_config() -> None:
-
-    click.echo(
-        "❌ No cluster configuration found.\n💡 Run `structix ops init cluster` to set up your cluster provider."
-    )
 
 
 def load_config() -> Dict[str, Any]:
