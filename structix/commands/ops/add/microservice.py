@@ -85,21 +85,38 @@ def microservice(
         "port": port,
     }
 
-    def render(template_name: str, output_path: Path) -> None:
-        template = env.get_template(template_name)
+    def render(template_name: str | Path, output_path: Path) -> None:
+        relative_template = (
+            template_name.relative_to(TEMPLATE_DIR)
+            if isinstance(template_name, Path)
+            else Path(template_name)
+        )
+        template = env.get_template(str(relative_template))
         output_path.write_text(template.render(context))
 
-    render("Chart.yaml.j2", chart_path / "Chart.yaml")
-    render("values.yaml.j2", chart_path / "values.yaml")
-    render("deployment.yaml.j2", templates_path / "deployment.yaml")
-    render("service.yaml.j2", templates_path / "service.yaml")
+    render(TEMPLATE_DIR / "Chart.yaml.j2", chart_path / "Chart.yaml")
+    render(TEMPLATE_DIR / "values.yaml.j2", chart_path / "values.yaml")
+    render(
+        TEMPLATE_DIR / "templates" / "deployment.yaml.j2",
+        templates_path / "deployment.yaml",
+    )
+    render(
+        TEMPLATE_DIR / "templates" / "service.yaml.j2",
+        templates_path / "service.yaml",
+    )
 
     if db:
-        render("db-config.yaml.j2", templates_path / "db-config.yaml")
+        render(
+            TEMPLATE_DIR / "templates" / "db-config.yaml.j2",
+            templates_path / "db-config.yaml",
+        )
         click.echo(f"🗃️  Added optional DB config for: {db}")
 
     if with_ingress:
-        render("ingress.yaml.j2", templates_path / "ingress.yaml")
+        render(
+            TEMPLATE_DIR / "templates" / "ingress.yaml.j2",
+            templates_path / "ingress.yaml",
+        )
         click.echo("🌐 Added optional Ingress config.")
 
         if deploy:
