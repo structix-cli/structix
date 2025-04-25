@@ -1,3 +1,5 @@
+# structix/commands/ops/add/ingress.py
+
 import shutil
 from pathlib import Path
 
@@ -8,10 +10,7 @@ import structix
 TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
 
 
-@click.command(name="ingress")  # type: ignore
-@click.argument("name")  # type: ignore
-def add_ingress(name: str) -> None:
-    """Add an Ingress resource to an existing microservice."""
+def add_ingress_resource(name: str) -> None:
     chart_path = Path("ops") / "microservices" / name
     templates_path = chart_path / "templates"
     ingress_template = TEMPLATE_DIR / "templates" / "ingress.yaml.j2"
@@ -29,3 +28,10 @@ def add_ingress(name: str) -> None:
     click.echo(
         f"🌐 Ingress resource added for microservice '{name}' at {output_path}"
     )
+
+
+@click.command(name="ingress")  # type: ignore
+@click.argument("name")  # type: ignore
+def add_ingress(name: str) -> None:
+    """Add an Ingress resource to an existing microservice."""
+    add_ingress_resource(name)

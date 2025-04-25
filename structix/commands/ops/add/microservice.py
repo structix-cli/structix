@@ -5,8 +5,8 @@ import click
 from jinja2 import Environment, FileSystemLoader
 
 import structix
-from structix.commands.ops.add.db import add_db
-from structix.commands.ops.add.ingress import add_ingress
+from structix.commands.ops.add.db import add_db_resource
+from structix.commands.ops.add.ingress import add_ingress_resource
 from structix.commands.ops.deploy.microservice import deploy_microservice
 from structix.utils.config import get_config
 
@@ -120,10 +120,10 @@ def add_microservice(
     )
 
     if db:
-        add_db(name, db)
+        add_db_resource(name, db)
 
     if with_ingress:
-        add_ingress(name)
+        add_ingress_resource(name)
 
     click.echo("✅ Helm chart created!")
 

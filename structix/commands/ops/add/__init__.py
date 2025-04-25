@@ -1,5 +1,6 @@
 import click
 
+from .db import add_db
 from .ingress import add_ingress
 from .microservice import add_microservice
 
@@ -12,3 +13,4 @@ def add() -> None:
 
 add.add_command(add_microservice)
 add.add_command(add_ingress)
+add.add_command(add_db)
