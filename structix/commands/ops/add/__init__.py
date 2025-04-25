@@ -1,6 +1,7 @@
 import click
 
-from .microservice import microservice
+from .ingress import add_ingress
+from .microservice import add_microservice
 
 
 @click.group()  # type: ignore
@@ -9,4 +10,5 @@ def add() -> None:
     pass
 
 
-add.add_command(microservice)
+add.add_command(add_microservice)
+add.add_command(add_ingress)

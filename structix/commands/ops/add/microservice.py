@@ -44,7 +44,7 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     default=False,
     help="Include an Ingress resource for the microservice",
 )  # type: ignore
-def microservice(
+def add_microservice(
     name: str,
     image: str,
     db: str | None,
