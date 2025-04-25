@@ -99,6 +99,11 @@ def save_config(new_data: Dict[str, Any]) -> None:
         json.dump(merged, f, indent=2)
 
 
+def force_save_config(new_data: Dict[str, Any]) -> None:
+    with open(CONFIG_FILE, "w") as f:
+        json.dump(new_data, f, indent=2)
+
+
 def deep_merge(
     original: Dict[str, Any], updates: Dict[str, Any]
 ) -> Dict[str, Any]:

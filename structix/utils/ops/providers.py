@@ -5,7 +5,7 @@ from typing import Callable, Dict, List
 
 import click
 
-from structix.utils.config import load_config, save_config
+from structix.utils.config import force_save_config, get_config, load_config
 
 PROVIDER_ACTIONS: Dict[str, List[str]] = {
     "minikube": [
@@ -25,27 +25,29 @@ def is_action_supported(provider: str, action: str) -> bool:
     return action in PROVIDER_ACTIONS.get(provider, [])
 
 
-# Define the actual command implementations
-
-
 def remove_cluster() -> None:
-    config = load_config()
-    if "cluster" not in config:
+    config = get_config()
+    if not config.cluster:
         click.echo("⚠️ No cluster configuration found.")
         return
-    config.pop("cluster")
-    save_config(config)
+
+    raw_config = load_config()
+    raw_config.pop("cluster", None)
+    force_save_config(raw_config)
     click.echo("🗑️ Cluster config removed from structix.config.json")
 
 
 def status_cluster() -> None:
-    config = load_config()
-    provider = config.get("cluster", {}).get("provider")
+    config = get_config()
 
+    if not config.cluster or not config.cluster.provider:
+        click.echo("❌ Cluster not configured. Run: structix ops init cluster")
+        raise SystemExit(1)
+
+    provider = config.cluster.provider
     env = os.environ.copy()
-    kubeconfig_path = config.get("cluster", {}).get("kubeconfig")
-    if kubeconfig_path:
-        env["KUBECONFIG"] = kubeconfig_path
+    if config.cluster.kubeconfig:
+        env["KUBECONFIG"] = config.cluster.kubeconfig
 
     click.echo(f"🔍 Cluster Provider: {provider}")
 
