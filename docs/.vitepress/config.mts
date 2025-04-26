@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import { sidebar } from "./sidebar";
+import { cliCommands } from "./cliCommands";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -13,7 +13,36 @@ export default defineConfig({
             { text: "Getting Started", link: "/getting-started/introduction" },
             { text: "Docs", link: "/cli-commands" },
         ],
-        sidebar,
+        sidebar: [
+            {
+                text: "Documentation",
+                items: [
+                    {
+                        text: "Getting Started",
+                        collapsed: false,
+                        items: [
+                            {
+                                text: "Introduction",
+                                link: "/getting-started/introduction",
+                            },
+                            {
+                                text: "Requirements",
+                                link: "/getting-started/requirements",
+                            },
+                            {
+                                text: "How to Install",
+                                link: "/getting-started/how-to-install",
+                            },
+                        ],
+                    },
+                    {
+                        text: "CLI Commands",
+                        collapsed: false,
+                        items: cliCommands,
+                    },
+                ],
+            },
+        ],
         socialLinks: [
             { icon: "github", link: "https://github.com/brayandm/structix" },
         ],
