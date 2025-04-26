@@ -52,6 +52,8 @@ def generate_sidebar_structure(base_dir: str) -> List[Dict[str, Any]]:
                 }
                 if depth >= 1:
                     item["collapsed"] = True
+                else:
+                    item["collapsed"] = False
                 items.append(item)
         return items
 

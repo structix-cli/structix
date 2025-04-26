@@ -33,7 +33,6 @@ def build_prompt(command_path: str) -> str:
         command_path.replace(".py", "").replace("/", " ").replace("\\", " ")
     )
 
-    # Leer el contenido del archivo .py
     full_path: str = os.path.join(COMMANDS_DIR, command_path)
     try:
         with open(full_path, "r", encoding="utf-8") as f:

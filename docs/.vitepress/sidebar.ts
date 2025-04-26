@@ -148,7 +148,8 @@ export const sidebar = [
                 ],
                 "collapsed": true
             }
-        ]
+        ],
+        "collapsed": false
     },
     {
         "text": "Proj",
@@ -175,7 +176,8 @@ export const sidebar = [
                 "text": "Init",
                 "link": "/cli-commands/proj/init"
             }
-        ]
+        ],
+        "collapsed": false
     }
 ]
       }
