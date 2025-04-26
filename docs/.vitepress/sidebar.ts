@@ -88,16 +88,6 @@ export const sidebar = [
             },
             {
                 "text": "Init",
-                "items": [
-                    {
-                        "text": "Cluster",
-                        "link": "/cli-commands/ops/init/cluster"
-                    }
-                ],
-                "collapsed": true
-            },
-            {
-                "text": "Init",
                 "link": "/cli-commands/ops/init"
             },
             {
@@ -110,6 +100,16 @@ export const sidebar = [
                     {
                         "text": "Microservice",
                         "link": "/cli-commands/ops/remove/microservice"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Setup",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/setup/cluster"
                     }
                 ],
                 "collapsed": true

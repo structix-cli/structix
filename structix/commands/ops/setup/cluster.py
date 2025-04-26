@@ -11,8 +11,8 @@ KUBECONFIG_PATH = STRUCTIX_DIR / "kubeconfig.yaml"
 
 
 @click.command(name="cluster")  # type: ignore
-def init_cluster() -> None:
-    """Initialize cluster provider configuration using an interactive selector."""
+def setup_cluster() -> None:
+    """Setup cluster provider configuration using an interactive selector."""
 
     config = get_config()
 
