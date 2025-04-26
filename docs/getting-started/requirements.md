@@ -2,64 +2,134 @@
 
 ## Before You Start
 
-Before installing and using Structix, make sure your environment meets the necessary prerequisites. Structix depends on several key tools and platforms that must be installed and properly configured on your machine.
+Before installing and using Structix, it is essential to ensure that your environment meets the necessary prerequisites. Structix depends on several critical tools and platforms that must be installed and properly configured on your machine.
 
-Having a properly set up development environment ensures that Structix can scaffold, deploy, and manage your projects smoothly, whether locally or in the cloud.
+Setting up your environment correctly ensures that Structix can scaffold, deploy, and manage your projects smoothly, whether you are working locally or deploying to production-grade infrastructure.
+
+This page will guide you through the essential software you must have installed to fully benefit from Structix.
 
 ## Software Requirements
 
-You must have the following installed:
+You **must** have the following installed on your system:
+
+---
 
 ### 1. Python 3.12
 
-Structix is written in Python and requires **Python 3.12** or later to work correctly.  
-If you don't have it installed yet, you can download it from the official Python website:
+Structix is built with Python and requires **Python 3.12** or later to function correctly.  
+Without the correct Python version, the CLI will not operate properly.
+
+You can download Python 3.12 directly from the official website:
 
 -   [Download Python 3.12](https://www.python.org/downloads/release/python-3120/)
 
-Make sure your `pip` tool is also updated to the latest version.
+After installing Python, ensure that `pip` (Python's package manager) is updated to the latest version:
+
+```bash
+pip install --upgrade pip
+```
+
+> Note: In environments where multiple Python versions are installed, it may be necessary to use `python3` and `pip3` explicitly.
 
 ---
 
 ### 2. kubectl
 
-[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) is the official Kubernetes command-line tool. Structix relies on `kubectl` to interact with local or remote Kubernetes clusters.
+[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) is the command-line tool used to interact with Kubernetes clusters. Structix relies heavily on `kubectl` for deploying services, managing clusters, and applying configurations.
 
-You can install kubectl by following the instructions for your operating system:
+Install kubectl by following the official guide for your operating system:
 
 -   [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
+Once installed, you can verify the installation by running:
+
+```bash
+kubectl version --client
+```
 
 ---
 
 ### 3. Minikube
 
-[Minikube](https://minikube.sigs.k8s.io/docs/start/) lets you run a Kubernetes cluster locally. It is a lightweight option that allows you to test Kubernetes deployments without needing a full cloud setup.
+[Minikube](https://minikube.sigs.k8s.io/docs/start/) is a tool that allows you to run a local Kubernetes cluster. It is lightweight and ideal for local development and testing before deploying to cloud providers.
 
-Structix uses Minikube to create local development clusters easily.
+Structix uses Minikube to create local environments where projects can be developed and tested under real Kubernetes conditions.
+
+Installation instructions:
 
 -   [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
+
+Start a local cluster easily with:
+
+```bash
+minikube start
+```
 
 ---
 
 ### 4. Helm
 
-[Helm](https://helm.sh/docs/intro/install/) is a package manager for Kubernetes applications. Structix leverages Helm to deploy services into Kubernetes clusters quickly and manage application lifecycles.
+[Helm](https://helm.sh/docs/intro/install/) is the de facto package manager for Kubernetes applications. Structix uses Helm to manage deployments, upgrades, and rollbacks of Kubernetes applications efficiently.
 
-Installing Helm ensures that Structix can scaffold not just infrastructure, but also application deployments efficiently.
+Installing Helm ensures that Structix can:
+
+-   Deploy services quickly.
+-   Manage Kubernetes application lifecycles.
+-   Apply version-controlled deployment templates.
+
+Installation link:
 
 -   [Install Helm](https://helm.sh/docs/intro/install/)
+
+Check the installation by running:
+
+```bash
+helm version
+```
+
+---
+
+### 5. Terraform
+
+[Terraform](https://developer.hashicorp.com/terraform/downloads) is a tool for building, changing, and versioning infrastructure safely and efficiently. Structix integrates Terraform to provision and manage cloud infrastructure directly from your project setup.
+
+Having Terraform installed allows Structix to:
+
+-   Generate Infrastructure as Code (IaC) templates.
+-   Create cloud resources such as Kubernetes clusters, databases, and more.
+-   Manage the full lifecycle of cloud environments.
+
+Install Terraform from the official site:
+
+-   [Install Terraform](https://developer.hashicorp.com/terraform/downloads)
+
+Verify Terraform installation:
+
+```bash
+terraform version
+```
 
 ---
 
 ## Optional Tools
 
-While not strictly required, having these tools can improve your development workflow with Structix:
+While not mandatory, having these tools can further enhance your Structix development experience:
 
--   **Docker and Docker Compose** — for building and running containerized applications.
--   **Terraform** — for managing cloud infrastructure (Structix can generate Terraform templates).
-
----
-
-By ensuring you have all these requirements set up properly, you will be able to unlock the full potential of Structix for backend and DevOps development.
+-   **Docker and Docker Compose** — Useful for building, testing, and running containerized applications locally.
+-   **Virtualenv (Python Virtual Environments)** — Recommended for isolating your Python dependencies when working on multiple projects.
 
 ---
+
+## Summary
+
+To recap, you must install the following to work effectively with Structix:
+
+| Tool        | Purpose                              |
+| ----------- | ------------------------------------ |
+| Python 3.12 | Run Structix CLI.                    |
+| kubectl     | Manage Kubernetes clusters.          |
+| Minikube    | Create a local Kubernetes cluster.   |
+| Helm        | Deploy applications to Kubernetes.   |
+| Terraform   | Manage cloud infrastructure as code. |
+
+Setting up these requirements ensures that you can unlock the full power of Structix, streamline your backend projects, and automate your DevOps workflows right from the start.
