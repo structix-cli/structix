@@ -1,9 +1,11 @@
 import click
 
+import structix
 from structix.commands import add, config, init, ops
 
 
 @click.group()  # type: ignore
+@click.version_option(structix.__version__, prog_name="Structix")  # type: ignore
 def cli() -> None:
     """Structix CLI - Scaffold clean backend projects."""
     pass
