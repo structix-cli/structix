@@ -5,8 +5,8 @@ from structix.commands.ops.create import create
 from structix.commands.ops.deploy import deploy
 from structix.commands.ops.destroy import destroy
 from structix.commands.ops.expose import expose
-from structix.commands.ops.init import init
 from structix.commands.ops.remove import remove
+from structix.commands.ops.setup import setup
 from structix.commands.ops.start import start
 from structix.commands.ops.status import status
 from structix.commands.ops.stop import stop
@@ -23,7 +23,7 @@ ops.add_command(create)
 ops.add_command(deploy)
 ops.add_command(destroy)
 ops.add_command(expose)
-ops.add_command(init)
+ops.add_command(setup)
 ops.add_command(remove)
 ops.add_command(start)
 ops.add_command(status)
