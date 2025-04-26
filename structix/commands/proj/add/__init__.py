@@ -1,8 +1,8 @@
 import click
 
-from structix.commands.add.context import add_context
-from structix.commands.add.microservice import add_microservice
-from structix.commands.add.module import add_module
+from structix.commands.proj.add.context import add_context
+from structix.commands.proj.add.microservice import add_microservice
+from structix.commands.proj.add.module import add_module
 
 
 @click.group()  # type: ignore

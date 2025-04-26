@@ -1,7 +1,7 @@
 import click
 
 import structix
-from structix.commands import add, config, init, ops
+from structix.commands import ops, proj
 
 
 @click.group()  # type: ignore
@@ -11,9 +11,7 @@ def cli() -> None:
     pass
 
 
-cli.add_command(init.init)
-cli.add_command(config.config)
-cli.add_command(add.add)
+cli.add_command(proj.proj)
 cli.add_command(ops.ops)
 
 
