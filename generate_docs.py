@@ -29,9 +29,10 @@ def list_command_files(base_dir: str) -> List[str]:
 
 def build_prompt(command_path: str) -> str:
     """Build the prompt to send to OpenAI, including file content."""
-    command_name: str = (
+    base_command: str = (
         command_path.replace(".py", "").replace("/", " ").replace("\\", " ")
     )
+    full_command: str = f"structix {base_command}"
 
     full_path: str = os.path.join(COMMANDS_DIR, command_path)
     try:
@@ -44,7 +45,7 @@ def build_prompt(command_path: str) -> str:
     return f"""
 You are writing professional CLI documentation.
 
-Command: `{command_name}`
+Command: `{full_command}`
 
 Below is the source code of the command:
 
