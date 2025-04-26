@@ -2,12 +2,12 @@
 
 Documentation for `structix proj add context` command.
 
-Scaffold a new Domain-Driven Design (DDD) context within a project.
+Scaffold a new Domain-Driven Design (DDD) context within a Monolith architecture.
 
 ## Usage
 
 ```bash
-proj add context <name>
+structix proj add context <name>
 ```
 
 ## Options
@@ -19,7 +19,7 @@ This command currently has no options.
 To create a new DDD context named `UserManagement`, you would run:
 
 ```bash
-proj add context UserManagement
+structix proj add context UserManagement
 ``` 
 
-This command will create the necessary folder structure for the `UserManagement` context in the current working directory, provided the project's architecture is set to "Monolith" and DDD is enabled.
+If the project architecture is set to "Monolith" and the context does not already exist, this command will create the necessary folder structure for the context.

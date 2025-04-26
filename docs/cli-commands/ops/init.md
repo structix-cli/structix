@@ -2,12 +2,14 @@
 
 Documentation for `structix ops init` command.
 
-Initialize infrastructure (Kubernetes, Terraform, etc.)
+## Description
+
+The `structix ops init` command initializes the infrastructure setup for your project, allowing you to scaffold configurations for Kubernetes, Helm, Terraform, and GitHub Actions workflows. It checks for the existence of an `ops` directory and prompts the user for confirmation before proceeding with the setup.
 
 ## Usage
 
 ```bash
-ops init
+structix ops init
 ```
 
 ## Options
@@ -16,10 +18,10 @@ This command currently has no options.
 
 ## Examples
 
-To initialize your infrastructure setup, simply run the following command:
+To initialize your infrastructure setup, simply run the command:
 
 ```bash
-ops init
+structix ops init
 ```
 
-During the execution, you will be prompted to confirm whether to overwrite the existing 'ops' folder (if it exists) and to select which components to include in your setup, such as Kubernetes manifests, Helm charts, Terraform configurations, and GitHub Actions workflows.
+During execution, you will be prompted to confirm whether to include Kubernetes manifests, Helm charts, Terraform configurations, and GitHub Actions workflows. If the `ops` directory already exists, you will be asked if you want to overwrite it.

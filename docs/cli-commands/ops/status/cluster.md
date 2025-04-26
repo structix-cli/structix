@@ -7,7 +7,7 @@ Show cluster status across nodes, pods, deployments, etc.
 ## Usage
 
 ```bash
-ops status cluster
+structix ops status cluster
 ```
 
 ## Options
@@ -16,10 +16,10 @@ This command currently has no options.
 
 ## Examples
 
-To check the status of your cluster, simply run:
+To check the status of your cluster, run the following command:
 
 ```bash
-ops status cluster
+structix ops status cluster
 ```
 
-This will fetch and display the current status of your cluster, including information about nodes, pods, and deployments, based on the configured provider. If no provider is configured or if the provider does not support the status command, appropriate error messages will be displayed.
+This will fetch and display the current status of the cluster, including information about nodes, pods, and deployments, depending on the configured provider.

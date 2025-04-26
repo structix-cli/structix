@@ -2,12 +2,14 @@
 
 Documentation for `structix proj init` command.
 
-Initialize a new Structix project configuration.
+## Description
+
+The `structix proj init` command initializes a new Structix project configuration by prompting the user for various settings such as the tech stack, architecture type, and design patterns. It creates a structured project directory based on the user's preferences.
 
 ## Usage
 
 ```bash
-proj init
+structix proj init
 ```
 
 ## Options
@@ -16,10 +18,10 @@ This command currently has no options.
 
 ## Examples
 
-1. **Basic Initialization**: To start a new Structix project, simply run the following command in your terminal:
+To initialize a new Structix project, run the following command:
 
-   ```bash
-   proj init
-   ```
+```bash
+structix proj init
+```
 
-   You will be prompted to confirm if you want to reinitialize the project if a configuration already exists. Follow the interactive prompts to select your tech stack, architecture, and design preferences. After completion, the project structure will be created in the current working directory.
+During the execution, you will be prompted to select your tech stack, architecture type, and whether to apply various design patterns. After confirming your selections, the command will save the configuration and create the necessary project structure.

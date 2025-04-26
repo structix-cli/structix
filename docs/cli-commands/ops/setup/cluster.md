@@ -16,19 +16,10 @@ This command currently has no options.
 
 ## Examples
 
-1. **Setting up a cluster with kubeconfig**:
-   - Run the command:
-     ```bash
-     structix ops setup cluster
-     ```
-   - Select "kubeconfig" when prompted for the cluster provider.
-   - Choose to either enter a path to an existing kubeconfig file or paste the kubeconfig content directly.
-   - Follow the prompts to complete the setup.
+To set up a cluster provider configuration, run the command:
 
-2. **Setting up a cluster with minikube**:
-   - Execute the command:
-     ```bash
-     structix ops setup cluster
-     ```
-   - Choose "minikube" as the cluster provider when prompted.
-   - The configuration will be saved automatically.
+```bash
+structix ops setup cluster
+```
+
+You will be prompted to select a cluster provider (either "minikube" or "kubeconfig"). If you choose "kubeconfig", you will have the option to either enter a path to an existing kubeconfig file or paste the kubeconfig content directly. Follow the prompts to complete the setup.

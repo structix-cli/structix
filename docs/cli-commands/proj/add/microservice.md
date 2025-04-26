@@ -2,12 +2,12 @@
 
 Documentation for `structix proj add microservice` command.
 
-Scaffold a new microservice within a project that follows the specified architecture.
+Scaffold a new microservice within a project that follows a Microservices architecture.
 
 ## Usage
 
 ```bash
-proj add microservice <name>
+structix proj add microservice <name>
 ```
 
 ## Options
@@ -16,10 +16,10 @@ This command currently has no options.
 
 ## Examples
 
-To create a new microservice named `user-service`, run the following command:
+To create a new microservice named `user-service`, you would run:
 
 ```bash
-proj add microservice user-service
-```
+structix proj add microservice user-service
+``` 
 
-If the project is configured for a Microservices architecture and the microservice does not already exist, this command will create the necessary directory structure and files for the `user-service` microservice.
+This command will generate the necessary folder structure for the `user-service` microservice in the project's source directory, provided that the project's architecture is set to Microservices and a microservice with that name does not already exist.

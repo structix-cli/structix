@@ -7,23 +7,23 @@ Remove an existing Helm chart microservice.
 ## Usage
 
 ```bash
-ops remove microservice <name> [--purge]
+structix ops remove microservice <name> [--purge]
 ```
 
 ## Options
 
-This command currently has no options.
+- `--purge`: Also uninstall the Helm release associated with this microservice.
 
 ## Examples
 
-To remove a microservice named `user-service` without uninstalling the associated Helm release:
+1. To remove a microservice named `user-service` without purging the Helm release:
 
-```bash
-ops remove microservice user-service
-```
+   ```bash
+   structix ops remove microservice user-service
+   ```
 
-To remove a microservice named `payment-service` and also uninstall the associated Helm release:
+2. To remove a microservice named `payment-service` and also uninstall its associated Helm release:
 
-```bash
-ops remove microservice payment-service --purge
-```
+   ```bash
+   structix ops remove microservice payment-service --purge
+   ```

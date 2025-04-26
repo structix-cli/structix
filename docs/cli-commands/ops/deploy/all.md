@@ -7,7 +7,7 @@ Deploy all microservices found in the `ops/microservices` directory.
 ## Usage
 
 ```bash
-ops deploy all
+structix ops deploy all
 ```
 
 ## Options
@@ -16,10 +16,10 @@ This command currently has no options.
 
 ## Examples
 
-To deploy all microservices, navigate to your project directory and run:
+To deploy all microservices defined in the `ops/microservices` directory, run the following command:
 
 ```bash
-ops deploy all
+structix ops deploy all
 ```
 
-This command will search for all Helm charts in the `ops/microservices` directory and deploy each one found. If no microservices directory or Helm charts are found, appropriate messages will be displayed.
+If there are microservices with Helm charts present, they will be deployed accordingly. If no microservices directory or Helm charts are found, appropriate messages will be displayed.

@@ -2,12 +2,12 @@
 
 Documentation for `structix ops deploy ingress` command.
 
-Deploys an Ingress resource for a specified microservice. If the Ingress controller is not already installed, it will install it using Helm.
+Deploys an Ingress resource for a specified microservice. This command checks if the microservice and its corresponding Ingress resource exist, installs the Ingress controller if it is not already installed, and then deploys the Ingress configuration.
 
 ## Usage
 
 ```
-ops deploy ingress <name>
+structix ops deploy ingress <name>
 ```
 
 ## Options
@@ -16,8 +16,8 @@ This command currently has no options.
 
 ## Examples
 
-To deploy an Ingress resource for a microservice named `my-service`, use the following command:
+To deploy an Ingress resource for a microservice named `my-microservice`, use the following command:
 
 ```
-ops deploy ingress my-service
+structix ops deploy ingress my-microservice
 ```

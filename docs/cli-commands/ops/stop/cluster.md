@@ -2,14 +2,14 @@
 
 Documentation for `structix ops stop cluster` command.
 
-## Description
+## Short Description
 
-The `ops stop cluster` command is used to stop a cluster based on the selected provider. It checks the configuration for the cluster provider and invokes the appropriate command to stop the cluster.
+The `structix ops stop cluster` command stops a cluster based on the selected provider. It checks the configured provider and invokes the appropriate stop command if supported.
 
 ## Usage
 
 ```bash
-ops stop cluster
+structix ops stop cluster
 ```
 
 ## Options
@@ -18,10 +18,10 @@ This command currently has no options.
 
 ## Examples
 
-To stop a cluster with the configured provider, simply run:
+To stop a cluster using the configured provider, run the following command:
 
 ```bash
-ops stop cluster
+structix ops stop cluster
 ```
 
-If there is no provider configured or if the provider does not support the stop operation, appropriate error messages will be displayed.
+If no provider is configured, the command will output an error message indicating that no cluster provider is set. If the configured provider does not support the stop operation, it will also inform you accordingly.

@@ -7,7 +7,7 @@ Expose the cluster using the configured provider (e.g., minikube tunnel).
 ## Usage
 
 ```bash
-ops expose cluster
+structix ops expose cluster
 ```
 
 ## Options
@@ -16,10 +16,10 @@ This command currently has no options.
 
 ## Examples
 
-To expose a cluster using the configured provider:
+To expose the cluster using the configured provider, run the following command:
 
 ```bash
-ops expose cluster
+structix ops expose cluster
 ```
 
-This command will check the configuration for the cluster provider and attempt to expose the cluster accordingly. If no provider is configured or if the provider does not support the expose operation, appropriate error messages will be displayed.
+If the provider is correctly configured (e.g., minikube), you will see a message indicating that the cluster is being exposed. If no provider is configured or if the provider does not support the 'expose' command, appropriate error messages will be displayed.
