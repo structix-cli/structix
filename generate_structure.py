@@ -18,6 +18,8 @@ def generate_cli_commands_structure(base_dir: str) -> List[Dict[str, Any]]:
 
     for root, _, files in os.walk(base_dir):
         for file in files:
+            if file == "overview.md":
+                continue
             if not file.endswith(".md"):
                 continue
             relative_path = os.path.relpath(os.path.join(root, file), base_dir)
@@ -50,7 +52,6 @@ def generate_cli_commands_structure(base_dir: str) -> List[Dict[str, Any]]:
                         subtree, os.path.join(current_path, name), depth + 1
                     ),
                 }
-                # Solo colapsar si es profundidad mayor a 1
                 if depth >= 1:
                     item["collapsed"] = True
                 else:

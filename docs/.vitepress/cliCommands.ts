@@ -136,10 +136,6 @@ export const cliCommands = [
         "collapsed": false
     },
     {
-        "text": "overview",
-        "link": "/docs/cli-commands/overview"
-    },
-    {
         "text": "proj",
         "items": [
             {
