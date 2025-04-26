@@ -88,7 +88,7 @@ module-name/
 When **CQRS (Command Query Responsibility Segregation)** is enabled, the `application/` layer is further divided:
 
 ```bash
-module-name/
+moule-name/
 ├── application/
 │   ├── commands/
 │   │   ├── handlers/

@@ -30,8 +30,7 @@ export default defineConfig({
         },
         nav: [
             { text: "Home", link: "/" },
-            { text: "Getting Started", link: "/getting-started/introduction" },
-            { text: "Docs", link: "/cli-commands" },
+            { text: "Docs", link: "/getting-started/introduction" },
         ],
         sidebar: [
             {
@@ -84,7 +83,13 @@ export default defineConfig({
                     {
                         text: "CLI Commands",
                         collapsed: false,
-                        items: cliCommands,
+                        items: [
+                            {
+                                text: "Overview",
+                                link: "/cli-commands/overview",
+                            },
+                            ...cliCommands,
+                        ],
                     },
                 ],
             },

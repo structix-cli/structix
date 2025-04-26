@@ -12,7 +12,7 @@ hero:
           link: /getting-started/introduction
         - theme: alt
           text: CLI Commands
-          link: /cli-commands
+          link: /cli-commands/overview
 
 features:
     - title: Architecture Templates
