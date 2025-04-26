@@ -7,13 +7,13 @@ Structix is distributed via a GitHub repository. You can easily install it using
 To install Structix globally on your system, run the following command:
 
 ```bash
-pip install git+https://github.com/brayandm/structix.git
+pip install git+https://github.com/structix-cli/structix.git
 ```
 
 If your system uses multiple versions of Python, you may want to use `pip3` to ensure that Python 3.12 is used:
 
 ```bash
-pip3 install git+https://github.com/brayandm/structix.git
+pip3 install git+https://github.com/structix-cli/structix.git
 ```
 
 After the installation is complete, the `structix` command should be available globally in your terminal.
@@ -33,7 +33,7 @@ If the command returns the current version of Structix, the installation was suc
 If a new version of Structix is released, you can upgrade your local installation easily by re-running the install command with the `--upgrade` flag:
 
 ```bash
-pip install --upgrade git+https://github.com/brayandm/structix.git
+pip install --upgrade git+https://github.com/structix-cli/structix.git
 ```
 
 Keeping Structix updated ensures that you always have access to the latest features, performance improvements, and security patches.
@@ -69,7 +69,7 @@ If you encounter issues during installation, here are a few tips:
     ```bash
     python3 -m venv structix-env
     source structix-env/bin/activate
-    pip install git+https://github.com/brayandm/structix.git
+    pip install git+https://github.com/structix-cli/structix.git
     ```
 
 Using a virtual environment is highly recommended if you are managing multiple Python projects on the same machine.

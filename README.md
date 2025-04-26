@@ -19,7 +19,7 @@ Make sure these tools are properly configured and accessible from your terminal.
 Install directly from GitHub (recommended for now):
 
 ```bash
-pip install git+https://github.com/brayandm/structix.git
+pip install git+https://github.com/structix-cli/structix.git
 ```
 
 ### 🔧 Install for local development
