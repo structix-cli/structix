@@ -52,8 +52,12 @@ export default defineConfig({
                                 link: "/architectures/hexagonal-architecture",
                             },
                             {
-                                text: "Domain-Driven Design with Hexagonal Architecture",
+                                text: "DDD with Hexagonal Architecture",
                                 link: "/architectures/ddd-hexagonal",
+                            },
+                            {
+                                text: "Microservices",
+                                link: "/architectures/microservices",
                             },
                         ],
                     },
