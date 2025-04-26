@@ -28,14 +28,30 @@ def list_command_files(base_dir: str) -> List[str]:
 
 
 def build_prompt(command_path: str) -> str:
-    """Build the prompt to send to OpenAI."""
+    """Build the prompt to send to OpenAI, including file content."""
     command_name: str = (
         command_path.replace(".py", "").replace("/", " ").replace("\\", " ")
     )
+
+    # Leer el contenido del archivo .py
+    full_path: str = os.path.join(COMMANDS_DIR, command_path)
+    try:
+        with open(full_path, "r", encoding="utf-8") as f:
+            file_content: str = f.read()
+    except Exception as e:
+        print(f"⚠️ Warning: Failed to read {full_path}: {e}")
+        file_content = ""
+
     return f"""
 You are writing professional CLI documentation.
 
 Command: `{command_name}`
+
+Below is the source code of the command:
+
+```
+{file_content}
+```
 
 Please generate a documentation page in Markdown with:
 
@@ -44,7 +60,7 @@ Please generate a documentation page in Markdown with:
 - An Options section, just say "This command currently has no options." if none known.
 - An Examples section with at least one realistic usage example.
 
-Do not include title or 'Documentation for' at the beginning; that will be handled externally.
+Do not include a title or 'Documentation for' at the beginning; that will be handled externally.
 
 Return only pure markdown content.
 """
