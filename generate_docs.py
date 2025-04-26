@@ -131,7 +131,7 @@ def main() -> None:
             print(f"✅ Documentation already exists for {command}")
 
     for existing_doc in existing_docs:
-        if existing_doc not in commands:
+        if existing_doc not in commands and existing_doc != "overview.py":
             doc_md_path: str = os.path.join(
                 DOCS_DIR, existing_doc.replace(".py", ".md")
             )
