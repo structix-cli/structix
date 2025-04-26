@@ -1,6 +1,6 @@
-# DDD with Hexagonal Architecture
+# Domain-Driven Design with Hexagonal Architecture
 
-The **DDD with Hexagonal Architecture** combines the domain-driven modeling of DDD with the structural separation of Hexagonal (Ports and Adapters) architecture.
+The **Domain-Driven Design with Hexagonal Architecture** combines the domain-driven modeling of DDD with the structural separation of Hexagonal (Ports and Adapters) architecture.
 
 This hybrid approach maintains a strong, clear domain layer while allowing flexible external communication through ports and adapters.
 

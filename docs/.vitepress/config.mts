@@ -36,6 +36,28 @@ export default defineConfig({
                         ],
                     },
                     {
+                        text: "Architectures",
+                        collapsed: false,
+                        items: [
+                            {
+                                text: "Monolith Modular",
+                                link: "/architectures/monolith-modular",
+                            },
+                            {
+                                text: "Domain-Driven Design",
+                                link: "/architectures/domain-driven-design",
+                            },
+                            {
+                                text: "Hexagonal Architecture",
+                                link: "/architectures/hexagonal-architecture",
+                            },
+                            {
+                                text: "Domain-Driven Design with Hexagonal Architecture",
+                                link: "/architectures/ddd-hexagonal",
+                            },
+                        ],
+                    },
+                    {
                         text: "CLI Commands",
                         collapsed: false,
                         items: cliCommands,
