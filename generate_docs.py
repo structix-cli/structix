@@ -8,7 +8,7 @@ load_dotenv()
 
 OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "your-default-api-key-here")
 COMMANDS_DIR: str = "structix/commands"
-DOCS_DIR: str = "docs/cli-commands"
+DOCS_DIR: str = "docs/docs/cli-commands"
 
 
 client = OpenAI(api_key=OPENAI_API_KEY)
