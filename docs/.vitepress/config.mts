@@ -3,7 +3,6 @@ import { cliCommands } from "./cliCommands";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    base: "/docs/",
     title: "Structix",
     description:
         "A CLI tool to scaffold modern backend architectures and integrate DevOps workflows effortlessly.",
