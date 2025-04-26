@@ -2,7 +2,7 @@
 
 Documentation for `structix proj add module` command.
 
-Scaffold a new module within a Monolith architecture project.
+Scaffold a new module within a project using the Monolith architecture. This command helps you create a structured module in your project directory.
 
 ## Usage
 
@@ -16,10 +16,8 @@ This command currently has no options.
 
 ## Examples
 
-To create a new module named `user`, you would run:
+To add a new module named `user`, you would run:
 
 ```bash
 structix proj add module user
-``` 
-
-If the module already exists, or if the project architecture is not supported, appropriate warnings will be displayed.
+```

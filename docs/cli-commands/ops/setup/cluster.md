@@ -16,10 +16,10 @@ This command currently has no options.
 
 ## Examples
 
-To set up a cluster provider configuration, run the command:
+To set up a cluster provider, run the following command:
 
 ```bash
 structix ops setup cluster
 ```
 
-You will be prompted to select a cluster provider (either "minikube" or "kubeconfig"). If you choose "kubeconfig", you will have the option to either enter a path to an existing kubeconfig file or paste the kubeconfig content directly. Follow the prompts to complete the setup.
+You will be prompted to select a cluster provider (either "minikube" or "kubeconfig"). If you choose "kubeconfig", you will then be asked how to provide the kubeconfig—either by entering a path to an existing kubeconfig file or by pasting the kubeconfig content directly. Follow the prompts to complete the setup.

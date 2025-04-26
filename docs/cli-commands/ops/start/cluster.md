@@ -2,7 +2,7 @@
 
 Documentation for `structix ops start cluster` command.
 
-Start a cluster based on the selected provider.
+Start a cluster based on the selected provider. This command initializes a cluster using the configuration specified for the provider.
 
 ## Usage
 
@@ -16,10 +16,8 @@ This command currently has no options.
 
 ## Examples
 
-To start a cluster with the configured provider, simply run the command:
+To start a cluster with the configured provider, simply run the following command:
 
 ```bash
 structix ops start cluster
 ```
-
-Ensure that a cluster provider is configured in your settings before executing this command. If no provider is configured, you will receive an error message indicating the issue.

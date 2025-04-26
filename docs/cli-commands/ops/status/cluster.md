@@ -21,5 +21,3 @@ To check the status of your cluster, run the following command:
 ```bash
 structix ops status cluster
 ```
-
-This will fetch and display the current status of the cluster, including information about nodes, pods, and deployments, depending on the configured provider.

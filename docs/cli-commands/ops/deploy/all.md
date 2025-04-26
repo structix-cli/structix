@@ -20,6 +20,6 @@ To deploy all microservices defined in the `ops/microservices` directory, run th
 
 ```bash
 structix ops deploy all
-```
+``` 
 
-If there are microservices with Helm charts present, they will be deployed accordingly. If no microservices directory or Helm charts are found, appropriate messages will be displayed.
+If the deployment is successful, the command will process each microservice that contains a `Chart.yaml` file. If no microservices directory is found or no Helm charts are present, appropriate messages will be displayed.

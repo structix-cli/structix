@@ -16,14 +16,16 @@ This command currently has no options.
 
 ## Examples
 
-To add a PostgreSQL database resource to a microservice named `user-service`, you would run:
+To add a PostgreSQL database resource to a microservice named `user-service`, you would use the following command:
 
 ```bash
 structix ops add db user-service --db postgres
-```
+``` 
 
 If you want to add a database resource without specifying a database type, you can simply omit the `--db` option:
 
 ```bash
 structix ops add db user-service
-```
+``` 
+
+Make sure that the microservice exists in the specified path before running the command.

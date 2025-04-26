@@ -6,6 +6,8 @@ Add an Ingress resource to an existing microservice.
 
 ## Usage
 
+To use this command, run:
+
 ```bash
 structix ops add ingress <name>
 ```
@@ -16,10 +18,8 @@ This command currently has no options.
 
 ## Examples
 
-To add an Ingress resource for a microservice named `my-service`, you would use the following command:
+To add an Ingress resource for a microservice named `my-service`, you would run:
 
 ```bash
 structix ops add ingress my-service
-``` 
-
-This command will create an `ingress.yaml` file in the `ops/microservices/my-service/templates` directory, provided that the microservice exists and the ingress template is available.
+```

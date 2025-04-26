@@ -2,7 +2,7 @@
 
 Documentation for `structix ops deploy microservice` command.
 
-Deploys a single microservice using Helm.
+A command to deploy a single microservice using Helm within the Structix framework.
 
 ## Usage
 
@@ -16,7 +16,7 @@ This command currently has no options.
 
 ## Examples
 
-To deploy a microservice named `user-service`, you would run:
+To deploy a microservice named `user-service`, you would use the following command:
 
 ```bash
 structix ops deploy microservice user-service

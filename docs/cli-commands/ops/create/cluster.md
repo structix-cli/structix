@@ -16,10 +16,10 @@ This command currently has no options.
 
 ## Examples
 
-To create a cluster using the configured provider, run the following command:
+To create a cluster with the configured provider, simply run the following command:
 
 ```bash
 structix ops create cluster
-```
+``` 
 
-If the provider is properly configured, you will see a message indicating the cluster is being created. If there is an issue with the provider configuration, appropriate error messages will be displayed.
+Ensure that your cluster provider is properly configured in your settings before executing the command.

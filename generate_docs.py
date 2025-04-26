@@ -53,11 +53,17 @@ Below is the source code of the command:
 {file_content}
 ```
 
+When writing usage examples or showing how to use the command, always:
+- Start the example with a bash code block using triple backticks and the language "bash", like this: ```bash
+- Write the command exactly as `{full_command}`.
+- Then close the code block correctly with triple backticks.
+- Never omit the `bash` annotation.
+
 Please generate a documentation page in Markdown with:
 
 - A short description (what it does).
 - A Usage section showing how the command would be used.
-- An Options section, just say "This command currently has no options." if none known.
+- An Options section (say "This command currently has no options." if none are available).
 - An Examples section with at least one realistic usage example.
 
 Do not include a title or 'Documentation for' at the beginning; that will be handled externally.
