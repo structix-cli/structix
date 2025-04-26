@@ -2,7 +2,7 @@ import json
 import os
 from typing import Any, Dict, List
 
-DOCS_DIR = "docs/cli-commands"
+DOCS_DIR = "docs/docs/cli-commands"
 OUTPUT_FILE = "docs/.vitepress/cliCommands.ts"
 
 
@@ -40,7 +40,7 @@ def generate_cli_commands_structure(base_dir: str) -> List[Dict[str, Any]]:
                 items.append(
                     {
                         "text": os.path.splitext(name)[0],
-                        "link": path_url,
+                        "link": "/docs" + path_url,
                     }
                 )
             else:

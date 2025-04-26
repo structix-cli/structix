@@ -30,7 +30,11 @@ export default defineConfig({
         },
         nav: [
             { text: "Home", link: "/" },
-            { text: "Docs", link: "/getting-started/introduction" },
+            {
+                text: "Docs",
+                link: "/docs/getting-started/introduction",
+                activeMatch: "^/docs/",
+            },
         ],
         sidebar: [
             {
@@ -42,15 +46,15 @@ export default defineConfig({
                         items: [
                             {
                                 text: "Introduction",
-                                link: "/getting-started/introduction",
+                                link: "/docs/getting-started/introduction",
                             },
                             {
                                 text: "Requirements",
-                                link: "/getting-started/requirements",
+                                link: "/docs/getting-started/requirements",
                             },
                             {
                                 text: "How to Install",
-                                link: "/getting-started/how-to-install",
+                                link: "/docs/getting-started/how-to-install",
                             },
                         ],
                     },
@@ -60,23 +64,23 @@ export default defineConfig({
                         items: [
                             {
                                 text: "Monolith Modular",
-                                link: "/architectures/monolith-modular",
+                                link: "/docs/architectures/monolith-modular",
                             },
                             {
                                 text: "Domain-Driven Design",
-                                link: "/architectures/domain-driven-design",
+                                link: "/docs/architectures/domain-driven-design",
                             },
                             {
                                 text: "Hexagonal Architecture",
-                                link: "/architectures/hexagonal-architecture",
+                                link: "/docs/architectures/hexagonal-architecture",
                             },
                             {
                                 text: "DDD with Hexagonal Architecture",
-                                link: "/architectures/ddd-hexagonal",
+                                link: "/docs/architectures/ddd-hexagonal",
                             },
                             {
                                 text: "Microservices",
-                                link: "/architectures/microservices",
+                                link: "/docs/architectures/microservices",
                             },
                         ],
                     },
@@ -86,7 +90,7 @@ export default defineConfig({
                         items: [
                             {
                                 text: "Overview",
-                                link: "/cli-commands/overview",
+                                link: "/docs/cli-commands/overview",
                             },
                             ...cliCommands,
                         ],

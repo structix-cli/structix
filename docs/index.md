@@ -9,10 +9,10 @@ hero:
     actions:
         - theme: brand
           text: Get Started
-          link: /getting-started/introduction
+          link: /docs/getting-started/introduction
         - theme: alt
           text: CLI Commands
-          link: /cli-commands/overview
+          link: /docs/cli-commands/overview
 
 features:
     - title: Architecture Templates

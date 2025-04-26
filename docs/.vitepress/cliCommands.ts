@@ -9,15 +9,15 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "db",
-                        "link": "/cli-commands/ops/add/db"
+                        "link": "/docs/cli-commands/ops/add/db"
                     },
                     {
                         "text": "ingress",
-                        "link": "/cli-commands/ops/add/ingress"
+                        "link": "/docs/cli-commands/ops/add/ingress"
                     },
                     {
                         "text": "microservice",
-                        "link": "/cli-commands/ops/add/microservice"
+                        "link": "/docs/cli-commands/ops/add/microservice"
                     }
                 ],
                 "collapsed": true
@@ -27,7 +27,7 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/create/cluster"
+                        "link": "/docs/cli-commands/ops/create/cluster"
                     }
                 ],
                 "collapsed": true
@@ -37,15 +37,15 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "all",
-                        "link": "/cli-commands/ops/deploy/all"
+                        "link": "/docs/cli-commands/ops/deploy/all"
                     },
                     {
                         "text": "ingress",
-                        "link": "/cli-commands/ops/deploy/ingress"
+                        "link": "/docs/cli-commands/ops/deploy/ingress"
                     },
                     {
                         "text": "microservice",
-                        "link": "/cli-commands/ops/deploy/microservice"
+                        "link": "/docs/cli-commands/ops/deploy/microservice"
                     }
                 ],
                 "collapsed": true
@@ -55,7 +55,7 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/destroy/cluster"
+                        "link": "/docs/cli-commands/ops/destroy/cluster"
                     }
                 ],
                 "collapsed": true
@@ -65,25 +65,25 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/expose/cluster"
+                        "link": "/docs/cli-commands/ops/expose/cluster"
                     }
                 ],
                 "collapsed": true
             },
             {
                 "text": "init",
-                "link": "/cli-commands/ops/init"
+                "link": "/docs/cli-commands/ops/init"
             },
             {
                 "text": "remove",
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/remove/cluster"
+                        "link": "/docs/cli-commands/ops/remove/cluster"
                     },
                     {
                         "text": "microservice",
-                        "link": "/cli-commands/ops/remove/microservice"
+                        "link": "/docs/cli-commands/ops/remove/microservice"
                     }
                 ],
                 "collapsed": true
@@ -93,7 +93,7 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/setup/cluster"
+                        "link": "/docs/cli-commands/ops/setup/cluster"
                     }
                 ],
                 "collapsed": true
@@ -103,7 +103,7 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/start/cluster"
+                        "link": "/docs/cli-commands/ops/start/cluster"
                     }
                 ],
                 "collapsed": true
@@ -113,11 +113,11 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/status/cluster"
+                        "link": "/docs/cli-commands/ops/status/cluster"
                     },
                     {
                         "text": "helm",
-                        "link": "/cli-commands/ops/status/helm"
+                        "link": "/docs/cli-commands/ops/status/helm"
                     }
                 ],
                 "collapsed": true
@@ -127,13 +127,17 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "cluster",
-                        "link": "/cli-commands/ops/stop/cluster"
+                        "link": "/docs/cli-commands/ops/stop/cluster"
                     }
                 ],
                 "collapsed": true
             }
         ],
         "collapsed": false
+    },
+    {
+        "text": "overview",
+        "link": "/docs/cli-commands/overview"
     },
     {
         "text": "proj",
@@ -143,22 +147,22 @@ export const cliCommands = [
                 "items": [
                     {
                         "text": "context",
-                        "link": "/cli-commands/proj/add/context"
+                        "link": "/docs/cli-commands/proj/add/context"
                     },
                     {
                         "text": "microservice",
-                        "link": "/cli-commands/proj/add/microservice"
+                        "link": "/docs/cli-commands/proj/add/microservice"
                     },
                     {
                         "text": "module",
-                        "link": "/cli-commands/proj/add/module"
+                        "link": "/docs/cli-commands/proj/add/module"
                     }
                 ],
                 "collapsed": true
             },
             {
                 "text": "init",
-                "link": "/cli-commands/proj/init"
+                "link": "/docs/cli-commands/proj/init"
             }
         ],
         "collapsed": false
