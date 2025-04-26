@@ -9,7 +9,7 @@ hero:
     actions:
         - theme: brand
           text: Get Started
-          link: /getting-started
+          link: /getting-started/introduction
         - theme: alt
           text: CLI Commands
           link: /cli-commands

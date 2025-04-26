@@ -9,15 +9,32 @@ export default defineConfig({
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: "Home", link: "/" },
+            { text: "Getting Started", link: "/getting-started/introduction" },
             { text: "Docs", link: "/cli-commands" },
         ],
 
         sidebar: [
             {
-                text: "Examples",
+                text: "Documentation",
                 items: [
-                    { text: "Markdown Examples", link: "/markdown-examples" },
-                    { text: "Runtime API Examples", link: "/api-examples" },
+                    {
+                        text: "Getting Started",
+                        items: [
+                            {
+                                text: "Introduction",
+                                link: "/getting-started/introduction",
+                            },
+                            {
+                                text: "Requirements",
+                                link: "/getting-started/requirements",
+                            },
+                            {
+                                text: "How to Install",
+                                link: "/getting-started/how-to-install",
+                            },
+                        ],
+                    },
+                    { text: "CLI Commands", link: "/cli-commands" },
                 ],
             },
         ],
