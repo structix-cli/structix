@@ -12,6 +12,8 @@ psutil = "*"
 
 [dev-packages]
 pre-commit = "*"
+openai = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.12"
