@@ -39,13 +39,13 @@ def generate_cli_commands_structure(base_dir: str) -> List[Dict[str, Any]]:
             if subtree is None:
                 items.append(
                     {
-                        "text": title_case(os.path.splitext(name)[0]),
+                        "text": os.path.splitext(name)[0],
                         "link": path_url,
                     }
                 )
             else:
                 item: Dict[str, Any] = {
-                    "text": title_case(name),
+                    "text": name,
                     "items": build_items(
                         subtree, os.path.join(current_path, name), depth + 1
                     ),
