@@ -18,6 +18,139 @@ export const sidebar = [
         collapsed: false,
         items: [
     {
+        "text": "Ops",
+        "items": [
+            {
+                "text": "Add",
+                "items": [
+                    {
+                        "text": "Db",
+                        "link": "/cli-commands/ops/add/db"
+                    },
+                    {
+                        "text": "Ingress",
+                        "link": "/cli-commands/ops/add/ingress"
+                    },
+                    {
+                        "text": "Microservice",
+                        "link": "/cli-commands/ops/add/microservice"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Create",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/create/cluster"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Deploy",
+                "items": [
+                    {
+                        "text": "All",
+                        "link": "/cli-commands/ops/deploy/all"
+                    },
+                    {
+                        "text": "Ingress",
+                        "link": "/cli-commands/ops/deploy/ingress"
+                    },
+                    {
+                        "text": "Microservice",
+                        "link": "/cli-commands/ops/deploy/microservice"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Destroy",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/destroy/cluster"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Expose",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/expose/cluster"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Init",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/init/cluster"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Init",
+                "link": "/cli-commands/ops/init"
+            },
+            {
+                "text": "Remove",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/remove/cluster"
+                    },
+                    {
+                        "text": "Microservice",
+                        "link": "/cli-commands/ops/remove/microservice"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Start",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/start/cluster"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Status",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/status/cluster"
+                    },
+                    {
+                        "text": "Helm",
+                        "link": "/cli-commands/ops/status/helm"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
+                "text": "Stop",
+                "items": [
+                    {
+                        "text": "Cluster",
+                        "link": "/cli-commands/ops/stop/cluster"
+                    }
+                ],
+                "collapsed": true
+            }
+        ]
+    },
+    {
         "text": "Proj",
         "items": [
             {
@@ -30,6 +163,10 @@ export const sidebar = [
                     {
                         "text": "Microservice",
                         "link": "/cli-commands/proj/add/microservice"
+                    },
+                    {
+                        "text": "Module",
+                        "link": "/cli-commands/proj/add/module"
                     }
                 ],
                 "collapsed": true

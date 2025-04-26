@@ -1,26 +1,25 @@
 # Context
 
-Documentation for `proj add context` command.
+Documentation for `structix proj add context` command.
 
-Short Description
------------------
-The `proj add context` command is used to create and add a new context to your project, allowing for better organization and management of different project environments or settings.
+Scaffold a new Domain-Driven Design (DDD) context within a project.
 
-Usage
------
-```
-proj add context <context-name>
+## Usage
+
+```bash
+proj add context <name>
 ```
 
-Options
--------
+## Options
+
 This command currently has no options.
 
-Examples
---------
-To add a new context named "development" to your project, you would use the following command:
-```
-proj add context development
+## Examples
+
+To create a new DDD context named `UserManagement`, you would run:
+
+```bash
+proj add context UserManagement
 ``` 
 
-This will create a new context called "development" that can be used to manage development-specific settings and configurations within your project.
+This command will create the necessary folder structure for the `UserManagement` context in the current working directory, provided the project's architecture is set to "Monolith" and DDD is enabled.
