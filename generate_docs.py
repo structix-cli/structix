@@ -115,7 +115,7 @@ def main() -> None:
             title: str = format_title(command)
             first_lines: str = (
                 f"# {title}\n\n"
-                f"Documentation for `{command.replace('.py', '').replace(os.sep, ' ')}` command.\n\n"
+                f"Documentation for `structix {command.replace('.py', '').replace(os.sep, ' ')}` command.\n\n"
             )
 
             with open(doc_path, "w", encoding="utf-8") as f:
