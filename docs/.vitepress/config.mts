@@ -99,7 +99,7 @@ export default defineConfig({
             },
         ],
         socialLinks: [
-            { icon: "github", link: "https://github.com/brayandm/structix" },
+            { icon: "github", link: "https://github.com/structix-cli/structix" },
         ],
     },
 });
