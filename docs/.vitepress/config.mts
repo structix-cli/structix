@@ -9,6 +9,25 @@ export default defineConfig({
         "A CLI tool to scaffold modern backend architectures and integrate DevOps workflows effortlessly.",
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
+        search: {
+            provider: "local",
+            options: {
+                miniSearch: {
+                    options: {
+                        tokenize: (text: string) => text.split(/\s+/),
+                    },
+                    searchOptions: {
+                        fuzzy: 0.2,
+                        prefix: true,
+                        boost: {
+                            title: 4,
+                            text: 2,
+                            headings: 3,
+                        },
+                    },
+                },
+            },
+        },
         nav: [
             { text: "Home", link: "/" },
             { text: "Getting Started", link: "/getting-started/introduction" },
