@@ -12,7 +12,23 @@ service:
 container:
   port: {{ container_port }}
 
-resources: {}
+resources:
+  enabled: {{ "true" if cpu or memory else "false" }}
+  requests:
+    {%- if memory %}
+    memory: "{{ memory }}"
+    {%- endif %}
+    {%- if cpu %}
+    cpu: "{{ cpu }}"
+    {%- endif %}
+  limits:
+    {%- if memory %}
+    memory: "{{ memory }}"
+    {%- endif %}
+    {%- if cpu %}
+    cpu: "{{ cpu }}"
+    {%- endif %}
+
 
 db:
   enabled: {{ db_enabled | lower }}

@@ -1,3 +1,4 @@
+import re
 import shutil
 from pathlib import Path
 
@@ -39,6 +40,16 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     help="Number of replicas for the deployment",
 )  # type: ignore
 @click.option(
+    "--cpu",
+    type=str,
+    help="CPU request and limit for the container (e.g., 200m)",
+)  # type: ignore
+@click.option(
+    "--memory",
+    type=str,
+    help="Memory request and limit for the container (e.g., 256Mi)",
+)  # type: ignore
+@click.option(
     "--deploy",
     is_flag=True,
     default=False,
@@ -56,12 +67,50 @@ def add_microservice(
     db: str | None,
     port: int,
     replicas: int,
+    cpu: str | None,
+    memory: str | None,
     deploy: bool,
     with_ingress: bool,
 ) -> None:
     """Add a new Helm chart microservice."""
 
     config = get_config()
+
+    cpu_regex = re.compile(r"^([0-9]+m|[0-9]+(\.[0-9]+)?)$")
+    memory_regex = re.compile(r"^[0-9]+(Ei|Pi|Ti|Gi|Mi|Ki|E|P|T|G|M|K)?$")
+
+    if cpu:
+        if not cpu_regex.match(cpu):
+            click.echo(
+                f"❌ Invalid CPU format: '{cpu}'.\n"
+                "💡 Example of valid formats: '100m', '0.5', '1'\n"
+                "✅ Allowed units:\n"
+                "   - m: milliCPU (1/1000 CPU core)\n"
+                "   - 0.5: half of a CPU core\n"
+                "   - 1: one CPU core\n"
+            )
+            return
+
+    if memory:
+        if not memory_regex.match(memory):
+            click.echo(
+                f"❌ Invalid Memory format: '{memory}'.\n"
+                "💡 Example of valid formats: '256Mi', '512Mi', '1Gi'\n"
+                "✅ Allowed units:\n"
+                "   - Ki: kibibytes (1024 bytes)\n"
+                "   - Mi: mebibytes (1024 Ki)\n"
+                "   - Gi: gibibytes (1024 Mi)\n"
+                "   - Ti: tebibytes (1024 Gi)\n"
+                "   - Pi: pebibytes (1024 Ti)\n"
+                "   - Ei: exbibytes (1024 Pi)\n"
+                "   - K: kilobytes (1000 bytes)\n"
+                "   - M: megabytes (1000 K)\n"
+                "   - G: gigabytes (1000 M)\n"
+                "   - T: terabytes (1000 G)\n"
+                "   - P: petabytes (1000 T)\n"
+                "   - E: exabytes (1000 P)"
+            )
+            return
 
     if deploy:
         if not config.cluster:
@@ -98,6 +147,8 @@ def add_microservice(
         "db_enabled": db is not None,
         "container_port": port,
         "replica_count": replicas,
+        "cpu": cpu,
+        "memory": memory,
     }
 
     def render(template_name: str | Path, output_path: Path) -> None:
