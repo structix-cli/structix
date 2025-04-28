@@ -1,4 +1,14 @@
-adminPassword: "{{ grafana_admin_password | default('changeme123') }}"
+admin:
+  existingSecret: ""
+  user: admin         
+  password: "{{ grafana_admin_password | default('changeme123') }}"
+
+persistence:
+  enabled: true
+  storageClassName: ""  
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
 
 datasources:
   datasources.yaml:

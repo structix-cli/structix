@@ -105,6 +105,24 @@ def wait_for_output_and_log(
             ready_event.set()
 
 
+def port_forward_service(
+    namespace: str, service_name: str, local_port: int, remote_port: int
+) -> None:
+    click.echo(f"🔌 Exposing {service_name} on localhost:{local_port}")
+    subprocess.Popen(
+        [
+            "kubectl",
+            "port-forward",
+            f"svc/{service_name}",
+            f"{local_port}:{remote_port}",
+            "-n",
+            namespace,
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
 def start_minikube_tunnel_blocking_on_output() -> None:
     try:
         click.echo("🔌 Starting 'minikube tunnel' and waiting for output...")
@@ -258,6 +276,23 @@ def expose_cluster() -> None:
 
     except subprocess.CalledProcessError as e:
         click.echo("❌ Failed to retrieve ingress hosts or IP.")
+        click.echo(f"🔍 Error: {e}")
+
+    try:
+        click.echo("🔌 Exposing services on localhost...")
+
+        services_to_expose = [
+            ("default", "grafana", 9731, 80),
+            ("default", "prometheus-server", 9732, 80),
+            ("default", "alertmanager", 9733, 9093),
+        ]
+
+        for namespace, service, local_port, remote_port in services_to_expose:
+            port_forward_service(namespace, service, local_port, remote_port)
+
+        click.echo("✅ Services exposed on localhost.")
+    except subprocess.CalledProcessError as e:
+        click.echo("❌ Failed to expose services.")
         click.echo(f"🔍 Error: {e}")
 
 
