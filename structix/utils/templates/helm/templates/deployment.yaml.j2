@@ -35,3 +35,16 @@ spec:
               cpu: {{ .Values.resources.limits.cpu }}
               {{- end }}
           {{- end }}
+          {{- if .Values.db.enabled }}
+          env:
+            - name: DB_HOST
+              value: "{{ .Release.Name }}-db.default.svc.cluster.local"
+            - name: DB_PORT
+              value: "{{ .Values.db.port }}"
+            - name: DB_USER
+              value: "{{ .Values.db.username }}"
+            - name: DB_PASSWORD
+              value: "{{ .Values.db.password }}"
+            - name: DB_DATABASE
+              value: "{{ .Values.db.database }}"
+          {{- end }}
