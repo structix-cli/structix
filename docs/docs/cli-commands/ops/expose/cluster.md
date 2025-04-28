@@ -12,11 +12,11 @@ structix ops expose cluster
 
 ## Arguments
 
--   This command does not take any arguments.
+This command does not take any arguments.
 
 ## Options
 
--   This command currently has no options.
+This command currently has no options.
 
 ## Examples
 

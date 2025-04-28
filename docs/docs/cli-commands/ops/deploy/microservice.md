@@ -2,8 +2,6 @@
 
 Documentation for `structix ops deploy microservice` command.
 
-# Microservice
-
 Deploy a single microservice using Helm.
 
 ## Usage

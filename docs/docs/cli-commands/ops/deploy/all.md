@@ -2,8 +2,6 @@
 
 Documentation for `structix ops deploy all` command.
 
-# Deploy All Microservices
-
 Deploy all microservices found in the `ops/microservices` directory.
 
 ## Usage
@@ -18,7 +16,7 @@ structix ops deploy all
 
 ## Options
 
--   This command currently has no options.
+This command currently has no options.
 
 ## Examples
 

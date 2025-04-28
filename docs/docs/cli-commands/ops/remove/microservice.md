@@ -2,8 +2,6 @@
 
 Documentation for `structix ops remove microservice` command.
 
-# Microservice
-
 Remove an existing Helm chart microservice.
 
 ## Usage

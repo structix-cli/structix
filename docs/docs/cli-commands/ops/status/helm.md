@@ -2,8 +2,6 @@
 
 Documentation for `structix ops status helm` command.
 
-# Helm Status
-
 List Helm releases currently installed.
 
 ## Usage
@@ -14,11 +12,11 @@ structix ops status helm
 
 ## Arguments
 
--   This command does not accept any arguments.
+This command does not take any arguments.
 
 ## Options
 
--   This command currently has no options.
+This command currently has no options.
 
 ## Examples
 

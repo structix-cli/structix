@@ -2,7 +2,7 @@
 
 Documentation for `structix proj add context` command.
 
-Add a new Domain-Driven Design (DDD) context in a Monolith architecture.
+Scaffold a new Domain-Driven Design (DDD) context in a Monolith architecture.
 
 ## Usage
 
@@ -21,5 +21,5 @@ This command currently has no options.
 ## Examples
 
 ```bash
-structix proj add context order_management
+structix proj add context user_management
 ```

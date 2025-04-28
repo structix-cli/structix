@@ -2,8 +2,6 @@
 
 Documentation for `structix ops start cluster` command.
 
-# Start Cluster
-
 Start a cluster based on the selected provider.
 
 ## Usage
@@ -14,11 +12,11 @@ structix ops start cluster
 
 ## Arguments
 
--   This command does not take any arguments.
+-   This command does not take any additional arguments.
 
 ## Options
 
--   This command currently has no options.
+This command currently has no options.
 
 ## Examples
 

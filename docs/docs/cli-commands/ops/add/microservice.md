@@ -2,8 +2,6 @@
 
 Documentation for `structix ops add microservice` command.
 
-# Microservice
-
 Add a new Helm chart microservice.
 
 ## Usage

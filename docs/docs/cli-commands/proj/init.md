@@ -2,8 +2,6 @@
 
 Documentation for `structix proj init` command.
 
-# Init Project
-
 Initialize a new Structix project configuration.
 
 ## Usage
@@ -14,7 +12,7 @@ structix proj init
 
 ## Arguments
 
-This command does not accept any arguments.
+This command currently has no arguments.
 
 ## Options
 

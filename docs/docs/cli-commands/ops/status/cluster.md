@@ -2,8 +2,6 @@
 
 Documentation for `structix ops status cluster` command.
 
-# Cluster Status
-
 Show cluster status across nodes, pods, deployments, etc.
 
 ## Usage
@@ -14,7 +12,7 @@ structix ops status cluster
 
 ## Arguments
 
-This command does not take any arguments.
+-   This command does not take any arguments.
 
 ## Options
 

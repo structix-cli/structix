@@ -2,8 +2,6 @@
 
 Documentation for `structix ops create cluster` command.
 
-# Create Cluster
-
 Create a cluster based on the selected provider.
 
 ## Usage
@@ -14,7 +12,7 @@ structix ops create cluster
 
 ## Arguments
 
-This command does not accept any arguments.
+-   This command does not accept any arguments.
 
 ## Options
 

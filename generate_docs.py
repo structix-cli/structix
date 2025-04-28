@@ -82,10 +82,6 @@ Return only pure markdown content.
 
 EXAMPLE OUTPUT:
 
-# Microservice
-
-Documentation for `structix ops add microservice` command.
-
 Add a new Helm chart microservice.
 
 ## Usage

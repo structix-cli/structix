@@ -2,8 +2,6 @@
 
 Documentation for `structix ops exec kubectl` command.
 
-# kubectl
-
 Execute kubectl commands with the same arguments.
 
 ## Usage
@@ -14,7 +12,7 @@ structix ops exec kubectl <args>
 
 ## Arguments
 
--   `args`: The arguments to pass to the `kubectl` command. This can include any valid `kubectl` subcommand and its options.
+-   `args`: The arguments to pass to the kubectl command. This can include any valid kubectl subcommands and their options.
 
 ## Options
 

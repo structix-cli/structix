@@ -2,8 +2,6 @@
 
 Documentation for `structix ops stop cluster` command.
 
-# Stop Cluster
-
 Stop a cluster based on the selected provider.
 
 ## Usage
@@ -14,7 +12,7 @@ structix ops stop cluster
 
 ## Arguments
 
--   There are no arguments for this command.
+-   This command does not take any arguments.
 
 ## Options
 

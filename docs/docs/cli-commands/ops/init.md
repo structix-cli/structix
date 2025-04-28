@@ -2,11 +2,7 @@
 
 Documentation for `structix ops init` command.
 
-# Initialize Infrastructure
-
-Documentation for `structix ops init` command.
-
-Initialize infrastructure (Kubernetes, Terraform, etc.).
+Initialize infrastructure for your project, including optional Kubernetes, Helm, Terraform, and CI configurations.
 
 ## Usage
 
@@ -16,7 +12,7 @@ structix ops init
 
 ## Arguments
 
-This command currently has no arguments.
+This command does not accept any arguments.
 
 ## Options
 

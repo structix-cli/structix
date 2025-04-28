@@ -16,7 +16,7 @@ structix ops remove cluster
 
 ## Options
 
--   This command currently has no options.
+This command currently has no options.
 
 ## Examples
 

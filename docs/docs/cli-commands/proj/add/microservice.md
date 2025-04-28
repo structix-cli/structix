@@ -2,9 +2,7 @@
 
 Documentation for `structix proj add microservice` command.
 
-# Microservice
-
-Scaffold a new microservice within a project.
+Add a new microservice to your project.
 
 ## Usage
 
