@@ -36,7 +36,7 @@ def add_db_resource(name: str, db: str) -> None:
         if not template_file.exists():
             click.echo(f"❌ Template not found: {template_file}")
             return
-        destination = templates_path / template_file.name
+        destination = templates_path / template_file.name.replace(".j2", "")
         shutil.copyfile(template_file, destination)
         click.echo(f"📄 Copied template: {destination}")
 
