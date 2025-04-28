@@ -10,13 +10,18 @@ Add a new Helm chart microservice.
 structix ops add microservice <name> <image>
 ```
 
+## Arguments
+
+-   `name`: The name of the microservice to be created.
+-   `image`: The Docker image for the microservice.
+
 ## Options
 
-- `--db`: Optional database (choices: postgres, mysql, mongo, redis).
-- `--port`: Port the service will expose (default: 80).
-- `--replicas`: Number of replicas for the deployment (default: 1).
-- `--deploy`: Deploy the Helm chart into your current K8s cluster.
-- `--with-ingress`: Include an Ingress resource for the microservice.
+-   `--db`: Optional database to be used with the microservice. Choices are `postgres`, `mysql`, `mongo`, or `redis`.
+-   `--port`: Port the service will expose. Default is `80`.
+-   `--replicas`: Number of replicas for the deployment. Default is `1`.
+-   `--deploy`: Deploy the Helm chart into your current Kubernetes cluster. This is a flag option.
+-   `--with-ingress`: Include an Ingress resource for the microservice. This is a flag option.
 
 ## Examples
 

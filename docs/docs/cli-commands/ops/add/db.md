@@ -7,25 +7,19 @@ Add a database resource to an existing microservice.
 ## Usage
 
 ```bash
-structix ops add db <name> [--db <database>]
+structix ops add db <name> --db <database_type>
 ```
+
+## Arguments
+
+-   `name`: The name of the microservice to which the database resource will be added.
 
 ## Options
 
-This command currently has no options.
+-   `--db`: The type of database to be used. Choices are `postgres`, `mysql`, `mongo`, or `redis`. This option is required.
 
 ## Examples
 
-To add a PostgreSQL database resource to a microservice named `user-service`, you would use the following command:
-
 ```bash
-structix ops add db user-service --db postgres
-``` 
-
-If you want to add a database resource without specifying a database type, you can simply omit the `--db` option:
-
-```bash
-structix ops add db user-service
-``` 
-
-Make sure that the microservice exists in the specified path before running the command.
+structix ops add db my-service --db postgres
+```

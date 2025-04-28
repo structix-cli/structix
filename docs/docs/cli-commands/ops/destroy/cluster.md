@@ -2,7 +2,9 @@
 
 Documentation for `structix ops destroy cluster` command.
 
-Destroy a cluster based on the selected provider.
+# Destroy Cluster
+
+The `structix ops destroy cluster` command is used to destroy a cluster based on the selected provider.
 
 ## Usage
 
@@ -10,13 +12,15 @@ Destroy a cluster based on the selected provider.
 structix ops destroy cluster
 ```
 
+## Arguments
+
+-   This command does not take any arguments.
+
 ## Options
 
-This command currently has no options.
+-   This command currently has no options.
 
 ## Examples
-
-To destroy a cluster configured with a provider, run the following command:
 
 ```bash
 structix ops destroy cluster

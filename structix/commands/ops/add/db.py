@@ -37,7 +37,8 @@ def add_db_resource(name: str, db: str | None) -> None:
     type=click.Choice(
         ["postgres", "mysql", "mongo", "redis"], case_sensitive=False
     ),
-    help="Optional database",
+    required=True,
+    help="Database type (required)",
 )  # type: ignore
 def add_db(name: str, db: str | None) -> None:
     """Add an db resource to an existing microservice."""

@@ -10,13 +10,15 @@ Expose the cluster using the configured provider (e.g., minikube tunnel).
 structix ops expose cluster
 ```
 
+## Arguments
+
+-   This command does not take any arguments.
+
 ## Options
 
-This command currently has no options.
+-   This command currently has no options.
 
 ## Examples
-
-To expose the cluster using the configured provider, run the following command:
 
 ```bash
 structix ops expose cluster

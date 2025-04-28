@@ -10,13 +10,15 @@ Remove cluster configuration without destroying the cluster.
 structix ops remove cluster
 ```
 
+## Arguments
+
+-   This command does not take any arguments.
+
 ## Options
 
-This command currently has no options.
+-   This command currently has no options.
 
 ## Examples
-
-To remove the cluster configuration for the currently configured provider, run the following command:
 
 ```bash
 structix ops remove cluster

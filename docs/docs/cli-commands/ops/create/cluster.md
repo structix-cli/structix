@@ -2,6 +2,8 @@
 
 Documentation for `structix ops create cluster` command.
 
+# Create Cluster
+
 Create a cluster based on the selected provider.
 
 ## Usage
@@ -10,16 +12,16 @@ Create a cluster based on the selected provider.
 structix ops create cluster
 ```
 
+## Arguments
+
+This command does not accept any arguments.
+
 ## Options
 
 This command currently has no options.
 
 ## Examples
 
-To create a cluster with the configured provider, simply run the following command:
-
 ```bash
 structix ops create cluster
-``` 
-
-Ensure that your cluster provider is properly configured in your settings before executing the command.
+```
