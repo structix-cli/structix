@@ -159,6 +159,16 @@ export const cliCommands = [
                     }
                 ],
                 "collapsed": true
+            },
+            {
+                "text": "undeploy",
+                "items": [
+                    {
+                        "text": "microservice",
+                        "link": "/docs/cli-commands/ops/undeploy/microservice"
+                    }
+                ],
+                "collapsed": true
             }
         ],
         "collapsed": false

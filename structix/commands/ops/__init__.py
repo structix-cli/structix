@@ -12,6 +12,7 @@ from structix.commands.ops.setup import setup
 from structix.commands.ops.start import start
 from structix.commands.ops.status import status
 from structix.commands.ops.stop import stop
+from structix.commands.ops.undeploy import undeploy
 
 
 @click.group()  # type: ignore
@@ -32,3 +33,4 @@ ops.add_command(scale)
 ops.add_command(start)
 ops.add_command(status)
 ops.add_command(stop)
+ops.add_command(undeploy)
