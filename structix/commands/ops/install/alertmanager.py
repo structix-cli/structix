@@ -10,9 +10,7 @@ TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
 env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 
-@click.command(name="alertmanager")  # type: ignore
-def install_alertmanager() -> None:
-    """Install Alertmanager stack using Helm."""
+def install_alertmanager_resource() -> None:
     try:
         tmp_values_path = Path(".") / "values-alertmanager.yaml"
 
@@ -48,3 +46,9 @@ def install_alertmanager() -> None:
         click.echo("✅ Alertmanager installed successfully.")
     except subprocess.CalledProcessError as e:
         click.echo(f"❌ Error installing Alertmanager: {e}")
+
+
+@click.command(name="alertmanager")  # type: ignore
+def install_alertmanager() -> None:
+    """Install Alertmanager stack using Helm."""
+    install_alertmanager_resource()

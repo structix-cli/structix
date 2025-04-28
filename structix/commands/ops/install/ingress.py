@@ -59,5 +59,5 @@ def install_ingress_resource() -> None:
 
 @click.command(name="ingress")  # type: ignore
 def install_ingress() -> None:
-    """Install an Ingress resource for a microservice."""
+    """Install an Ingress Controller using Helm."""
     install_ingress_resource()

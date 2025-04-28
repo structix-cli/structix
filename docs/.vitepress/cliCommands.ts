@@ -40,10 +40,6 @@ export const cliCommands = [
                         "link": "/docs/cli-commands/ops/deploy/all"
                     },
                     {
-                        "text": "ingress",
-                        "link": "/docs/cli-commands/ops/deploy/ingress"
-                    },
-                    {
                         "text": "microservice",
                         "link": "/docs/cli-commands/ops/deploy/microservice"
                     }
@@ -91,6 +87,32 @@ export const cliCommands = [
             {
                 "text": "init",
                 "link": "/docs/cli-commands/ops/init"
+            },
+            {
+                "text": "install",
+                "items": [
+                    {
+                        "text": "alertmanager",
+                        "link": "/docs/cli-commands/ops/install/alertmanager"
+                    },
+                    {
+                        "text": "all",
+                        "link": "/docs/cli-commands/ops/install/all"
+                    },
+                    {
+                        "text": "grafana",
+                        "link": "/docs/cli-commands/ops/install/grafana"
+                    },
+                    {
+                        "text": "ingress",
+                        "link": "/docs/cli-commands/ops/install/ingress"
+                    },
+                    {
+                        "text": "prometheus",
+                        "link": "/docs/cli-commands/ops/install/prometheus"
+                    }
+                ],
+                "collapsed": true
             },
             {
                 "text": "remove",
@@ -173,6 +195,10 @@ export const cliCommands = [
             {
                 "text": "undeploy",
                 "items": [
+                    {
+                        "text": "all",
+                        "link": "/docs/cli-commands/ops/undeploy/all"
+                    },
                     {
                         "text": "microservice",
                         "link": "/docs/cli-commands/ops/undeploy/microservice"

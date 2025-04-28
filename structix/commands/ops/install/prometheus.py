@@ -10,9 +10,7 @@ TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
 env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 
-@click.command(name="prometheus")  # type: ignore
-def install_prometheus() -> None:
-    """Install Prometheus monitoring stack using Helm."""
+def install_prometheus_resource() -> None:
     try:
         tmp_values_path = Path(".") / "values-prometheus.yaml"
 
@@ -50,3 +48,9 @@ def install_prometheus() -> None:
         click.echo("✅ Prometheus installed successfully.")
     except subprocess.CalledProcessError as e:
         click.echo(f"❌ Error installing Prometheus: {e}")
+
+
+@click.command(name="prometheus")  # type: ignore
+def install_prometheus() -> None:
+    """Install Prometheus monitoring stack using Helm."""
+    install_prometheus_resource()

@@ -10,9 +10,7 @@ TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
 env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 
-@click.command(name="grafana")  # type: ignore
-def install_grafana() -> None:
-    """Install Grafana dashboard stack using Helm."""
+def install_grafana_resource() -> None:
     try:
         tmp_values_path = Path(".") / "values-grafana.yaml"
 
@@ -48,3 +46,9 @@ def install_grafana() -> None:
         click.echo("✅ Grafana installed successfully.")
     except subprocess.CalledProcessError as e:
         click.echo(f"❌ Error installing Grafana: {e}")
+
+
+@click.command(name="grafana")  # type: ignore
+def install_grafana() -> None:
+    """Install Grafana dashboard stack using Helm."""
+    install_grafana_resource()
