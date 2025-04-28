@@ -3,11 +3,16 @@ import { cliCommands } from "./cliCommands";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+    appearance: "dark",
     base: "/structix/",
     title: "Structix",
     description:
         "A CLI tool to scaffold modern backend architectures and integrate DevOps workflows effortlessly.",
     themeConfig: {
+        logo: {
+            light: "/logo-light.png",
+            dark: "/logo-dark.png",
+        },
         // https://vitepress.dev/reference/default-theme-config
         search: {
             provider: "local",
@@ -99,7 +104,10 @@ export default defineConfig({
             },
         ],
         socialLinks: [
-            { icon: "github", link: "https://github.com/structix-cli/structix" },
+            {
+                icon: "github",
+                link: "https://github.com/structix-cli/structix",
+            },
         ],
     },
 });
