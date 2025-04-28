@@ -39,7 +39,8 @@ def install_alertmanager_resource() -> None:
         subprocess.run(
             [
                 "helm",
-                "install",
+                "upgrade",
+                "--install",
                 "alertmanager",
                 "prometheus-community/alertmanager",
                 "-f",

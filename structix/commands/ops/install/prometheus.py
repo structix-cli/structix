@@ -41,7 +41,8 @@ def install_prometheus_resource() -> None:
         subprocess.run(
             [
                 "helm",
-                "install",
+                "upgrade",
+                "--install",
                 "prometheus",
                 "prometheus-community/prometheus",
                 "-f",

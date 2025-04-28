@@ -37,11 +37,16 @@ def install_grafana_resource() -> None:
         subprocess.run(
             [
                 "helm",
-                "install",
+                "upgrade",
+                "--install",
                 "grafana",
                 "grafana/grafana",
                 "-f",
                 str(tmp_values_path),
+                "--set",
+                "adminUser=admin",
+                "--set",
+                "adminPassword=changeme123",
             ],
             check=True,
         )
