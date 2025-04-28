@@ -143,7 +143,6 @@ def add_microservice(
         "name": name,
         "image_repo": image_repo,
         "image_tag": image_tag,
-        "db": db,
         "db_enabled": db is not None,
         "container_port": port,
         "replica_count": replicas,

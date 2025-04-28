@@ -14,6 +14,7 @@ container:
 
 resources:
   enabled: {{ "true" if cpu or memory else "false" }}
+  {%- if cpu or memory %}
   requests:
     {%- if memory %}
     memory: "{{ memory }}"
@@ -21,6 +22,8 @@ resources:
     {%- if cpu %}
     cpu: "{{ cpu }}"
     {%- endif %}
+  {%- endif %}
+  {%- if cpu or memory %}
   limits:
     {%- if memory %}
     memory: "{{ memory }}"
@@ -28,8 +31,25 @@ resources:
     {%- if cpu %}
     cpu: "{{ cpu }}"
     {%- endif %}
-
+  {%- endif %}
 
 db:
-  enabled: {{ db_enabled | lower }}
-  type: {{ db if db else "" }}
+  enabled: {{ db_enabled | default(false) | lower }}
+  {%- if db_type %}
+  type: "{{ db_type }}"
+  {%- endif %}
+  {%- if db_username %}
+  username: "{{ db_username }}"
+  {%- endif %}
+  {%- if db_password %}
+  password: "{{ db_password }}"
+  {%- endif %}
+  {%- if db_database %}
+  database: "{{ db_database }}"
+  {%- endif %}
+  {%- if db_port %}
+  portx: {{ db_port }}
+  {%- endif %}
+  {%- if db_storage %}
+  storage: "{{ db_storage }}"
+  {%- endif %}

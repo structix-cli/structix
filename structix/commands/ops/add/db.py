@@ -1,33 +1,72 @@
-# structix/commands/ops/add/db.py
-
 import shutil
 from pathlib import Path
 
 import click
+import yaml  # type: ignore
 
 import structix
 
-TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
+TEMPLATE_DIR = (
+    Path(structix.__file__).parent
+    / "utils"
+    / "templates"
+    / "helm"
+    / "templates"
+)
 
 
-def add_db_resource(name: str, db: str | None) -> None:
+def add_db_resource(name: str, db: str) -> None:
     chart_path = Path("ops") / "microservices" / name
     templates_path = chart_path / "templates"
-    db_template = TEMPLATE_DIR / "templates" / "db-config.yaml.j2"
-    output_path = templates_path / "db-config.yaml"
+    values_path = chart_path / "values.yaml"
+
+    db_templates = [
+        TEMPLATE_DIR / "db" / "db-secret.yaml.j2",
+        TEMPLATE_DIR / "db" / "db-service.yaml.j2",
+        TEMPLATE_DIR / "db" / f"db-{db}.yaml.j2",
+    ]
 
     if not chart_path.exists():
         click.echo(f"❌ Microservice '{name}' does not exist at {chart_path}")
         return
 
-    if not db_template.exists():
-        click.echo("❌ db-config.yaml.j2 template not found in TEMPLATE_DIR.")
-        return
+    templates_path.mkdir(parents=True, exist_ok=True)
 
-    shutil.copyfile(db_template, output_path)
-    click.echo(
-        f"🌐 DB resource added for microservice '{name}' at {output_path}"
-    )
+    for template_file in db_templates:
+        if not template_file.exists():
+            click.echo(f"❌ Template not found: {template_file}")
+            return
+        destination = templates_path / template_file.name
+        shutil.copyfile(template_file, destination)
+        click.echo(f"📄 Copied template: {destination}")
+
+    if values_path.exists():
+        with open(values_path) as f:
+            values = yaml.safe_load(f) or {}
+    else:
+        values = {}
+
+    db_defaults = {
+        "postgres": {"port": 5432},
+        "mysql": {"port": 3306},
+        "mongo": {"port": 27017},
+        "redis": {"port": 6379},
+    }
+
+    values["db"] = {
+        "enabled": True,
+        "type": db,
+        "username": "admin",
+        "password": "changeme",
+        "database": "appdb",
+        "port": db_defaults.get(db, {}).get("port", 5432),
+        "storage": "1Gi",
+    }
+
+    with open(values_path, "w") as f:
+        yaml.dump(values, f, default_flow_style=False, sort_keys=False)
+
+    click.echo(f"📝 Updated values.yaml at {values_path}")
 
 
 @click.command(name="db")  # type: ignore
@@ -40,6 +79,6 @@ def add_db_resource(name: str, db: str | None) -> None:
     required=True,
     help="Database type (required)",
 )  # type: ignore
-def add_db(name: str, db: str | None) -> None:
-    """Add an db resource to an existing microservice."""
+def add_db(name: str, db: str) -> None:
+    """Add a db resource to an existing microservice."""
     add_db_resource(name, db)
