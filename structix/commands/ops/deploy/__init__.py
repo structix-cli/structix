@@ -1,6 +1,7 @@
 import click
 
 from .all import deploy_all
+from .ingress import deploy_ingress
 from .microservice import deploy_microservice
 
 
@@ -12,3 +13,4 @@ def deploy() -> None:
 
 deploy.add_command(deploy_microservice)
 deploy.add_command(deploy_all)
+deploy.add_command(deploy_ingress)
