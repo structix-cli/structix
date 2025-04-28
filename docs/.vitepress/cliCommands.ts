@@ -61,6 +61,24 @@ export const cliCommands = [
                 "collapsed": true
             },
             {
+                "text": "exec",
+                "items": [
+                    {
+                        "text": "kubectl",
+                        "link": "/docs/cli-commands/ops/exec/kubectl"
+                    },
+                    {
+                        "text": "minikube",
+                        "link": "/docs/cli-commands/ops/exec/minikube"
+                    },
+                    {
+                        "text": "terraform",
+                        "link": "/docs/cli-commands/ops/exec/terraform"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
                 "text": "expose",
                 "items": [
                     {
