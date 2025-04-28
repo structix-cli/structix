@@ -1,3 +1,5 @@
+adminPassword: "{{ grafana_admin_password | default('changeme123') }}"
+
 datasources:
   datasources.yaml:
     apiVersion: 1
