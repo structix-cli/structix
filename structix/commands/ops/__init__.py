@@ -6,6 +6,7 @@ from structix.commands.ops.deploy import deploy
 from structix.commands.ops.destroy import destroy
 from structix.commands.ops.exec import exec
 from structix.commands.ops.expose import expose
+from structix.commands.ops.install import install
 from structix.commands.ops.remove import remove
 from structix.commands.ops.rolling import rolling
 from structix.commands.ops.scale import scale
@@ -28,6 +29,7 @@ ops.add_command(deploy)
 ops.add_command(destroy)
 ops.add_command(exec)
 ops.add_command(expose)
+ops.add_command(install)
 ops.add_command(setup)
 ops.add_command(remove)
 ops.add_command(rolling)

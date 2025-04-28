@@ -5,7 +5,7 @@ import click
 from structix.utils.config import get_cluster_config_or_fail
 
 
-def deploy_ingress_resource() -> None:
+def install_ingress_resource() -> None:
 
     get_cluster_config_or_fail()
 
@@ -58,6 +58,6 @@ def deploy_ingress_resource() -> None:
 
 
 @click.command(name="ingress")  # type: ignore
-def deploy_ingress() -> None:
-    """Deploy an Ingress resource for a microservice."""
-    deploy_ingress_resource()
+def install_ingress() -> None:
+    """Install an Ingress resource for a microservice."""
+    install_ingress_resource()
