@@ -57,18 +57,28 @@ def status_cluster() -> None:
     click.echo(f"🔍 Cluster Provider: {provider}")
 
     try:
+        click.echo("🔍 Retrieving full cluster status...")
+        click.echo("Nodes:\n")
         subprocess.run(["kubectl", "get", "nodes"], check=True, env=env)
-        click.echo()
+        click.echo("\n\n")
+        click.echo("Pods:\n")
         subprocess.run(["kubectl", "get", "pods", "-A"], check=True, env=env)
-        click.echo()
+        click.echo("\n\n")
+        click.echo("Deployments:\n")
         subprocess.run(
             ["kubectl", "get", "deployments", "-A"], check=True, env=env
         )
-        click.echo()
+        click.echo("\n\n")
+        click.echo("StatefulSets:\n")
+        subprocess.run(
+            ["kubectl", "get", "statefulsets", "-A"], check=True, env=env
+        )
+        click.echo("\n\n")
+        click.echo("Ingresses:\n")
         subprocess.run(
             ["kubectl", "get", "ingress", "-A"], check=True, env=env
         )
-        click.echo()
+        click.echo("\n\n")
         subprocess.run(["helm", "list", "-A"], check=True, env=env)
     except subprocess.CalledProcessError as e:
         click.echo("❌ Could not retrieve full cluster status.")
