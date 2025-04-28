@@ -1,12 +1,30 @@
 import subprocess
+from pathlib import Path
 
 import click
+from jinja2 import Environment, FileSystemLoader
+
+import structix
+
+TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
+env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 
 @click.command(name="prometheus")  # type: ignore
 def install_prometheus() -> None:
     """Install Prometheus monitoring stack using Helm."""
     try:
+        tmp_values_path = Path(".") / "values-prometheus.yaml"
+
+        context = {
+            "alertmanager_address": "alertmanager.monitoring.svc.cluster.local:9093",
+            "prometheus_memory": "400Mi",
+            "prometheus_cpu": "200m",
+        }
+
+        values_template = env.get_template("values-prometheus.yaml.j2")
+        tmp_values_path.write_text(values_template.render(context))
+
         subprocess.run(
             [
                 "helm",
@@ -24,6 +42,8 @@ def install_prometheus() -> None:
                 "install",
                 "prometheus",
                 "prometheus-community/prometheus",
+                "-f",
+                str(tmp_values_path),
             ],
             check=True,
         )

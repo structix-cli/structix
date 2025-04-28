@@ -1,0 +1,14 @@
+server:
+  alerting:
+    alertmanagers:
+      - static_configs:
+          - targets:
+              - "{{ alertmanager_address | default('alertmanager.monitoring.svc.cluster.local:9093') }}"
+
+  resources:
+    requests:
+      memory: {{ prometheus_memory | default('400Mi') }}
+      cpu: {{ prometheus_cpu | default('200m') }}
+    limits:
+      memory: {{ prometheus_memory | default('800Mi') }}
+      cpu: {{ prometheus_cpu | default('400m') }}
