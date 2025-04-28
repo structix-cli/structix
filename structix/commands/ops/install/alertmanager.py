@@ -12,7 +12,11 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 def install_alertmanager_resource() -> None:
     try:
-        tmp_values_path = Path(".") / "values-alertmanager.yaml"
+        tmp_values_path = (
+            Path(".") / "ops" / "tools" / "values-alertmanager.yaml"
+        )
+
+        tmp_values_path.parent.mkdir(parents=True, exist_ok=True)
 
         context = {
             "alertmanager_replicas": 1,

@@ -12,7 +12,9 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 def install_grafana_resource() -> None:
     try:
-        tmp_values_path = Path(".") / "values-grafana.yaml"
+        tmp_values_path = Path(".") / "ops" / "tools" / "values-grafana.yaml"
+
+        tmp_values_path.parent.mkdir(parents=True, exist_ok=True)
 
         context = {
             "prometheus_datasource_url": "http://prometheus-server.monitoring.svc.cluster.local",

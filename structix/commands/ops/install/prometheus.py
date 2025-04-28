@@ -12,7 +12,11 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 def install_prometheus_resource() -> None:
     try:
-        tmp_values_path = Path(".") / "values-prometheus.yaml"
+        tmp_values_path = (
+            Path(".") / "ops" / "tools" / "values-prometheus.yaml"
+        )
+
+        tmp_values_path.parent.mkdir(parents=True, exist_ok=True)
 
         context = {
             "alertmanager_address": "alertmanager.monitoring.svc.cluster.local:9093",
