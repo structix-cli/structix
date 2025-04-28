@@ -3,7 +3,6 @@ from pathlib import Path
 
 import click
 
-from structix.commands.ops.deploy.ingress import deploy_ingress_resource
 from structix.utils.config import get_cluster_config_or_fail
 
 
@@ -16,8 +15,6 @@ def deploy_microservice_resource(name: str) -> None:
         return
 
     get_cluster_config_or_fail()
-
-    deploy_ingress_resource(name)
 
     try:
 

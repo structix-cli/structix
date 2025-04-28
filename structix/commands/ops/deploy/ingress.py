@@ -1,22 +1,11 @@
 import subprocess
-from pathlib import Path
 
 import click
 
 from structix.utils.config import get_cluster_config_or_fail
 
 
-def deploy_ingress_resource(name: str) -> None:
-    chart_path = Path("ops") / "microservices" / name
-
-    if not chart_path.exists():
-        click.echo(f"❌ Microservice '{name}' does not exist at {chart_path}")
-        return
-
-    ingress_path = chart_path / "templates" / "ingress.yaml"
-    if not ingress_path.exists():
-        click.echo(f"❌ Ingress resource not found for microservice '{name}'.")
-        return
+def deploy_ingress_resource() -> None:
 
     get_cluster_config_or_fail()
 
@@ -69,7 +58,6 @@ def deploy_ingress_resource(name: str) -> None:
 
 
 @click.command(name="ingress")  # type: ignore
-@click.argument("name")  # type: ignore
-def deploy_ingress(name: str) -> None:
+def deploy_ingress() -> None:
     """Deploy an Ingress resource for a microservice."""
-    deploy_ingress_resource(name)
+    deploy_ingress_resource()

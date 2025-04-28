@@ -7,12 +7,12 @@ Deploy an Ingress resource for a microservice.
 ## Usage
 
 ```bash
-structix ops deploy ingress <name>
+structix ops deploy ingress
 ```
 
 ## Arguments
 
--   `name`: The name of the microservice for which the Ingress resource will be deployed.
+-   This command does not require any additional arguments.
 
 ## Options
 
@@ -21,5 +21,5 @@ This command currently has no options.
 ## Examples
 
 ```bash
-structix ops deploy ingress my-microservice
+structix ops deploy ingress
 ```
