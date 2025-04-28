@@ -107,6 +107,16 @@ export const cliCommands = [
                 "collapsed": true
             },
             {
+                "text": "scale",
+                "items": [
+                    {
+                        "text": "microservice",
+                        "link": "/docs/cli-commands/ops/scale/microservice"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
                 "text": "setup",
                 "items": [
                     {

@@ -9,6 +9,11 @@ persistent_id = str(uuid4())
 
 class SimpleHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
+        if self.path == "/favicon.ico":
+            self.send_response(204)
+            self.end_headers()
+            return
+
         response = json.dumps({"id": persistent_id}).encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "application/json")

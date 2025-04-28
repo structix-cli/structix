@@ -7,7 +7,7 @@ from .microservice import deploy_microservice
 
 @click.group()  # type: ignore
 def deploy() -> None:
-    """Deploy microservices to the current Kubernetes cluster."""
+    """Deploy components to your infrastructure."""
     pass
 
 

@@ -46,7 +46,19 @@ def initialize_db() -> None:
 
 class SimpleHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
-        connection = get_db_connection()  # type: ignore
+        if self.path == "/favicon.ico":
+            self.send_response(204)
+            self.end_headers()
+            return
+
+        try:
+            connection = get_db_connection()
+        except Exception:
+            self.send_response(500)
+            self.end_headers()
+            self.wfile.write(b"Database connection error")
+            return
+
         try:
             with connection.cursor() as cursor:
                 # Insertar nuevo evento
