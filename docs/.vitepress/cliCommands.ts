@@ -107,6 +107,16 @@ export const cliCommands = [
                 "collapsed": true
             },
             {
+                "text": "rolling",
+                "items": [
+                    {
+                        "text": "microservice",
+                        "link": "/docs/cli-commands/ops/rolling/microservice"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
                 "text": "scale",
                 "items": [
                     {
