@@ -28,7 +28,13 @@ def install_grafana_resource() -> None:
         tmp_values_path.write_text(values_template.render(context))
 
         ingress_template = env.get_template(
-            str(Path(".") / "templates" / "tools" / "ingress-grafana.yaml.j2")
+            str(
+                Path(".")
+                / "templates"
+                / "tools"
+                / "grafana"
+                / "ingress.yaml.j2"
+            )
         )
         ingress_path.write_text(ingress_template.render({}))
 

@@ -32,7 +32,8 @@ def install_alertmanager_resource() -> None:
                 Path(".")
                 / "templates"
                 / "tools"
-                / "ingress-alertmanager.yaml.j2"
+                / "alertmanager"
+                / "ingress.yaml.j2"
             )
         )
         ingress_path.write_text(ingress_template.render({}))

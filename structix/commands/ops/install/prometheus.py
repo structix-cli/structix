@@ -34,7 +34,8 @@ def install_prometheus_resource() -> None:
                 Path(".")
                 / "templates"
                 / "tools"
-                / "ingress-prometheus.yaml.j2"
+                / "prometheus"
+                / "ingress.yaml.j2"
             )
         )
         ingress_path.write_text(ingress_template.render({}))
