@@ -62,7 +62,12 @@ class SimpleHandler(BaseHTTPRequestHandler):
             with tracer.start_as_current_span("generate_response") as subspan:
                 time.sleep(0.05)
                 subspan.set_attribute("response.id", request_id)
-                response = json.dumps({"id": persistent_id}).encode("utf-8")
+                response = json.dumps(
+                    {
+                        "id": persistent_id,
+                        "request_id": request_id,
+                    }
+                ).encode("utf-8")
 
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
