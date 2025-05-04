@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 import { cliCommands } from "./cliCommands";
+import { resources } from "./resources";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -98,6 +99,17 @@ export default defineConfig({
                                 link: "/docs/cli-commands/overview",
                             },
                             ...cliCommands,
+                        ],
+                    },
+                    {
+                        text: "Resources",
+                        collapsed: false,
+                        items: [
+                            {
+                                text: "Overview",
+                                link: "/docs/cli-commands/overview",
+                            },
+                            ...resources,
                         ],
                     },
                 ],
