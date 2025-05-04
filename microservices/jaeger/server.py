@@ -1,39 +1,25 @@
 import json
-import logging
+import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from uuid import uuid4
 
-from jaeger_client import Config, Tracer  # type: ignore
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
+    OTLPSpanExporter,
+)
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
+trace.set_tracer_provider(
+    TracerProvider(resource=Resource.create({SERVICE_NAME: "test-server"}))
+)
+tracer = trace.get_tracer(__name__)
 
-def init_tracer(service_name: str) -> Tracer:
-    logging.getLogger("").handlers = []
-    logging.basicConfig(format="%(message)s", level=logging.DEBUG)
-
-    config = Config(
-        config={
-            "sampler": {"type": "const", "param": 1},
-            "logging": True,
-            "local_agent": {
-                "reporting_host": "jaeger-agent.default.svc.cluster.local",
-                "reporting_port": 6831,
-            },
-            "reporter": {
-                "log_spans": True,
-                "max_queue_size": 1,
-                "flush_interval": 1,
-            },
-        },
-        service_name=service_name,
-    )
-
-    tracer = config.initialize_tracer()
-    if tracer is None:
-        raise RuntimeError("Failed to initialize tracer")
-    return tracer
-
-
-tracer = init_tracer("simple-http-server")
+otlp_exporter = OTLPSpanExporter(endpoint="http://localhost:4318/v1/traces")
+trace.get_tracer_provider().add_span_processor(  # type: ignore
+    BatchSpanProcessor(otlp_exporter)
+)
 
 HOST = "0.0.0.0"
 PORT = 3000
@@ -42,37 +28,37 @@ persistent_id = str(uuid4())
 
 class SimpleHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
-        with tracer.start_span("http_request") as span:
-
-            if not span:
-                logging.error("Failed to create span")
-            else:
-                logging.debug("Span created successfully")
-
-            span.set_tag("http.method", "GET")
-            span.set_tag("http.url", self.path)
+        with tracer.start_as_current_span("handle_request") as span:
+            span.set_attribute("http.method", "GET")
+            span.set_attribute("http.path", self.path)
+            span.add_event("Handling request start")
 
             if self.path == "/favicon.ico":
                 self.send_response(204)
                 self.end_headers()
                 return
 
-            response = json.dumps({"id": persistent_id}).encode("utf-8")
+            with tracer.start_as_current_span("generate-response") as subspan:
+                time.sleep(0.2)
+                subspan.set_attribute("response.id", persistent_id)
+
+                response = json.dumps({"id": persistent_id}).encode("utf-8")
+
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(response)))
             self.end_headers()
-            self.wfile.write(response)
+            try:
+                self.wfile.write(response)
+            except BrokenPipeError:
+                trace.get_current_span().add_event(
+                    "BrokenPipeError: client disconnected early"
+                )
 
-            span.log_kv({"event": "response_sent", "status_code": 200})
+            span.add_event("Response sent")
 
 
 if __name__ == "__main__":
     print(f"🚀 Server running at http://{HOST}:{PORT}")
     server = HTTPServer((HOST, PORT), SimpleHandler)
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    finally:
-        tracer.close()
+    server.serve_forever()

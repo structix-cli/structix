@@ -15,7 +15,9 @@ pre-commit = "*"
 openai = "*"
 python-dotenv = "*"
 prometheus-client = "*"
-jaeger-client = "*"
+opentelemetry-api = "*"
+opentelemetry-sdk = "*"
+opentelemetry-exporter-otlp = "*"
 
 [requires]
 python_version = "3.12"
