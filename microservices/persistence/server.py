@@ -61,7 +61,6 @@ class SimpleHandler(BaseHTTPRequestHandler):
 
         try:
             with connection.cursor() as cursor:
-                # Insertar nuevo evento
                 cursor.execute(
                     "INSERT INTO events (server_id) VALUES (%s)",
                     (persistent_id,),
