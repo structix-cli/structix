@@ -107,7 +107,7 @@ export default defineConfig({
                         items: [
                             {
                                 text: "Overview",
-                                link: "/docs/cli-commands/overview",
+                                link: "/docs/resources/overview",
                             },
                             ...resources,
                         ],
