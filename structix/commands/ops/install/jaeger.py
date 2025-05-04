@@ -20,7 +20,7 @@ def install_jaeger_resource() -> None:
         templates_path = tool_path / "templates"
         templates_path.mkdir(parents=True, exist_ok=True)
 
-        context = {"namespace": "observability"}
+        context = {"namespace": "default"}
 
         values_template = env.get_template("values-jaeger.yaml.j2")
         tmp_values_path.write_text(values_template.render(context))
@@ -55,9 +55,6 @@ def install_jaeger_resource() -> None:
                 "--install",
                 "jaeger",
                 "jaegertracing/jaeger",
-                "-n",
-                context["namespace"],
-                "--create-namespace",
                 "-f",
                 str(tmp_values_path),
                 "--force",
@@ -71,8 +68,6 @@ def install_jaeger_resource() -> None:
                 "apply",
                 "-f",
                 str(ingress_path),
-                "-n",
-                context["namespace"],
             ],
             check=True,
         )
