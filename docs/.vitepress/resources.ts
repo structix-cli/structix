@@ -125,6 +125,16 @@ export const resources = [
                 "collapsed": true
             },
             {
+                "text": "kafka",
+                "items": [
+                    {
+                        "text": "install",
+                        "link": "/docs/cli-commands/ops/install/kafka"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
                 "text": "kubectl",
                 "items": [
                     {

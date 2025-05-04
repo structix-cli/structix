@@ -1,0 +1,27 @@
+replicaCount: {{ replica_count }}
+
+zookeeper:
+  enabled: {{ zookeeper_enabled | lower }}
+
+kraft:
+  enabled: {{ kraft_enabled | lower }}
+
+listeners:
+  client:
+    protocol: PLAINTEXT
+
+auth:
+  clientProtocol: plaintext
+  interBrokerProtocol: plaintext
+
+metrics:
+  kafka:
+    enabled: true
+  jmx:
+    enabled: false
+
+persistence:
+  enabled: false 
+
+service:
+  type: ClusterIP

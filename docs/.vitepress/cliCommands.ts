@@ -112,6 +112,10 @@ export const cliCommands = [
                         "link": "/docs/cli-commands/ops/install/jaeger"
                     },
                     {
+                        "text": "kafka",
+                        "link": "/docs/cli-commands/ops/install/kafka"
+                    },
+                    {
                         "text": "prometheus",
                         "link": "/docs/cli-commands/ops/install/prometheus"
                     }
