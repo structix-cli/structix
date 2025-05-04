@@ -15,7 +15,10 @@ def init_tracer(service_name: str) -> Tracer:
             "sampler": {"type": "const", "param": 1},
             "logging": True,
             "reporter": {
-                "collector_endpoint": "http://jaeger-collector.observability.svc.cluster.local:14250"
+                "collector_endpoint": (
+                    "http://jaeger-collector.observability.svc.cluster.local:"
+                    "14268/api/traces"
+                ),
             },
         },
         service_name=service_name,
