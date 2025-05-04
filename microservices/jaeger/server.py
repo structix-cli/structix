@@ -20,6 +20,8 @@ def init_tracer(service_name: str) -> Tracer:
             },
             "reporter": {
                 "log_spans": True,
+                "max_queue_size": 1,
+                "flush_interval": 1,
             },
         },
         service_name=service_name,
