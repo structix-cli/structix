@@ -20,10 +20,13 @@ structix ops add microservice <name> <image>
 -   `--db`: Optional database to be used with the microservice. Choices are `postgres`, `mysql`, `mongo`, or `redis`.
 -   `--port`: Port the service will expose. Default is `80`.
 -   `--replicas`: Number of replicas for the deployment. Default is `1`.
--   `--cpu`: CPU request and limit for the container (e.g., `200m`).
--   `--memory`: Memory request and limit for the container (e.g., `256Mi`).
+-   `--cpu`: CPU request and limit for the container (e.g., 200m).
+-   `--memory`: Memory request and limit for the container (e.g., 256Mi).
 -   `--deploy`: Deploy the Helm chart into your current Kubernetes cluster. This is a flag option.
 -   `--with-ingress`: Include an Ingress resource for the microservice. This is a flag option.
+-   `--with-prometheus`: Enable Prometheus annotations and monitoring label.
+-   `--metrics-port`: Port where metrics are exposed (defaults to container port).
+-   `--metrics-path`: Path for the Prometheus scrape endpoint (default: /metrics).
 
 ## Examples
 

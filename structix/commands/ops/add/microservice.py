@@ -61,6 +61,23 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
     default=False,
     help="Include an Ingress resource for the microservice",
 )  # type: ignore
+@click.option(
+    "--with-prometheus",
+    is_flag=True,
+    default=False,
+    help="Enable Prometheus annotations and monitoring label",
+)  # type: ignore
+@click.option(
+    "--metrics-port",
+    type=int,
+    help="Port where metrics are exposed (defaults to container port)",
+)  # type: ignore
+@click.option(
+    "--metrics-path",
+    type=str,
+    default="/metrics",
+    help="Path for the Prometheus scrape endpoint (default: /metrics)",
+)  # type: ignore
 def add_microservice(
     name: str,
     image: str,
@@ -71,6 +88,9 @@ def add_microservice(
     memory: str | None,
     deploy: bool,
     with_ingress: bool,
+    with_prometheus: bool,
+    metrics_port: int | None,
+    metrics_path: str,
 ) -> None:
     """Add a new Helm chart microservice."""
 
@@ -120,6 +140,20 @@ def add_microservice(
             )
             return
 
+    ctx = click.get_current_context()
+    port_source = ctx.get_parameter_source("metrics_port")
+    path_source = ctx.get_parameter_source("metrics_path")
+
+    if not with_prometheus and (
+        port_source == click.core.ParameterSource.COMMANDLINE
+        or path_source == click.core.ParameterSource.COMMANDLINE
+    ):
+        click.echo(
+            "❌ You must pass '--with-prometheus' to use '--metrics-port' or '--metrics-path'.\n"
+            "💡 Example: --with-prometheus --metrics-port=9100 --metrics-path=/custom"
+        )
+        return
+
     chart_path = Path("ops") / "microservices" / name
     templates_path = chart_path / "templates"
 
@@ -148,6 +182,9 @@ def add_microservice(
         "replica_count": replicas,
         "cpu": cpu,
         "memory": memory,
+        "expose_metrics": with_prometheus,
+        "metrics_port": metrics_port or port,
+        "metrics_path": metrics_path,
     }
 
     def render(template_name: str | Path, output_path: Path) -> None:

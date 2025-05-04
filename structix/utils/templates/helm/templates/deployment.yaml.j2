@@ -11,6 +11,15 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+        {{- if .Values.metrics.enabled }}
+        monitoring: enabled
+        {{- end }}
+      annotations:
+        {{- if .Values.metrics.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.metrics.port }}"
+        prometheus.io/path: "{{ .Values.metrics.path }}"
+        {{- end }}
     spec:
       containers:
         - name: {{ .Release.Name }}

@@ -34,5 +34,5 @@ pip install -e .
 structix ops init cluster
 structix ops add microservice example-simple brayand/microservice-example-simple:0.1.0 --with-ingress --deploy --port=3000 --replicas=3
 structix ops add microservice example-persistence brayand/microservice-example-persistence:0.1.0 --with-ingress --deploy --port=3000 --replicas=3 --db=mysql
-structix ops add microservice example-prometheus brayand/microservice-example-prometheus:0.1.0 --with-ingress --deploy --port=3000 --replicas=3
+structix ops add microservice example-prometheus brayand/microservice-example-prometheus:0.1.0 --with-ingress --deploy --port=3000 --replicas=3 --with-prometheus --metrics-port=3000 --metrics-path=/metrics
 ```

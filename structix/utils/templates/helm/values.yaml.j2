@@ -53,3 +53,10 @@ db:
   {%- if db_storage %}
   storage: "{{ db_storage }}"
   {%- endif %}
+
+metrics:
+  enabled: {{ expose_metrics | default(false) | lower }}
+  {%- if expose_metrics %}
+  port: {{ metrics_port | default(container_port) }}
+  path: {{ metrics_path | default("/metrics") }}
+  {%- endif %}
