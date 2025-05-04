@@ -9,3 +9,5 @@
 -   [ ] Add tracing support (OpenTelemetry, Jaeger, etc.)
 
 -   [ ] Add Terraform support (infrastructure as code, ops create/destroy cluster)
+
+-   [ ] Add Dockerization support (dockerize structix)
