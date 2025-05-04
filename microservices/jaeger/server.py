@@ -15,7 +15,7 @@ def init_tracer(service_name: str) -> Tracer:
             "sampler": {"type": "const", "param": 1},
             "logging": True,
             "local_agent": {
-                "reporting_host": "jaeger-agent.observability.svc.cluster.local",
+                "reporting_host": "jaeger-agent.default.svc.cluster.local",
                 "reporting_port": 6831,
             },
             "reporter": {

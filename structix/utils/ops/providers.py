@@ -286,7 +286,7 @@ def expose_cluster() -> None:
             ("default", "grafana", 9731, 80),
             ("default", "prometheus-server", 9732, 80),
             ("default", "alertmanager", 9733, 9093),
-            ("observability", "jaeger-query", 16686, 80),
+            ("default", "jaeger-query", 16686, 80),
         ]
 
         for namespace, service, local_port, remote_port in services_to_expose:
