@@ -16,7 +16,9 @@ trace.set_tracer_provider(
 )
 tracer = trace.get_tracer(__name__)
 
-otlp_exporter = OTLPSpanExporter(endpoint="http://localhost:4318/v1/traces")
+otlp_exporter = OTLPSpanExporter(
+    endpoint="http://jaeger-collector.default.svc.cluster.local:4318/v1/traces"
+)
 trace.get_tracer_provider().add_span_processor(  # type: ignore
     BatchSpanProcessor(otlp_exporter)
 )
