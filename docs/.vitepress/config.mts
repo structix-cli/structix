@@ -115,6 +115,10 @@ export default defineConfig({
                                 text: "AlertManager",
                                 link: "/docs/tools/alertmanager",
                             },
+                            {
+                                text: "Jaeger",
+                                link: "/docs/tools/jaeger",
+                            },
                         ],
                     },
                     {
