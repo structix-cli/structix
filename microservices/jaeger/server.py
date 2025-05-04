@@ -14,13 +14,13 @@ def init_tracer(service_name: str) -> Tracer:
         config={
             "sampler": {"type": "const", "param": 1},
             "logging": True,
-            "local_agent": {
-                "reporting_host": "jaeger-agent.observability.svc.cluster.local",
-                "reporting_port": 6831,
+            "reporter": {
+                "collector_endpoint": "http://jaeger-collector.observability.svc.cluster.local:14250"
             },
         },
         service_name=service_name,
     )
+
     tracer = config.initialize_tracer()
     if tracer is None:
         raise RuntimeError("Failed to initialize tracer")
@@ -37,6 +37,12 @@ persistent_id = str(uuid4())
 class SimpleHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         with tracer.start_span("http_request") as span:
+
+            if not span:
+                logging.error("Failed to create span")
+            else:
+                logging.debug("Span created successfully")
+
             span.set_tag("http.method", "GET")
             span.set_tag("http.url", self.path)
 
