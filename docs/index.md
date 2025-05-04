@@ -22,7 +22,7 @@ features:
     - title: Observability Built-in
       details: Add Prometheus and Grafana integrations out of the box to monitor and visualize your services effortlessly.
     - title: Database Flexibility
-      details: Scaffold projects with support for PostgreSQL and MongoDB databases, ready for production environments.
+      details: Scaffold projects with support for PostgreSQL, MongoDB, and other databases, ready for production environments.
     - title: Event-Driven Ready
       details: Integrate Kafka seamlessly into your architectures to enable event-driven communication between services.
     - title: Local & Cloud Environments
