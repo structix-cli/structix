@@ -69,6 +69,10 @@ export default defineConfig({
                         collapsed: false,
                         items: [
                             {
+                                text: "Overview",
+                                link: "/docs/architectures/overview",
+                            },
+                            {
                                 text: "Monolith Modular",
                                 link: "/docs/architectures/monolith-modular",
                             },
@@ -87,6 +91,29 @@ export default defineConfig({
                             {
                                 text: "Microservices",
                                 link: "/docs/architectures/microservices",
+                            },
+                        ],
+                    },
+
+                    {
+                        text: "Tools",
+                        collapsed: false,
+                        items: [
+                            {
+                                text: "Overview",
+                                link: "/docs/tools/overview",
+                            },
+                            {
+                                text: "Prometheus",
+                                link: "/docs/tools/prometheus",
+                            },
+                            {
+                                text: "Grafana",
+                                link: "/docs/tools/grafana",
+                            },
+                            {
+                                text: "AlertManager",
+                                link: "/docs/tools/alertmanager",
                             },
                         ],
                     },
