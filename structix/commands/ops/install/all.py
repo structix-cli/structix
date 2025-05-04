@@ -5,6 +5,7 @@ from structix.commands.ops.install.alertmanager import (
 )
 from structix.commands.ops.install.grafana import install_grafana_resource
 from structix.commands.ops.install.ingress import install_ingress_resource
+from structix.commands.ops.install.jaeger import install_jaeger_resource
 from structix.commands.ops.install.prometheus import (
     install_prometheus_resource,
 )
@@ -22,4 +23,5 @@ def install_all() -> None:
     install_prometheus_resource()
     install_alertmanager_resource()
     install_grafana_resource()
+    install_jaeger_resource()
     click.echo("✅ All tools installed successfully.")

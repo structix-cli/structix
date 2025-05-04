@@ -14,7 +14,7 @@ def install_prometheus_resource() -> None:
     try:
         tool_path = Path(".") / "ops" / "tools" / "prometheus"
         tmp_values_path = tool_path / "values-prometheus.yaml"
-        ingress_path = tool_path / "templates" / "ingress-prometheus.yaml"
+        ingress_path = tool_path / "templates" / "ingress.yaml"
 
         tool_path.mkdir(parents=True, exist_ok=True)
         templates_path = tool_path / "templates"

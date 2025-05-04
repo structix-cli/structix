@@ -10,21 +10,19 @@ TEMPLATE_DIR = Path(structix.__file__).parent / "utils" / "templates" / "helm"
 env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 
 
-def install_alertmanager_resource() -> None:
+def install_jaeger_resource() -> None:
     try:
-        tool_path = Path(".") / "ops" / "tools" / "alertmanager"
-        tmp_values_path = tool_path / "values-alertmanager.yaml"
+        tool_path = Path(".") / "ops" / "tools" / "jaeger"
+        tmp_values_path = tool_path / "values-jaeger.yaml"
         ingress_path = tool_path / "templates" / "ingress.yaml"
 
         tool_path.mkdir(parents=True, exist_ok=True)
         templates_path = tool_path / "templates"
         templates_path.mkdir(parents=True, exist_ok=True)
 
-        context = {
-            "alertmanager_replicas": 1,
-        }
+        context = {"namespace": "observability"}
 
-        values_template = env.get_template("values-alertmanager.yaml.j2")
+        values_template = env.get_template("values-jaeger.yaml.j2")
         tmp_values_path.write_text(values_template.render(context))
 
         ingress_template = env.get_template(
@@ -32,19 +30,19 @@ def install_alertmanager_resource() -> None:
                 Path(".")
                 / "templates"
                 / "tools"
-                / "alertmanager"
+                / "jaeger"
                 / "ingress.yaml.j2"
             )
         )
-        ingress_path.write_text(ingress_template.render({}))
+        ingress_path.write_text(ingress_template.render(context))
 
         subprocess.run(
             [
                 "helm",
                 "repo",
                 "add",
-                "prometheus-community",
-                "https://prometheus-community.github.io/helm-charts",
+                "jaegertracing",
+                "https://jaegertracing.github.io/helm-charts",
             ],
             check=True,
         )
@@ -55,10 +53,14 @@ def install_alertmanager_resource() -> None:
                 "helm",
                 "upgrade",
                 "--install",
-                "alertmanager",
-                "prometheus-community/alertmanager",
+                "jaeger",
+                "jaegertracing/jaeger",
+                "-n",
+                context["namespace"],
+                "--create-namespace",
                 "-f",
                 str(tmp_values_path),
+                "--force",
             ],
             check=True,
         )
@@ -69,18 +71,18 @@ def install_alertmanager_resource() -> None:
                 "apply",
                 "-f",
                 str(ingress_path),
+                "-n",
+                context["namespace"],
             ],
             check=True,
         )
 
-        click.echo(
-            "✅ Alertmanager installed and ingress configured successfully."
-        )
+        click.echo("✅ Jaeger installed and ingress configured successfully.")
     except subprocess.CalledProcessError as e:
-        click.echo(f"❌ Error installing Alertmanager: {e}")
+        click.echo(f"❌ Error installing Jaeger: {e}")
 
 
-@click.command(name="alertmanager")  # type: ignore
-def install_alertmanager() -> None:
-    """Install Alertmanager stack using Helm and configure ingress."""
-    install_alertmanager_resource()
+@click.command(name="jaeger")  # type: ignore
+def install_jaeger() -> None:
+    """Install Jaeger tracing stack using Helm and configure ingress."""
+    install_jaeger_resource()
