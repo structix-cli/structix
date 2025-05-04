@@ -1,3 +1,4 @@
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -13,12 +14,12 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATE_DIR)))
 def install_grafana_resource() -> None:
     try:
         tool_path = Path(".") / "ops" / "tools" / "grafana"
-        tmp_values_path = tool_path / "values-grafana.yaml"
-        ingress_path = tool_path / "templates" / "ingress-grafana.yaml"
-
         tool_path.mkdir(parents=True, exist_ok=True)
+        tmp_values_path = tool_path / "values-grafana.yaml"
         templates_path = tool_path / "templates"
         templates_path.mkdir(parents=True, exist_ok=True)
+        ingress_path = templates_path / "ingress.yaml"
+        dashboard_path = templates_path / "dashboard.yaml"
 
         context = {
             "prometheus_datasource_url": "http://prometheus-server.monitoring.svc.cluster.local",
@@ -27,16 +28,13 @@ def install_grafana_resource() -> None:
         values_template = env.get_template("values-grafana.yaml.j2")
         tmp_values_path.write_text(values_template.render(context))
 
-        ingress_template = env.get_template(
-            str(
-                Path(".")
-                / "templates"
-                / "tools"
-                / "grafana"
-                / "ingress.yaml.j2"
-            )
-        )
-        ingress_path.write_text(ingress_template.render({}))
+        grafana_template_dir = TEMPLATE_DIR / "templates" / "tools" / "grafana"
+        for file in grafana_template_dir.glob("*"):
+            if file.is_file():
+                target_name = file.name
+                if file.suffix == ".j2":
+                    target_name = file.with_suffix("").name
+                shutil.copy(file, tool_path / "templates" / target_name)
 
         subprocess.run(
             [
@@ -73,6 +71,16 @@ def install_grafana_resource() -> None:
                 "apply",
                 "-f",
                 str(ingress_path),
+            ],
+            check=True,
+        )
+
+        subprocess.run(
+            [
+                "kubectl",
+                "apply",
+                "-f",
+                str(dashboard_path),
             ],
             check=True,
         )

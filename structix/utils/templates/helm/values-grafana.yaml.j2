@@ -14,3 +14,13 @@ datasources:
         access: proxy
         url: "http://prometheus-server"
         isDefault: true
+
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "1"
+    folder: /var/lib/grafana/dashboards/default
+
+initChownData:
+  enabled: false
