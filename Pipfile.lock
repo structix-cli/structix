@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f745142f7fb2d77bc936409ce52c6a8f590d5238a2760b46d82cd1974f7093e9"
+            "sha256": "d94777c9f7768b41c5f68c815d1ef4d8a6a558c2acf03d455004b75dd79cc99f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -559,6 +559,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==0.9.0"
+        },
+        "kafka-python": {
+            "hashes": [
+                "sha256:ad96948af44a97f2daafad5ed0bb5787f1d137a864b249b3bc7aa35adbe94c79",
+                "sha256:e4b892e9b5fbc1fcb980d064caad5d506ede64205847acbcb4953d4980c7cfd7"
+            ],
+            "index": "pypi",
+            "version": "==2.2.4"
         },
         "nodeenv": {
             "hashes": [

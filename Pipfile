@@ -18,6 +18,7 @@ prometheus-client = "*"
 opentelemetry-api = "*"
 opentelemetry-sdk = "*"
 opentelemetry-exporter-otlp = "*"
+kafka-python = "*"
 
 [requires]
 python_version = "3.12"
