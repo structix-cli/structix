@@ -15,9 +15,10 @@ data:
         {
           "type": "graph",
           "title": "Memory Usage by Pod",
+          "lines": true,
           "targets": [
             {
-              "expr": "sum by(pod) (process_resident_memory_bytes{job=\"kubernetes-pods\"}) / 1024 / 1024",
+              "expr": "sum by(pod) (process_resident_memory_bytes{job=\"kubernetes-pods\", pod!~\"jaeger.*\"}) / 1024 / 1024",
               "legendFormat": "{{pod}}"
             }
           ]
@@ -25,9 +26,10 @@ data:
         {
           "type": "graph",
           "title": "CPU Usage by Pod",
+          "lines": true,
           "targets": [
             {
-              "expr": "sum by(pod) (rate(process_cpu_seconds_total{job=\"kubernetes-pods\"}[5m]))",
+              "expr": "sum by(pod) (rate(process_cpu_seconds_total{job=\"kubernetes-pods\", pod!~\"jaeger.*\"}[5m]))",
               "legendFormat": "{{pod}}"
             }
           ]

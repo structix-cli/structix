@@ -108,6 +108,10 @@ export const cliCommands = [
                         "link": "/docs/cli-commands/ops/install/ingress"
                     },
                     {
+                        "text": "jaeger",
+                        "link": "/docs/cli-commands/ops/install/jaeger"
+                    },
+                    {
                         "text": "prometheus",
                         "link": "/docs/cli-commands/ops/install/prometheus"
                     }

@@ -115,6 +115,16 @@ export const resources = [
                 "collapsed": true
             },
             {
+                "text": "jaeger",
+                "items": [
+                    {
+                        "text": "install",
+                        "link": "/docs/cli-commands/ops/install/jaeger"
+                    }
+                ],
+                "collapsed": true
+            },
+            {
                 "text": "kubectl",
                 "items": [
                     {
