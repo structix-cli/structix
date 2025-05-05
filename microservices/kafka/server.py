@@ -40,9 +40,9 @@ try:
         bootstrap_servers=KAFKA_BROKER, client_id="trace-chain-admin"
     )
     admin.create_topics(
-        [NewTopic(name=TOPIC, num_partitions=5, replication_factor=1)]
+        [NewTopic(name=TOPIC, num_partitions=3, replication_factor=1)]
     )
-    print(f"✅ Topic '{TOPIC}' created with 5 partitions.")
+    print(f"✅ Topic '{TOPIC}' created with 3 partitions.")
 except TopicAlreadyExistsError:
     print(f"ℹ️ Topic '{TOPIC}' already exists.")
 finally:
