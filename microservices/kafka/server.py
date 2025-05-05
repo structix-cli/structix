@@ -1,4 +1,5 @@
 import json
+import random
 import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
@@ -90,7 +91,7 @@ def simulate_db_query(request_id: str) -> None:
     with tracer.start_as_current_span("db_query") as span:
         span.set_attribute("request.id", request_id)
         span.add_event("Querying mock DB")
-        time.sleep(0.1)
+        time.sleep(random.uniform(0, 0.3))
 
 
 def simulate_third_party_call(request_id: str) -> None:
@@ -98,7 +99,7 @@ def simulate_third_party_call(request_id: str) -> None:
         span.set_attribute("request.id", request_id)
         span.set_attribute("http.url", "https://third-party.example.com/api")
         span.add_event("Calling external API")
-        time.sleep(0.15)
+        time.sleep(random.uniform(0, 0.3))
 
 
 def process_messages() -> None:
