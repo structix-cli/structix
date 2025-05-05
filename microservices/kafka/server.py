@@ -46,6 +46,8 @@ consumer = KafkaConsumer(
 HOST = "0.0.0.0"
 PORT = 3000
 
+persistent_id = str(uuid4())
+
 
 class SimpleHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
@@ -71,7 +73,11 @@ class SimpleHandler(BaseHTTPRequestHandler):
             producer.send(TOPIC, event)
 
             response = json.dumps(
-                {"status": "queued", "request_id": request_id}
+                {
+                    "status": "queued",
+                    "server_id": persistent_id,
+                    "request_id": request_id,
+                }
             ).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -92,6 +98,7 @@ def process_messages() -> None:
 
         with tracer.start_as_current_span("process_hop") as span:
             span.set_attribute("request.id", request_id)
+            span.set_attribute("server.id", persistent_id)
             span.set_attribute("hop", hop)
             span.add_event(f"Processing hop {hop}")
             time.sleep(0.2)

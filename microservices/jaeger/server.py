@@ -64,7 +64,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                 subspan.set_attribute("response.id", request_id)
                 response = json.dumps(
                     {
-                        "id": persistent_id,
+                        "server_id": persistent_id,
                         "request_id": request_id,
                     }
                 ).encode("utf-8")

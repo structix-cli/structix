@@ -45,5 +45,7 @@ structix ops add microservice example-prometheus brayand/microservice-example-pr
 
 structix ops add microservice example-jaeger brayand/microservice-example-jaeger:0.1.0 --with-ingress --deploy --port=3000 --replicas=3
 
+structix ops add microservice example-kafka brayand/microservice-example-kafka:0.1.0 --with-ingress --deploy --port=3000 --replicas=3
+
 structix ops expose cluster
 ```
