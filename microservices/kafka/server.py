@@ -6,6 +6,8 @@ from threading import Thread
 from uuid import uuid4
 
 from kafka import KafkaConsumer, KafkaProducer  # type: ignore
+from kafka.admin import KafkaAdminClient, NewTopic  # type: ignore
+from kafka.errors import TopicAlreadyExistsError  # type: ignore
 from opentelemetry import trace
 from opentelemetry.context import attach
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
@@ -32,6 +34,19 @@ trace.get_tracer_provider().add_span_processor(  # type: ignore
 
 KAFKA_BROKER = "kafka.kafka.svc.cluster.local:9092"
 TOPIC = "trace-chain"
+
+try:
+    admin = KafkaAdminClient(
+        bootstrap_servers=KAFKA_BROKER, client_id="trace-chain-admin"
+    )
+    admin.create_topics(
+        [NewTopic(name=TOPIC, num_partitions=5, replication_factor=1)]
+    )
+    print(f"✅ Topic '{TOPIC}' created with 5 partitions.")
+except TopicAlreadyExistsError:
+    print(f"ℹ️ Topic '{TOPIC}' already exists.")
+finally:
+    admin.close()
 
 producer = KafkaProducer(
     bootstrap_servers=KAFKA_BROKER,
