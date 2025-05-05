@@ -86,6 +86,21 @@ class SimpleHandler(BaseHTTPRequestHandler):
             self.wfile.write(response)
 
 
+def simulate_db_query(request_id: str) -> None:
+    with tracer.start_as_current_span("db_query") as span:
+        span.set_attribute("request.id", request_id)
+        span.add_event("Querying mock DB")
+        time.sleep(0.1)
+
+
+def simulate_third_party_call(request_id: str) -> None:
+    with tracer.start_as_current_span("external_api_call") as span:
+        span.set_attribute("request.id", request_id)
+        span.set_attribute("http.url", "https://third-party.example.com/api")
+        span.add_event("Calling external API")
+        time.sleep(0.15)
+
+
 def process_messages() -> None:
     for msg in consumer:
         payload = msg.value
@@ -101,6 +116,10 @@ def process_messages() -> None:
             span.set_attribute("server.id", persistent_id)
             span.set_attribute("hop", hop)
             span.add_event(f"Processing hop {hop}")
+
+            simulate_db_query(request_id)
+            simulate_third_party_call(request_id)
+
             time.sleep(0.2)
 
             if hop < 5:
