@@ -1,7 +1,0 @@
-{
-  "stack": "NestJS",
-  "architecture": "Monolith",
-  "ddd": true,
-  "hexagonal": true,
-  "cqrs": true
-}
