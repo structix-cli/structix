@@ -1,6 +1,6 @@
-# Domain-Driven Design (DDD) Architecture
+# Domain-Driven Design (DDD)
 
-The **Domain-Driven Design (DDD) Architecture** organizes the backend following DDD tactical patterns, ensuring clear separation of concerns between domain logic, application services, and infrastructure.
+The **Domain-Driven Design (DDD)** organizes the backend following DDD tactical patterns, ensuring clear separation of concerns between domain logic, application services, and infrastructure.
 
 This architecture is ideal for medium-to-large systems where domain complexity needs to be modeled cleanly.
 
